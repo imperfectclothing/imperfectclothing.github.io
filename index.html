@@ -327,13 +327,13 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 <div class="cursor" id="cursor"><div class="cursor-ring"></div></div>
 <div class="cursor-dot" id="cursorDot"></div>
 <div id="loader">
-<img src="https://raw.githubusercontent.com/imperfectclothing/imperfectclothing.github.io/main/logo.png" alt="I'm Perfect" class="loader-logo">
+<img src="logo.png" onerror="this.style.display='none'" alt="I'm Perfect" class="loader-logo">
 <div class="loader-text"><span style="animation-delay:.1s">I</span><span style="animation-delay:.15s">'</span><span style="animation-delay:.2s">M</span><span style="animation-delay:.25s">&nbsp;</span><span style="animation-delay:.3s">P</span><span style="animation-delay:.35s">E</span><span style="animation-delay:.4s">R</span><span style="animation-delay:.45s">F</span><span style="animation-delay:.5s">E</span><span style="animation-delay:.55s">C</span><span style="animation-delay:.6s">T</span></div>
 <div class="loader-progress"></div>
 </div>
 <nav id="navbar">
 <div class="nav-logo-wrap" onclick="go('#/')">
-<img src="https://raw.githubusercontent.com/imperfectclothing/imperfectclothing.github.io/main/logo.png" alt="I'm Perfect" class="nav-logo-img">
+<img src="logo.png" onerror="this.style.display='none'" alt="I'm Perfect" class="nav-logo-img">
 <span class="nav-logo-text">I'm Perfect</span>
 </div>
 <ul class="nav-links">
@@ -362,7 +362,7 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 <div class="hero-floating-text bottom">EXPERIMENTAL</div>
 <div class="hero-left">
 <div class="hero-logo-container">
-<img src="https://raw.githubusercontent.com/imperfectclothing/imperfectclothing.github.io/main/logo.png" alt="I'm Perfect" class="hero-logo">
+<img src="logo.png" onerror="this.style.display='none'" alt="I'm Perfect" class="hero-logo">
 </div>
 <h1 class="hero-brand" id="heroBrand"></h1>
 <p class="hero-slogan"><em>Choose Perfect, Look Perfect</em></p>
@@ -499,7 +499,7 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 <footer>
 <div class="footer-top">
 <div class="footer-brand">
-<div class="footer-logo"><img src="https://raw.githubusercontent.com/imperfectclothing/imperfectclothing.github.io/main/logo.png" alt="I'm Perfect" class="footer-logo-svg">I'm Perfect</div>
+<div class="footer-logo"><img src="logo.png" onerror="this.style.display='none'" alt="I'm Perfect" class="footer-logo-svg">I'm Perfect</div>
 <p>Choose Perfect, Look Perfect. Experimental streetwear for the avant-garde generation.</p>
 <div class="footer-social">
 <a id="footFb" href="https://www.facebook.com/imperfect.clothings/" target="_blank" rel="noopener" aria-label="Facebook">f</a>
@@ -519,7 +519,7 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 </footer>
 
 <script>
-const LOGO_URL = "https://raw.githubusercontent.com/imperfectclothing/imperfectclothing.github.io/main/logo.png";
+const LOGO_URL = "logo.png";
 const STORE = {
   whatsapp: "8801518423292",
   facebook: "https://www.facebook.com/imperfect.clothings/",
@@ -585,7 +585,6 @@ function normalize(rows){
     const nm=o.name||''; if(!nm) return;
     if(nm.toLowerCase()==='config'||nm.toLowerCase()==='settings'){
       const isURL=v=>/^https?:\/\//i.test(v);
-      if(o.logo&&isURL(o.logo)) BRAND.logo=o.logo;
       if(o.facebook&&isURL(o.facebook)) BRAND.facebook=o.facebook;
       if(o.instagram&&isURL(o.instagram)) BRAND.instagram=o.instagram;
       const digits=(o.whatsapp||'').replace(/[^0-9]/g,''); if(digits.length>=10) BRAND.whatsapp=digits;
@@ -658,7 +657,6 @@ function createParticles(){ const c=document.getElementById('particles'); if(!c|
 function animateHeroText(){ const brand=document.getElementById('heroBrand'); if(!brand||brand.childElementCount) return;
   let html='', delay=0; ["I'm","Perfect"].forEach(w=>{ html+='<span class="word">'; for(const ch of w){ html+=`<span class="letter" style="animation-delay:${(2.4+delay).toFixed(2)}s">${ch}</span>`; delay+=.05; } html+=' </span>'; delay+=.1; }); brand.innerHTML=html; }
 
-/* ========== ANIMATED COUNTERS (numbers 0 → 500+, 2.2K+, 7+, 72h) ========== */
 const counterObserver=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){en.target.querySelectorAll('.stat-number').forEach(counter=>{const target=parseFloat(counter.dataset.target);const suffix=counter.dataset.suffix||'';const isDecimal=counter.dataset.decimal==='true';const duration=2000;const startTime=performance.now();function update(t){const el=t-startTime;const p=Math.min(el/duration,1);const eased=1-Math.pow(1-p,3);const cur=eased*target;counter.textContent=(isDecimal?cur.toFixed(1):Math.floor(cur))+suffix;if(p<1)requestAnimationFrame(update);else counter.textContent=(isDecimal?target.toFixed(1):target)+suffix;}requestAnimationFrame(update);});counterObserver.unobserve(en.target);}});},{threshold:.5});
 const statsSection=document.querySelector('.about-stats');
 if(statsSection) counterObserver.observe(statsSection);
