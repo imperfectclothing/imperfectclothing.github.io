@@ -39,11 +39,42 @@ nav.scrolled .nav-logo-img{box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .nav-links a::before{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--red);transform:scaleX(0);transform-origin:right;transition:transform .4s cubic-bezier(.16,1,.3,1)}
 .nav-links a:hover::before{transform:scaleX(1);transform-origin:left}
 .nav-links a.custom-link{color:var(--red);font-weight:700}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.cart-btn{position:relative;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid rgba(246,233,197,.35);border-radius:50%;cursor:pointer;color:var(--bg);font-size:1.15rem;transition:all .3s;background:transparent}
+.cart-btn:hover{background:var(--red);border-color:var(--red);transform:translateY(-2px)}
+.cart-count{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;background:var(--red);color:#fff;border-radius:10px;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;border:2px solid var(--bg)}
+.cart-count.bump{animation:bump .4s ease}
+@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}
 .menu-toggle{display:none;flex-direction:column;gap:6px;cursor:pointer;z-index:1001;padding:10px}
 .menu-toggle span{width:30px;height:2px;background:var(--bg);transition:all .4s cubic-bezier(.16,1,.3,1)}
 .menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,6px)}
 .menu-toggle.active span:nth-child(2){opacity:0}
 .menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-6px)}
+.cart-overlay{position:fixed;inset:0;background:rgba(20,12,10,.55);backdrop-filter:blur(2px);z-index:1200;opacity:0;visibility:hidden;transition:all .35s}
+.cart-overlay.open{opacity:1;visibility:visible}
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);background:var(--cream);z-index:1201;transform:translateX(105%);transition:transform .45s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.25)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:1.4rem 1.6rem;background:var(--primary);color:var(--bg);font-family:'Playfair Display',serif;font-style:italic;font-size:1.4rem;font-weight:700}
+.cart-head button{background:transparent;border:none;color:var(--bg);font-size:1.6rem;cursor:pointer;line-height:1}
+.cart-items{flex:1;overflow-y:auto;padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:1rem}
+.cart-empty{text-align:center;opacity:.6;padding:3rem 1rem;font-size:1rem;line-height:1.8}
+.cart-item{display:grid;grid-template-columns:70px 1fr auto;gap:.9rem;background:#fff;padding:.7rem;border-radius:10px;box-shadow:0 6px 18px rgba(44,30,26,.08);align-items:center}
+.cart-item img{width:70px;height:84px;object-fit:cover;border-radius:8px}
+.ci-name{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:.95rem;line-height:1.25}
+.ci-meta{font-size:.72rem;color:var(--primary-light);margin:.25rem 0;letter-spacing:.05em}
+.ci-price{font-weight:700;font-size:.85rem;color:var(--red)}
+.ci-qty{display:flex;align-items:center;gap:.4rem}
+.ci-qty button{width:26px;height:26px;border:1px solid var(--primary);background:transparent;border-radius:6px;font-weight:700;cursor:pointer;color:var(--primary)}
+.ci-qty button:hover{background:var(--primary);color:var(--bg)}
+.ci-qty span{min-width:20px;text-align:center;font-weight:700;font-size:.85rem}
+.ci-remove{background:transparent;border:none;color:var(--red);font-size:1.1rem;cursor:pointer;margin-left:.4rem}
+.cart-foot{padding:1.2rem 1.4rem;border-top:2px solid rgba(44,30,26,.12);background:var(--bg);display:flex;flex-direction:column;gap:.8rem}
+.cart-total-row{display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem}
+.cart-total-row span:last-child{color:var(--red);font-size:1.2rem}
+.cart-foot input{padding:.7rem .9rem;border:2px solid rgba(44,30,26,.15);border-radius:8px;background:#fff;font-family:'Space Grotesk',sans-serif;font-size:.9rem;outline:none}
+.cart-foot input:focus{border-color:var(--red)}
+.toast{position:fixed;bottom:2rem;left:50%;transform:translate(-50%,150%);background:var(--primary);color:var(--bg);padding:.9rem 1.8rem;border-radius:50px;font-size:.85rem;font-weight:700;letter-spacing:.1em;z-index:1300;transition:transform .45s cubic-bezier(.16,1,.3,1);box-shadow:0 12px 40px rgba(0,0,0,.3);white-space:nowrap}
+.toast.show{transform:translate(-50%,0)}
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;background:var(--bg)}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:8rem 5rem 4rem;position:relative;z-index:2}
 .hero-logo-container{width:230px;height:270px;margin-bottom:2rem;position:relative;perspective:1000px;opacity:0;animation:fadeInLogo 1.2s ease 2.2s forwards}
@@ -344,7 +375,10 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 <li><a onclick="goSection('custom')" class="custom-link">Custom</a></li>
 <li><a onclick="goSection('contact')">Contact</a></li>
 </ul>
+<div class="nav-right">
+<button class="cart-btn" onclick="toggleCart(true)" aria-label="Cart">🛒<span class="cart-count" id="cartCount">0</span></button>
 <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+</div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
 <a onclick="go('#/');closeMenu()">Home</a>
@@ -354,6 +388,20 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 <a onclick="goSection('custom');closeMenu()" style="color:var(--red)">Custom</a>
 <a onclick="goSection('contact');closeMenu()">Contact</a>
 </div>
+
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart(false)"></div>
+<aside class="cart-drawer" id="cartDrawer">
+<div class="cart-head"><span>Your Cart 🛒</span><button onclick="toggleCart(false)">×</button></div>
+<div class="cart-items" id="cartItems"></div>
+<div class="cart-foot">
+<div class="cart-total-row"><span>Total</span><span id="cartTotal">৳0</span></div>
+<input type="text" id="cartName" placeholder="Your Name">
+<input type="tel" id="cartPhone" placeholder="Phone Number">
+<button class="btn btn-wa big" onclick="checkoutCart()">Checkout on WhatsApp →</button>
+<button class="btn btn-ghost big" onclick="clearCart()">Clear Cart</button>
+</div>
+</aside>
+<div class="toast" id="toast">✓ Added to cart</div>
 
 <div id="homePage">
 <section class="hero" id="home">
@@ -520,12 +568,8 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 
 <script>
 const LOGO_URL = "logo.png";
-const STORE = {
-  whatsapp: "8801518423292",
-  facebook: "https://www.facebook.com/imperfect.clothings/",
-  instagram: "https://www.instagram.com/imperfect.clothings"
-};
-const CATALOG = { googleSheetCsvUrl: "https://docs.google.com/spreadsheets/d/1hpvJthUQ3uAhI6Rb8fcoLwEfHC6CUNy13GVv540WiIc/export?format=csv", refreshSeconds: 300 };
+const STORE = { whatsapp:"8801518423292", facebook:"https://www.facebook.com/imperfect.clothings/", instagram:"https://www.instagram.com/imperfect.clothings" };
+const CATALOG = { googleSheetCsvUrl:"https://docs.google.com/spreadsheets/d/1hpvJthUQ3uAhI6Rb8fcoLwEfHC6CUNy13GVv540WiIc/export?format=csv", refreshSeconds:300 };
 const CAT_META = [
   { id:"tee", name:"Tee", tag:"Everyday graphics" },
   { id:"shirt", name:"Shirts", tag:"Oversized & printed" },
@@ -540,20 +584,8 @@ const LOOKBOOK = [
   { image:"https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80", label:"Avant-Garde" }
 ];
 const FALLBACK = [
-  { name:"Acid Wash Hoodie", price:"1850", image:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=900&q=80", category:"hoodie", badge:"NEW", badgecolor:"red", cardsize:"large", sizes:"S|M|L|XL|XXL", colors:"Faded Black|Faded Grey", description:"Heavyweight 400 GSM hoodie with hand-finished acid wash.", details:"400 GSM brushed fleece|Hand-dipped acid wash|Double-stitched seams" },
-  { name:"DTF Print Hoodie", price:"2100", image:"https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=900&q=80", category:"hoodie", badge:"HOT", badgecolor:"blue", sizes:"S|M|L|XL|XXL", colors:"Black", description:"Bold DTF-printed hoodie with crack-resistant graphics.", details:"High-density DTF print|400 GSM fleece|Ribbed cuffs & hem" },
-  { name:"Solid Hoodie", price:"1500", image:"https://images.unsplash.com/photo-1578768079470-fa44b5661621?w=900&q=80", category:"hoodie", sizes:"S|M|L|XL|XXL", colors:"Black|Grey|Green", description:"Clean minimal solid hoodie.", details:"380 GSM fleece|Kangaroo pocket|Pre-shrunk fabric" },
-  { name:"Zipper Hoodie", price:"1950", image:"https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=900&q=80", category:"hoodie", badge:"7 Colors", badgecolor:"red", cardsize:"tall", sizes:"S|M|L|XL|XXL", colors:"Black|Grey|Navy", description:"Full-zip hoodie with metal YKK zipper.", details:"YKK metal zipper|400 GSM fleece|Split pockets" },
-  { name:"Baggy Jeans", price:"1650", image:"https://images.unsplash.com/photo-1542272604-787c3835535d?w=900&q=80", category:"pant", sizes:"30|32|34|36", colors:"Light Blue|Mid Blue", description:"Ultra-baggy silhouette with stacked hem.", details:"14oz denim|Stacked baggy fit|Reinforced stitching" },
-  { name:"DTF Jeans", price:"2200", image:"https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=900&q=80", category:"pant", badge:"MANY", badgecolor:"blue", cardsize:"wide", sizes:"30|32|34|36", colors:"Light Blue", description:"Custom DTF-printed denim with full-leg graphics.", details:"Full-leg DTF panels|14oz denim|Wide-leg cut" },
-  { name:"Acid Wash Sweatpant", price:"1400", image:"https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=900&q=80", category:"sweatshirt", sizes:"S|M|L|XL", colors:"Faded Black", description:"Acid-washed sweatpants with vintage resonance.", details:"Hand-dipped wash|Elastic cuffs|Drawstring waist" },
-  { name:"Basic Sweatpant", price:"1200", image:"https://images.unsplash.com/photo-1517438476312-10d79c077509?w=900&q=80", category:"sweatshirt", badge:"BLACK", badgecolor:"red", sizes:"S|M|L|XL", colors:"Black|Grey", description:"Everyday jogger with tapered fit.", details:"320 GSM terry|Tapered leg|Deep pockets" },
-  { name:"DTF Sweatshirt", price:"1750", image:"https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=900&q=80", category:"sweatshirt", badge:"6 Colors", badgecolor:"blue", sizes:"S|M|L|XL|XXL", colors:"Black|Red|White", description:"Crewneck sweatshirt with statement DTF print.", details:"380 GSM fleece|Crew neck|Ribbed trims" },
-  { name:"Graphic Tee", price:"950", image:"https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=900&q=80", category:"tee", badge:"ALL", badgecolor:"red", sizes:"S|M|L|XL|XXL", colors:"Black|White|Teal", description:"Structured polo-style tee with embroidered placket.", details:"220 GSM combed cotton|Embroidered placket|Boxy fit" },
-  { name:"Basic Tee", price:"750", image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=900&q=80", category:"tee", sizes:"S|M|L|XL|XXL", colors:"White|Black|Grey", description:"Perfect heavyweight basic — soft, zero transparency.", details:"220 GSM combed cotton|Pre-shrunk|Side-seamed" },
-  { name:"DTF Drop Tee", price:"1100", image:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=900&q=80", category:"tee", badge:"BASIC", badgecolor:"blue", cardsize:"wide", sizes:"S|M|L|XL|XXL", colors:"Black", description:"Limited-drop tee with oversized back print.", details:"Oversized back DTF print|240 GSM fabric|Drop shoulder" },
-  { name:"Oversized Shirt", price:"1350", image:"https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=900&q=80", category:"shirt", badge:"NEW", badgecolor:"red", sizes:"M|L|XL|XXL", colors:"White|Black", description:"Camp-collar oversized shirt with relaxed drape.", details:"Camp collar|Relaxed drape|Coconut buttons" },
-  { name:"Printed Shirt", price:"1550", image:"https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=900&q=80", category:"shirt", cardsize:"wide", sizes:"M|L|XL|XXL", colors:"Multi", description:"All-over printed shirt with vivid color.", details:"All-over sublimation print|Breathable poly-viscose|Regular fit" }
+  { name:"Durga Puja Tee — Design 1", price:"449", image:"https://scontent.fmaa5-1.fna.fbcdn.net/v/t39.30808-6/842609256_1090686607285200_9102563816454863060_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s1254x1254&_nc_cat=109&_nc_sid=833d8c&oh=00_AQNlSdsLeK2c1x3tWScZWClRCzxGhyQQHBzWAXGrJeWFEw&oe=6ADD66D8", category:"tee", subcategory:"Pooja 2026", badge:"PUJA", badgecolor:"red", cardsize:"large", sizes:"L|XL|XXL", colors:"Drop-Shoulder|Solid", description:"Durga Puja Festival Pack — trending unisex design.", details:"Premium Interlock Fabric|Drop-Shoulder Fit|Festival Special" },
+  { name:"Durga Puja Tee — Design 2", price:"449", image:"https://scontent.fmaa5-1.fna.fbcdn.net/v/t39.30808-6/841736622_1090686673951860_2044476672344297027_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s1254x1254&_nc_cat=108&_nc_sid=833d8c&oh=00_AQPhcJ7dU3xtBzj16j-pu0NvkUJmBMCzs-Mq_a6LRZHHgw&oe=6ADD7D0D", category:"tee", subcategory:"Pooja 2026", badge:"PUJA", badgecolor:"red", sizes:"L|XL|XXL", colors:"Drop-Shoulder|Solid", description:"Durga Puja Festival Pack.", details:"Premium Interlock Fabric|Drop-Shoulder Fit|Festival Special" }
 ];
 
 let PRODUCTS = [], CATEGORIES = [], homeCat = 'all';
@@ -562,6 +594,51 @@ const waLink = m => "https://wa.me/" + BRAND.whatsapp + "?text=" + encodeURIComp
 const slug = s => String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 const CAT_ALIAS = { hoodies:"hoodie", hoodie:"hoodie", tee:"tee", tees:"tee", tshirt:"tee", "t-shirt":"tee", shirt:"shirt", shirts:"shirt", sweatshirt:"sweatshirt", sweatshirts:"sweatshirt", sweat:"sweatshirt", pant:"pant", pants:"pant", jeans:"pant", denim:"pant" };
 const catId = c => CAT_ALIAS[slug(c)] || slug(c) || "other";
+
+/* ============ CART SYSTEM ============ */
+const CART_KEY='ipm_cart_v1';
+let CART=(()=>{try{return JSON.parse(localStorage.getItem(CART_KEY))||[]}catch(e){return[]}})();
+function saveCart(){localStorage.setItem(CART_KEY,JSON.stringify(CART));updateCartBadge(true);renderCart();}
+function updateCartBadge(bump){const el=document.getElementById('cartCount');el.textContent=CART.reduce((s,i)=>s+i.qty,0);if(bump){el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');}}
+function toggleCart(open){document.getElementById('cartDrawer').classList.toggle('open',open);document.getElementById('cartOverlay').classList.toggle('open',open);}
+function renderCart(){
+  const box=document.getElementById('cartItems');
+  if(!CART.length){box.innerHTML='<div class="cart-empty">Your cart is empty 🛒<br>Add some perfect pieces!</div>';}
+  else box.innerHTML=CART.map((it,i)=>`
+   <div class="cart-item">
+     <img src="${it.image}" alt="">
+     <div><div class="ci-name">${it.name}</div><div class="ci-meta">${it.style?('Style: '+it.style+' | '):''}${it.size?('Size: '+it.size):''}</div><div class="ci-price">${it.price} × ${it.qty}</div></div>
+     <div style="display:flex;align-items:center">
+       <div class="ci-qty"><button onclick="cartQty(${i},-1)">−</button><span>${it.qty}</span><button onclick="cartQty(${i},1)">+</button></div>
+       <button class="ci-remove" onclick="cartRemove(${i})">✕</button>
+     </div>
+   </div>`).join('');
+  document.getElementById('cartTotal').textContent='৳'+CART.reduce((s,i)=>s+i.priceNum*i.qty,0).toLocaleString('en-IN');
+}
+function cartQty(i,d){CART[i].qty=Math.max(1,CART[i].qty+d);saveCart();}
+function cartRemove(i){CART.splice(i,1);saveCart();}
+function clearCart(){CART=[];saveCart();}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
+function addToCart(P){
+  const style=P.styles.length?P_STATE.style:null;
+  const size=P.sizes.length?P_STATE.size:null;
+  if(P.styles.length&&!style)return alert('Please select a Style (Drop-Shoulder or Solid).');
+  if(P.sizes.length&&!size)return alert('Please select a size.');
+  const key=P.id+'|'+(style||'')+'|'+(size||'');
+  const found=CART.find(c=>c.key===key);
+  if(found)found.qty+=P_STATE.qty;else CART.push({key,id:P.id,name:P.name,price:P.price,priceNum:P.priceNum,image:P.image,style:style||'',size:size||'',qty:P_STATE.qty});
+  saveCart();showToast('✓ '+P.name+' added to cart');
+}
+function checkoutCart(){
+  if(!CART.length)return alert('Your cart is empty!');
+  const name=document.getElementById('cartName').value.trim();
+  const phone=document.getElementById('cartPhone').value.trim();
+  if(!name||!phone)return alert('Please fill in your Name and Phone Number to checkout.');
+  let msg='🛒 NEW ORDER — I\'m Perfect\n\n';
+  CART.forEach((it,i)=>{msg+=(i+1)+'. '+it.name+'\n   '+(it.style?('Style: '+it.style+' | '):'')+(it.size?('Size: '+it.size+' | '):'')+'Qty: '+it.qty+'\n   '+it.price+' × '+it.qty+' = ৳'+(it.priceNum*it.qty).toLocaleString('en-IN')+'\n\n';});
+  msg+='TOTAL: ৳'+CART.reduce((s,i)=>s+i.priceNum*i.qty,0).toLocaleString('en-IN')+'\n\nName: '+name+'\nPhone: '+phone;
+  window.open(waLink(msg),'_blank');
+}
 
 function parseCSV(text){
   const rows=[]; let row=[], cur='', q=false;
@@ -591,18 +668,22 @@ function normalize(rows){
       return;
     }
     const pr=o.price||'';
-    const price=/^[\d.,]+$/.test(pr)? ('৳'+Number(pr.replace(/,/g,'')).toLocaleString('en-IN')) : (pr||'৳0');
+    const priceNum=/^[\d.,]+$/.test(pr)? Number(pr.replace(/,/g,'')) : (parseFloat(pr.replace(/[^\d.]/g,''))||0);
+    const price=priceNum? ('৳'+priceNum.toLocaleString('en-IN')) : (pr||'৳0');
     const cat=catId(o.category||'other');
     const meta=CAT_META.find(m=>m.id===cat);
+    let styles=o.styles? o.styles.split(/[,|]/).map(s=>s.trim()).filter(Boolean):[];
+    let colors=o.colors? o.colors.split(/[,|]/).map(s=>s.trim()).filter(Boolean):[];
+    if(!styles.length && colors.some(c=>/drop[- ]?shoulder|^solid$/i.test(c))){ styles=colors; colors=[]; }
     let id=slug(nm)||('p'+(i+1)); if(seen[id]){ id=id+'-'+(i+1); } seen[id]=1;
     prods.push({
-      id, name:nm, price, category:cat,
+      id, name:nm, price, priceNum, category:cat,
       subcategory:o.subcategory||(meta?meta.name:(o.category||'Style')),
       badge:o.badge||'', badgeColor:(o.badgecolor||'red'),
       image:o.image||PLACEHOLDER,
       gallery:o.gallery? o.gallery.split(/[,|]/).map(s=>s.trim()).filter(Boolean):[],
       sizes:o.sizes? o.sizes.split(/[,|\/]/).map(s=>s.trim()).filter(Boolean):['S','M','L','XL','XXL'],
-      colors:o.colors? o.colors.split(/[,|]/).map(s=>s.trim()).filter(Boolean):[],
+      styles, colors,
       description:o.description||'',
       details:o.details? o.details.split('|').map(s=>s.trim()).filter(Boolean):[],
       size:['large','wide','tall'].includes(o.cardsize)?o.cardsize:'normal'
@@ -639,7 +720,7 @@ const cursor=document.getElementById('cursor'), cursorDot=document.getElementByI
 let mouseX=innerWidth/2, mouseY=innerHeight/2, ringX=mouseX, ringY=mouseY;
 document.addEventListener('mousemove',e=>{ mouseX=e.clientX; mouseY=e.clientY; cursorDot.style.transform=`translate3d(${mouseX}px,${mouseY}px,0)`; spotlight.style.left=mouseX+'px'; spotlight.style.top=mouseY+'px'; });
 (function loop(){ ringX+=(mouseX-ringX)*.9; ringY+=(mouseY-ringY)*.9; cursor.style.transform=`translate3d(${ringX}px,${ringY}px,0)`; requestAnimationFrame(loop); })();
-function hoverAll(){ document.querySelectorAll('a,button,.chip,.qty-btn,.bento-item,.segment-tile').forEach(el=>{ if(el._hov) return; el._hov=1; el.addEventListener('mouseenter',()=>cursor.classList.add('hover')); el.addEventListener('mouseleave',()=>cursor.classList.remove('hover')); }); }
+function hoverAll(){ document.querySelectorAll('a,button,.chip,.qty-btn,.bento-item,.segment-tile,.cart-btn').forEach(el=>{ if(el._hov) return; el._hov=1; el.addEventListener('mouseenter',()=>cursor.classList.add('hover')); el.addEventListener('mouseleave',()=>cursor.classList.remove('hover')); }); }
 function attachMagnetic(){ document.querySelectorAll('.magnetic').forEach(el=>{ if(el._mag) return; el._mag=1;
   el.addEventListener('mousemove',e=>{ const r=el.getBoundingClientRect(); el.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.3}px)`; });
   el.addEventListener('mouseleave',()=>{ el.style.transform='translate(0,0)'; }); }); }
@@ -705,15 +786,15 @@ function renderCategory(sub,id){
     ${CATEGORIES.map(c=>`<a class="chip ${id===c.id?'on':''}" onclick="go('#/category/${c.id}')">${c.name}</a>`).join('')}</div>
   <div class="grid-wrap"><div class="bento-grid">${list.length?list.map((p,i)=>cardHTML(p,i)).join(''):'<p class="empty">No products here yet. <a onclick="go(\'#/category/all\')">See all →</a></p>'}</div></div>`;
 }
-let P_STATE={size:null,color:null,qty:1};
+let P_STATE={style:null,color:null,size:null,qty:1};
 function renderProduct(sub,id){
   const P=PRODUCTS.find(p=>p.id===id);
   if(!P){ sub.innerHTML='<p class="empty" style="padding:8rem 2rem">Product not found. <a onclick="go(\'#/\')">Back to store →</a></p>'; return; }
   const meta=CATEGORIES.find(c=>c.id===P.category);
   const gallery=P.gallery.length?P.gallery:[P.image];
-  P_STATE={size:null,color:P.colors[0]||null,qty:1};
+  P_STATE={style:P.styles[0]||null,color:P.colors[0]||null,size:null,qty:1};
   document.title=P.name+" — I'm Perfect";
-  const sel=()=>[P_STATE.color,P_STATE.size,'Qty '+P_STATE.qty].filter(Boolean).join(', ');
+  const sel=()=>[P_STATE.style?('Style: '+P_STATE.style):'',P_STATE.color?('Color: '+P_STATE.color):'',P_STATE.size?('Size: '+P_STATE.size):'','Qty '+P_STATE.qty].filter(Boolean).join(', ');
   const msg=()=>`Hi I'm Perfect! I want to order: ${P.name} — ${sel()} — ${P.price}`;
   const rel=PRODUCTS.filter(x=>x.category===P.category&&x.id!==P.id).slice(0,4);
   sub.innerHTML=`
@@ -727,10 +808,12 @@ function renderProduct(sub,id){
       <h1>${P.name}</h1>
       <div class="p-price big">${P.price}</div>
       <p class="desc">${P.description}</p>
+      ${P.styles.length?`<div class="opt"><label>Style</label><div class="chips left" id="stChips">${P.styles.map(s=>`<button class="chip ${s===P_STATE.style?'on':''}" onclick="pickStyle(this,'${s}')">${s}</button>`).join('')}</div></div>`:''}
       ${P.colors.length?`<div class="opt"><label>Color</label><div class="chips left" id="cChips">${P.colors.map(c=>`<button class="chip ${c===P_STATE.color?'on':''}" onclick="pickColor(this,'${c}')">${c}</button>`).join('')}</div></div>`:''}
       ${P.sizes.length?`<div class="opt"><label>Size</label><div class="chips left" id="sChips">${P.sizes.map(s=>`<button class="chip" onclick="pickSize(this,'${s}')">${s}</button>`).join('')}</div></div>`:''}
       <div class="opt"><label>Quantity</label><div class="qty"><button class="qty-btn" onclick="chgQty(-1)">−</button><span class="q-val" id="qVal">1</span><button class="qty-btn" onclick="chgQty(1)">+</button></div></div>
       <div class="order-col">
+        <button class="btn btn-red big" onclick="addCurrentToCart()">Add to Cart 🛒</button>
         <a class="btn btn-wa big" id="oWa" target="_blank" rel="noopener" href="${waLink(msg())}">Order on WhatsApp →</a>
         <div class="order-row"><a class="btn btn-fb" target="_blank" rel="noopener" href="${BRAND.facebook}">Facebook</a><a class="btn btn-ig" target="_blank" rel="noopener" href="${BRAND.instagram}">Instagram</a></div>
         <p class="note">Send your order message — we confirm personally on WhatsApp / Messenger. 72-hour delivery, cash on delivery available.</p>
@@ -741,9 +824,11 @@ function renderProduct(sub,id){
   <section class="related"><div class="sec-head"><div class="section-label">Keep Browsing</div><h2 class="sec-title">Related Styles</h2></div>
     <div class="grid-wrap"><div class="bento-grid">${(rel.length?rel:PRODUCTS.slice(0,4)).map((p,i)=>cardHTML(p,i)).join('')}</div></div></section>`;
   window.pickThumb=(el,src)=>{ document.getElementById('gMain').src=src; sub.querySelectorAll('.g-thumbs img').forEach(x=>x.classList.remove('on')); el.classList.add('on'); };
+  window.pickStyle=(el,v)=>{ P_STATE.style=v; sub.querySelectorAll('#stChips .chip').forEach(c=>c.classList.remove('on')); el.classList.add('on'); document.getElementById('oWa').href=waLink(msg()); };
   window.pickColor=(el,v)=>{ P_STATE.color=v; sub.querySelectorAll('#cChips .chip').forEach(c=>c.classList.remove('on')); el.classList.add('on'); document.getElementById('oWa').href=waLink(msg()); };
   window.pickSize=(el,v)=>{ P_STATE.size=v; sub.querySelectorAll('#sChips .chip').forEach(c=>c.classList.remove('on')); el.classList.add('on'); document.getElementById('oWa').href=waLink(msg()); };
   window.chgQty=d=>{ P_STATE.qty=Math.max(1,Math.min(99,P_STATE.qty+d)); document.getElementById('qVal').textContent=P_STATE.qty; document.getElementById('oWa').href=waLink(msg()); };
+  window.addCurrentToCart=()=>addToCart(P);
 }
 function route(){
   const h=location.hash||'#/';
@@ -793,7 +878,8 @@ document.getElementById('submitCustom').addEventListener('click',()=>{
 });
 
 (async function boot(){
-  await loadCatalog(); computeCats(); applyBranding(); createParticles(); animateHeroText(); route();
+  await loadCatalog(); computeCats(); applyBranding(); createParticles(); animateHeroText();
+  updateCartBadge(false); renderCart(); route();
   window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hidden'),1800));
   setTimeout(()=>document.getElementById('loader').classList.add('hidden'),4500);
   setInterval(async()=>{ const n=PRODUCTS.length; await loadCatalog(); computeCats(); applyBranding(); if(PRODUCTS.length!==n) route(); }, CATALOG.refreshSeconds*1000);
