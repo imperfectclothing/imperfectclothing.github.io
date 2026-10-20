@@ -73,6 +73,13 @@ nav.scrolled .nav-logo-img{box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .cart-total-row span:last-child{color:var(--red);font-size:1.2rem}
 .cart-foot input{padding:.7rem .9rem;border:2px solid rgba(44,30,26,.15);border-radius:8px;background:#fff;font-family:'Space Grotesk',sans-serif;font-size:.9rem;outline:none}
 .cart-foot input:focus{border-color:var(--red)}
+.cart-foot select{width:100%;padding:.75rem .9rem;border:2px solid rgba(44,30,26,.15);border-radius:8px;background:#fff;font-family:'Space Grotesk',sans-serif;font-size:.9rem;color:var(--primary);outline:none;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232C1E1A' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.5rem}
+.cart-foot select:focus{border-color:var(--red)}
+.cart-foot .ship-row{display:flex;flex-direction:column;gap:.45rem}
+.cart-foot label{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--primary)}
+.cart-total-row.grand{border-top:2px dashed rgba(44,30,26,.18);padding-top:.7rem;margin-top:.2rem;font-size:1.15rem}
+.cart-total-row small{display:block;font-size:.68rem;opacity:.6;letter-spacing:.08em;text-transform:none;font-weight:500;margin-top:.15rem}
+.req{color:var(--red)}
 .toast{position:fixed;bottom:2rem;left:50%;transform:translate(-50%,150%);background:var(--primary);color:var(--bg);padding:.9rem 1.8rem;border-radius:50px;font-size:.85rem;font-weight:700;letter-spacing:.1em;z-index:1300;transition:transform .45s cubic-bezier(.16,1,.3,1);box-shadow:0 12px 40px rgba(0,0,0,.3);white-space:nowrap}
 .toast.show{transform:translate(-50%,0)}
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;background:var(--bg)}
@@ -394,11 +401,35 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 <div class="cart-head"><span>Your Cart 🛒</span><button onclick="toggleCart(false)">×</button></div>
 <div class="cart-items" id="cartItems"></div>
 <div class="cart-foot">
-<div class="cart-total-row"><span>Total</span><span id="cartTotal">৳0</span></div>
-<input type="text" id="cartName" placeholder="Your Name">
-<input type="tel" id="cartPhone" placeholder="Phone Number">
-<button class="btn btn-wa big" onclick="checkoutCart()">Checkout on WhatsApp →</button>
-<button class="btn btn-ghost big" onclick="clearCart()">Clear Cart</button>
+  <div class="cart-total-row">
+    <span>Subtotal</span>
+    <span id="cartSubtotal">৳0</span>
+  </div>
+
+  <div class="ship-row">
+    <label for="cartDelivery">Delivery Area <span class="req">*</span></label>
+    <select id="cartDelivery">
+      <option value="">Select your area</option>
+      <option value="inside">Inside Dhaka (+৳60)</option>
+      <option value="outside">Outside Dhaka (+৳110)</option>
+    </select>
+  </div>
+
+  <div class="cart-total-row">
+    <span>Delivery Charge <small id="cartDeliveryNote">Select area</small></span>
+    <span id="cartDeliveryCharge">৳0</span>
+  </div>
+
+  <div class="cart-total-row grand">
+    <span>Total Amount</span>
+    <span id="cartTotal">৳0</span>
+  </div>
+
+  <input type="text" id="cartName" placeholder="Your Name">
+  <input type="tel" id="cartPhone" placeholder="Phone Number">
+
+  <button class="btn btn-wa big" onclick="checkoutCart()">Checkout on WhatsApp →</button>
+  <button class="btn btn-ghost big" onclick="clearCart()">Clear Cart</button>
 </div>
 </aside>
 <div class="toast" id="toast">✓ Added to cart</div>
@@ -595,50 +626,221 @@ const slug = s => String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').repl
 const CAT_ALIAS = { hoodies:"hoodie", hoodie:"hoodie", tee:"tee", tees:"tee", tshirt:"tee", "t-shirt":"tee", shirt:"shirt", shirts:"shirt", sweatshirt:"sweatshirt", sweatshirts:"sweatshirt", sweat:"sweatshirt", pant:"pant", pants:"pant", jeans:"pant", denim:"pant" };
 const catId = c => CAT_ALIAS[slug(c)] || slug(c) || "other";
 
-/* ============ CART SYSTEM ============ */
-const CART_KEY='ipm_cart_v1';
-let CART=(()=>{try{return JSON.parse(localStorage.getItem(CART_KEY))||[]}catch(e){return[]}})();
-function saveCart(){localStorage.setItem(CART_KEY,JSON.stringify(CART));updateCartBadge(true);renderCart();}
-function updateCartBadge(bump){const el=document.getElementById('cartCount');el.textContent=CART.reduce((s,i)=>s+i.qty,0);if(bump){el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');}}
-function toggleCart(open){document.getElementById('cartDrawer').classList.toggle('open',open);document.getElementById('cartOverlay').classList.toggle('open',open);}
-function renderCart(){
-  const box=document.getElementById('cartItems');
-  if(!CART.length){box.innerHTML='<div class="cart-empty">Your cart is empty 🛒<br>Add some perfect pieces!</div>';}
-  else box.innerHTML=CART.map((it,i)=>`
-   <div class="cart-item">
-     <img src="${it.image}" alt="">
-     <div><div class="ci-name">${it.name}</div><div class="ci-meta">${it.style?('Style: '+it.style+' | '):''}${it.size?('Size: '+it.size):''}</div><div class="ci-price">${it.price} × ${it.qty}</div></div>
-     <div style="display:flex;align-items:center">
-       <div class="ci-qty"><button onclick="cartQty(${i},-1)">−</button><span>${it.qty}</span><button onclick="cartQty(${i},1)">+</button></div>
-       <button class="ci-remove" onclick="cartRemove(${i})">✕</button>
-     </div>
-   </div>`).join('');
-  document.getElementById('cartTotal').textContent='৳'+CART.reduce((s,i)=>s+i.priceNum*i.qty,0).toLocaleString('en-IN');
+/* ============ CART + DELIVERY SYSTEM ============ */
+const DELIVERY_RATES = {
+  inside: { label: 'Inside Dhaka', charge: 60 },
+  outside: { label: 'Outside Dhaka', charge: 110 }
+};
+
+const CART_KEY = 'ipm_cart_v1';
+const CART_META_KEY = 'ipm_cart_meta_v1';
+
+let CART = (() => {
+  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+  catch(e) { return []; }
+})();
+
+let CART_META = (() => {
+  try { return JSON.parse(localStorage.getItem(CART_META_KEY)) || { delivery:'', name:'', phone:'' }; }
+  catch(e) { return { delivery:'', name:'', phone:'' }; }
+})();
+
+const taka = n => '৳' + Number(n || 0).toLocaleString('en-IN');
+
+function saveCart() {
+  localStorage.setItem(CART_KEY, JSON.stringify(CART));
+  updateCartBadge(true);
+  renderCart();
 }
-function cartQty(i,d){CART[i].qty=Math.max(1,CART[i].qty+d);saveCart();}
-function cartRemove(i){CART.splice(i,1);saveCart();}
-function clearCart(){CART=[];saveCart();}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800);}
-function addToCart(P){
-  const style=P.styles.length?P_STATE.style:null;
-  const size=P.sizes.length?P_STATE.size:null;
-  if(P.styles.length&&!style)return alert('Please select a Style (Drop-Shoulder or Solid).');
-  if(P.sizes.length&&!size)return alert('Please select a size.');
-  const key=P.id+'|'+(style||'')+'|'+(size||'');
-  const found=CART.find(c=>c.key===key);
-  if(found)found.qty+=P_STATE.qty;else CART.push({key,id:P.id,name:P.name,price:P.price,priceNum:P.priceNum,image:P.image,style:style||'',size:size||'',qty:P_STATE.qty});
-  saveCart();showToast('✓ '+P.name+' added to cart');
+
+function saveCartMeta() {
+  const d = document.getElementById('cartDelivery');
+  const n = document.getElementById('cartName');
+  const p = document.getElementById('cartPhone');
+
+  if (d) CART_META.delivery = d.value;
+  if (n) CART_META.name = n.value;
+  if (p) CART_META.phone = p.value;
+
+  localStorage.setItem(CART_META_KEY, JSON.stringify(CART_META));
 }
-function checkoutCart(){
-  if(!CART.length)return alert('Your cart is empty!');
-  const name=document.getElementById('cartName').value.trim();
-  const phone=document.getElementById('cartPhone').value.trim();
-  if(!name||!phone)return alert('Please fill in your Name and Phone Number to checkout.');
-  let msg='🛒 NEW ORDER — I\'m Perfect\n\n';
-  CART.forEach((it,i)=>{msg+=(i+1)+'. '+it.name+'\n   '+(it.style?('Style: '+it.style+' | '):'')+(it.size?('Size: '+it.size+' | '):'')+'Qty: '+it.qty+'\n   '+it.price+' × '+it.qty+' = ৳'+(it.priceNum*it.qty).toLocaleString('en-IN')+'\n\n';});
-  msg+='TOTAL: ৳'+CART.reduce((s,i)=>s+i.priceNum*i.qty,0).toLocaleString('en-IN')+'\n\nName: '+name+'\nPhone: '+phone;
-  window.open(waLink(msg),'_blank');
+
+function updateCartBadge(bump) {
+  const el = document.getElementById('cartCount');
+  if (!el) return;
+
+  el.textContent = CART.reduce((s, i) => s + i.qty, 0);
+
+  if (bump) {
+    el.classList.remove('bump');
+    void el.offsetWidth;
+    el.classList.add('bump');
+  }
 }
+
+function toggleCart(open) {
+  document.getElementById('cartDrawer').classList.toggle('open', open);
+  document.getElementById('cartOverlay').classList.toggle('open', open);
+}
+
+function cartSubtotal() {
+  return CART.reduce((s, i) => s + (Number(i.priceNum) || 0) * i.qty, 0);
+}
+
+function deliveryCharge() {
+  return (DELIVERY_RATES[CART_META.delivery] || {}).charge || 0;
+}
+
+function grandTotal() {
+  return cartSubtotal() + deliveryCharge();
+}
+
+function renderCart() {
+  const box = document.getElementById('cartItems');
+  const del = document.getElementById('cartDelivery');
+  const name = document.getElementById('cartName');
+  const phone = document.getElementById('cartPhone');
+
+  if (del) del.value = CART_META.delivery || '';
+  if (name) name.value = CART_META.name || '';
+  if (phone) phone.value = CART_META.phone || '';
+
+  if (!CART.length) {
+    box.innerHTML = '<div class="cart-empty">Your cart is empty 🛒<br>Add some perfect pieces!</div>';
+  } else {
+    box.innerHTML = CART.map((it, i) => `
+      <div class="cart-item">
+        <img src="${it.image}" alt="">
+        <div>
+          <div class="ci-name">${it.name}</div>
+          <div class="ci-meta">
+            ${it.style ? 'Style: ' + it.style + ' | ' : ''}
+            ${it.size ? 'Size: ' + it.size : ''}
+          </div>
+          <div class="ci-price">${it.price} × ${it.qty} = ${taka((Number(it.priceNum) || 0) * it.qty)}</div>
+        </div>
+        <div style="display:flex;align-items:center">
+          <div class="ci-qty">
+            <button onclick="cartQty(${i},-1)">−</button>
+            <span>${it.qty}</span>
+            <button onclick="cartQty(${i},1)">+</button>
+          </div>
+          <button class="ci-remove" onclick="cartRemove(${i})">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  document.getElementById('cartSubtotal').textContent = taka(cartSubtotal());
+
+  const rate = DELIVERY_RATES[CART_META.delivery];
+  document.getElementById('cartDeliveryCharge').textContent = taka(rate ? rate.charge : 0);
+  document.getElementById('cartDeliveryNote').textContent = rate ? rate.label : 'Select area';
+  document.getElementById('cartTotal').textContent = taka(grandTotal());
+}
+
+function cartQty(i, d) {
+  CART[i].qty = Math.max(1, CART[i].qty + d);
+  saveCart();
+}
+
+function cartRemove(i) {
+  CART.splice(i, 1);
+  saveCart();
+}
+
+function clearCart() {
+  CART = [];
+  saveCart();
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+function addToCart(P) {
+  if (P.styles.length && !P_STATE.style) {
+    return alert('Please select a Style: Drop-Shoulder or Solid.');
+  }
+
+  if (P.sizes.length && !P_STATE.size) {
+    return alert('Please select a size.');
+  }
+
+  const style = P.styles.length ? P_STATE.style : '';
+  const size = P.sizes.length ? P_STATE.size : '';
+  const key = P.id + '|' + style + '|' + size;
+
+  const found = CART.find(c => c.key === key);
+
+  if (found) {
+    found.qty += P_STATE.qty;
+  } else {
+    CART.push({
+      key,
+      id: P.id,
+      name: P.name,
+      price: P.price,
+      priceNum: Number(P.priceNum) || 0,
+      image: P.image,
+      style,
+      size,
+      qty: P_STATE.qty
+    });
+  }
+
+  saveCart();
+  showToast('✓ ' + P.name + ' added to cart');
+}
+
+function checkoutCart() {
+  saveCartMeta();
+
+  if (!CART.length) return alert('Your cart is empty!');
+  if (!CART_META.delivery) return alert('Please select your delivery area: Inside Dhaka or Outside Dhaka.');
+
+  const name = (CART_META.name || '').trim();
+  const phone = (CART_META.phone || '').trim();
+
+  if (!name || !phone) return alert('Please fill in your Name and Phone Number to checkout.');
+
+  const rate = DELIVERY_RATES[CART_META.delivery];
+
+  let msg = '🛒 NEW ORDER — I\'m Perfect\n\n';
+
+  CART.forEach((it, i) => {
+    msg += (i + 1) + '. ' + it.name + '\n';
+    if (it.style) msg += '   Style: ' + it.style + '\n';
+    if (it.size) msg += '   Size: ' + it.size + '\n';
+    msg += '   Qty: ' + it.qty + '\n';
+    msg += '   ' + it.price + ' × ' + it.qty + ' = ' + taka((Number(it.priceNum) || 0) * it.qty) + '\n\n';
+  });
+
+  msg += 'Subtotal: ' + taka(cartSubtotal()) + '\n';
+  msg += 'Delivery Area: ' + rate.label + '\n';
+  msg += 'Delivery Charge: ' + taka(rate.charge) + '\n';
+  msg += 'Total Amount: ' + taka(grandTotal()) + '\n\n';
+  msg += 'Name: ' + name + '\n';
+  msg += 'Phone: ' + phone;
+
+  window.open(waLink(msg), '_blank');
+}
+
+['cartDelivery', 'cartName', 'cartPhone'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  const handler = () => {
+    saveCartMeta();
+    if (id === 'cartDelivery') renderCart();
+  };
+
+  el.addEventListener('input', handler);
+  el.addEventListener('change', handler);
+});
 
 function parseCSV(text){
   const rows=[]; let row=[], cur='', q=false;
@@ -786,49 +988,174 @@ function renderCategory(sub,id){
     ${CATEGORIES.map(c=>`<a class="chip ${id===c.id?'on':''}" onclick="go('#/category/${c.id}')">${c.name}</a>`).join('')}</div>
   <div class="grid-wrap"><div class="bento-grid">${list.length?list.map((p,i)=>cardHTML(p,i)).join(''):'<p class="empty">No products here yet. <a onclick="go(\'#/category/all\')">See all →</a></p>'}</div></div>`;
 }
-let P_STATE={style:null,color:null,size:null,qty:1};
-function renderProduct(sub,id){
-  const P=PRODUCTS.find(p=>p.id===id);
-  if(!P){ sub.innerHTML='<p class="empty" style="padding:8rem 2rem">Product not found. <a onclick="go(\'#/\')">Back to store →</a></p>'; return; }
-  const meta=CATEGORIES.find(c=>c.id===P.category);
-  const gallery=P.gallery.length?P.gallery:[P.image];
-  P_STATE={style:P.styles[0]||null,color:P.colors[0]||null,size:null,qty:1};
-  document.title=P.name+" — I'm Perfect";
-  const sel=()=>[P_STATE.style?('Style: '+P_STATE.style):'',P_STATE.color?('Color: '+P_STATE.color):'',P_STATE.size?('Size: '+P_STATE.size):'','Qty '+P_STATE.qty].filter(Boolean).join(', ');
-  const msg=()=>`Hi I'm Perfect! I want to order: ${P.name} — ${sel()} — ${P.price}`;
-  const rel=PRODUCTS.filter(x=>x.category===P.category&&x.id!==P.id).slice(0,4);
-  sub.innerHTML=`
-  <div class="crumbs"><a onclick="go('#/')">Home</a> / <a onclick="go('#/category/${P.category}')">${meta?meta.name:'Collection'}</a> / <span>${P.name}</span></div>
+let P_STATE = { style:null, color:null, size:null, qty:1 };
+
+function selectionText() {
+  return [
+    P_STATE.style ? 'Style: ' + P_STATE.style : '',
+    P_STATE.color ? 'Color: ' + P_STATE.color : '',
+    P_STATE.size ? 'Size: ' + P_STATE.size : '',
+    'Qty ' + P_STATE.qty
+  ].filter(Boolean).join(', ');
+}
+
+function orderDirect(id) {
+  const P = PRODUCTS.find(p => p.id === id);
+  if (!P) return;
+
+  if (P.styles.length && !P_STATE.style) {
+    return alert('Please select a Style: Drop-Shoulder or Solid.');
+  }
+
+  if (P.sizes.length && !P_STATE.size) {
+    return alert('Please select a size.');
+  }
+
+  const msg = `Hi I'm Perfect! I want to order: ${P.name} — ${selectionText()} — ${P.price}`;
+  window.open(waLink(msg), '_blank');
+}
+
+function renderProduct(sub, id) {
+  const P = PRODUCTS.find(p => p.id === id);
+
+  if (!P) {
+    sub.innerHTML = '<p class="empty" style="padding:8rem 2rem">Product not found. <a onclick="go(\'#/\')">Back to store →</a></p>';
+    return;
+  }
+
+  const meta = CATEGORIES.find(c => c.id === P.category);
+  const gallery = P.gallery.length ? P.gallery : [P.image];
+
+  P_STATE = { style:null, color:P.colors[0] || null, size:null, qty:1 };
+
+  document.title = P.name + " — I'm Perfect";
+
+  const rel = PRODUCTS.filter(x => x.category === P.category && x.id !== P.id).slice(0, 4);
+
+  sub.innerHTML = `
+  <div class="crumbs">
+    <a onclick="go('#/')">Home</a> /
+    <a onclick="go('#/category/${P.category}')">${meta ? meta.name : 'Collection'}</a> /
+    <span>${P.name}</span>
+  </div>
+
   <section class="prod-wrap">
-    <div><div class="g-main"><img id="gMain" src="${gallery[0]}" alt="${P.name}"></div>
-      <div class="g-thumbs">${gallery.map((g,i)=>`<img class="${i===0?'on':''}" src="${g}" alt="" onclick="pickThumb(this,'${g}')">`).join('')}</div></div>
+    <div>
+      <div class="g-main"><img id="gMain" src="${gallery[0]}" alt="${P.name}"></div>
+      <div class="g-thumbs">
+        ${gallery.map((g, i) => `<img class="${i === 0 ? 'on' : ''}" src="${g}" alt="" onclick="pickThumb(this,'${g}')">`).join('')}
+      </div>
+    </div>
+
     <div class="info">
-      ${P.badge?`<span class="badge ${P.badgeColor}">${P.badge}</span>`:''}
+      ${P.badge ? `<span class="badge ${P.badgeColor}">${P.badge}</span>` : ''}
       <div class="p-sub">${P.subcategory}</div>
       <h1>${P.name}</h1>
       <div class="p-price big">${P.price}</div>
       <p class="desc">${P.description}</p>
-      ${P.styles.length?`<div class="opt"><label>Style</label><div class="chips left" id="stChips">${P.styles.map(s=>`<button class="chip ${s===P_STATE.style?'on':''}" onclick="pickStyle(this,'${s}')">${s}</button>`).join('')}</div></div>`:''}
-      ${P.colors.length?`<div class="opt"><label>Color</label><div class="chips left" id="cChips">${P.colors.map(c=>`<button class="chip ${c===P_STATE.color?'on':''}" onclick="pickColor(this,'${c}')">${c}</button>`).join('')}</div></div>`:''}
-      ${P.sizes.length?`<div class="opt"><label>Size</label><div class="chips left" id="sChips">${P.sizes.map(s=>`<button class="chip" onclick="pickSize(this,'${s}')">${s}</button>`).join('')}</div></div>`:''}
-      <div class="opt"><label>Quantity</label><div class="qty"><button class="qty-btn" onclick="chgQty(-1)">−</button><span class="q-val" id="qVal">1</span><button class="qty-btn" onclick="chgQty(1)">+</button></div></div>
+
+      ${P.styles.length ? `
+        <div class="opt">
+          <label>Style <span class="req">*</span></label>
+          <div class="chips left" id="stChips">
+            ${P.styles.map(s => `<button class="chip ${s === P_STATE.style ? 'on' : ''}" onclick="pickStyle(this,'${s}')">${s}</button>`).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      ${P.colors.length ? `
+        <div class="opt">
+          <label>Color</label>
+          <div class="chips left" id="cChips">
+            ${P.colors.map(c => `<button class="chip ${c === P_STATE.color ? 'on' : ''}" onclick="pickColor(this,'${c}')">${c}</button>`).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      ${P.sizes.length ? `
+        <div class="opt">
+          <label>Size <span class="req">*</span></label>
+          <div class="chips left" id="sChips">
+            ${P.sizes.map(s => `<button class="chip" onclick="pickSize(this,'${s}')">${s}</button>`).join('')}
+          </div>
+        </div>
+      ` : ''}
+
+      <div class="opt">
+        <label>Quantity</label>
+        <div class="qty">
+          <button class="qty-btn" onclick="chgQty(-1)">−</button>
+          <span class="q-val" id="qVal">1</span>
+          <button class="qty-btn" onclick="chgQty(1)">+</button>
+        </div>
+      </div>
+
       <div class="order-col">
         <button class="btn btn-red big" onclick="addCurrentToCart()">Add to Cart 🛒</button>
-        <a class="btn btn-wa big" id="oWa" target="_blank" rel="noopener" href="${waLink(msg())}">Order on WhatsApp →</a>
-        <div class="order-row"><a class="btn btn-fb" target="_blank" rel="noopener" href="${BRAND.facebook}">Facebook</a><a class="btn btn-ig" target="_blank" rel="noopener" href="${BRAND.instagram}">Instagram</a></div>
-        <p class="note">Send your order message — we confirm personally on WhatsApp / Messenger. 72-hour delivery, cash on delivery available.</p>
+        <button class="btn btn-wa big" onclick="orderDirect('${P.id}')">Order on WhatsApp →</button>
+
+        <div class="order-row">
+          <a class="btn btn-fb" target="_blank" rel="noopener" href="${BRAND.facebook}">Facebook</a>
+          <a class="btn btn-ig" target="_blank" rel="noopener" href="${BRAND.instagram}">Instagram</a>
+        </div>
+
+        <p class="note">
+          Send your order message — we confirm personally on WhatsApp / Messenger.
+          72-hour delivery, cash on delivery available.
+        </p>
       </div>
-      ${P.details.length?`<div class="details"><h3>Product Details</h3><ul>${P.details.map(d=>`<li>${d}</li>`).join('')}</ul></div>`:''}
+
+      ${P.details.length ? `
+        <div class="details">
+          <h3>Product Details</h3>
+          <ul>${P.details.map(d => `<li>${d}</li>`).join('')}</ul>
+        </div>
+      ` : ''}
     </div>
   </section>
-  <section class="related"><div class="sec-head"><div class="section-label">Keep Browsing</div><h2 class="sec-title">Related Styles</h2></div>
-    <div class="grid-wrap"><div class="bento-grid">${(rel.length?rel:PRODUCTS.slice(0,4)).map((p,i)=>cardHTML(p,i)).join('')}</div></div></section>`;
-  window.pickThumb=(el,src)=>{ document.getElementById('gMain').src=src; sub.querySelectorAll('.g-thumbs img').forEach(x=>x.classList.remove('on')); el.classList.add('on'); };
-  window.pickStyle=(el,v)=>{ P_STATE.style=v; sub.querySelectorAll('#stChips .chip').forEach(c=>c.classList.remove('on')); el.classList.add('on'); document.getElementById('oWa').href=waLink(msg()); };
-  window.pickColor=(el,v)=>{ P_STATE.color=v; sub.querySelectorAll('#cChips .chip').forEach(c=>c.classList.remove('on')); el.classList.add('on'); document.getElementById('oWa').href=waLink(msg()); };
-  window.pickSize=(el,v)=>{ P_STATE.size=v; sub.querySelectorAll('#sChips .chip').forEach(c=>c.classList.remove('on')); el.classList.add('on'); document.getElementById('oWa').href=waLink(msg()); };
-  window.chgQty=d=>{ P_STATE.qty=Math.max(1,Math.min(99,P_STATE.qty+d)); document.getElementById('qVal').textContent=P_STATE.qty; document.getElementById('oWa').href=waLink(msg()); };
-  window.addCurrentToCart=()=>addToCart(P);
+
+  <section class="related">
+    <div class="sec-head">
+      <div class="section-label">Keep Browsing</div>
+      <h2 class="sec-title">Related Styles</h2>
+    </div>
+    <div class="grid-wrap">
+      <div class="bento-grid">
+        ${(rel.length ? rel : PRODUCTS.slice(0, 4)).map((p, i) => cardHTML(p, i)).join('')}
+      </div>
+    </div>
+  </section>`;
+
+  window.pickThumb = (el, src) => {
+    document.getElementById('gMain').src = src;
+    sub.querySelectorAll('.g-thumbs img').forEach(x => x.classList.remove('on'));
+    el.classList.add('on');
+  };
+
+  window.pickStyle = (el, v) => {
+    P_STATE.style = v;
+    sub.querySelectorAll('#stChips .chip').forEach(c => c.classList.remove('on'));
+    el.classList.add('on');
+  };
+
+  window.pickColor = (el, v) => {
+    P_STATE.color = v;
+    sub.querySelectorAll('#cChips .chip').forEach(c => c.classList.remove('on'));
+    el.classList.add('on');
+  };
+
+  window.pickSize = (el, v) => {
+    P_STATE.size = v;
+    sub.querySelectorAll('#sChips .chip').forEach(c => c.classList.remove('on'));
+    el.classList.add('on');
+  };
+
+  window.chgQty = d => {
+    P_STATE.qty = Math.max(1, Math.min(99, P_STATE.qty + d));
+    document.getElementById('qVal').textContent = P_STATE.qty;
+  };
+
+  window.addCurrentToCart = () => addToCart(P);
 }
 function route(){
   const h=location.hash||'#/';
