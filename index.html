@@ -123,6 +123,15 @@ nav.scrolled .nav-logo-img{box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .color-option.selected .color-swatch{border-color:var(--red);box-shadow:0 0 0 3px rgba(183,28,28,.25),inset 0 1px 2px rgba(0,0,0,.1)}
 /* ===== END COLOR SWATCH STYLES ===== */
 
+/* ===== PROFESSIONAL HIGHLIGHTS BOX ===== */
+.details{border-top:2px solid rgba(44,30,26,.12);padding-top:1.5rem;margin-top:1.5rem;background:rgba(255,255,255,.4);padding:1.5rem;border-radius:12px}
+.details h3{font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;margin-bottom:1rem;color:var(--primary)}
+.details ul{list-style:none;padding-left:0}
+.details li{padding:.6rem 0;border-bottom:1px solid rgba(44,30,26,.08);font-size:.95rem;color:var(--primary-light);display:flex;align-items:flex-start;gap:.8rem}
+.details li::before{content:'✦';color:var(--red);font-weight:700;margin-top:.2rem}
+.details li:last-child{border-bottom:none}
+/* ===== END HIGHLIGHTS BOX ===== */
+
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;background:var(--bg)}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:8rem 5rem 4rem;position:relative;z-index:2}
 .hero-logo-container{width:230px;height:270px;margin-bottom:2rem;position:relative;perspective:1000px;opacity:0;animation:fadeInLogo 1.2s ease 2.2s forwards}
@@ -373,7 +382,7 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 .info .badge.blue{background:var(--blue)}
 .info .badge.purple{background:#7B1FA2}
 .info .p-price.big{font-size:1.8rem;font-weight:700;color:var(--red);margin:1rem 0}
-.info .desc{line-height:1.9;color:var(--primary-light);margin:1rem 0 1.8rem}
+.info .desc{line-height:1.9;color:var(--primary-light);margin:1rem 0 1.8rem;font-style:italic;font-size:1.05rem}
 .opt{margin-bottom:1.4rem}
 .opt label{display:block;font-size:.7rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;margin-bottom:.6rem}
 .qty{display:inline-flex;align-items:center;border:2px solid var(--primary)}
@@ -383,11 +392,6 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 .order-col{margin:2rem 0;display:flex;flex-direction:column;gap:.9rem}
 .order-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
 .note{font-size:.82rem;opacity:.65;line-height:1.6}
-.details{border-top:2px solid rgba(44,30,26,.12);padding-top:1.5rem;margin-top:1.5rem}
-.details h3{font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;margin-bottom:1rem}
-.details ul{list-style:none}
-.details li{padding:.55rem 0;border-bottom:1px solid rgba(44,30,26,.08);font-size:.95rem;color:var(--primary-light)}
-.details li::before{content:'✦ ';color:var(--red)}
 .related{padding:4rem 4rem 6rem;background:var(--bg-dark)}
 .related .sec-head{text-align:center;margin-bottom:3rem}
 .related .sec-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:clamp(2rem,4vw,3rem)}
@@ -630,7 +634,7 @@ footer{padding:3rem 2rem 2rem}
 <div class="contact-item"><div class="contact-icon">📞</div><div class="contact-detail"><h4>Phone</h4><p>01518423292<br>01860066158</p></div></div>
 <div class="contact-item"><div class="contact-icon blue">📍</div><div class="contact-detail"><h4>Location</h4><p>On Phone/PC/Tab Display, Earth</p></div></div>
 <div class="contact-item"><div class="contact-icon">📘</div><div class="contact-detail"><h4>Facebook</h4><a id="fbLink" href="https://www.facebook.com/imperfect.clothings/" target="_blank" rel="noopener">imperfect.clothings</a></div></div>
-<div class="contact-item"><div class="contact-icon blue">📷</div><div class="contact-detail"><h4>Instagram</h4><a id="igLink" href="https://www.instagram.com/imperfect.clothings" target="_blank" rel="noopener">imperfect.clothings</a></div></div>
+<div class="contact-item"><div class="contact-icon blue"></div><div class="contact-detail"><h4>Instagram</h4><a id="igLink" href="https://www.instagram.com/imperfect.clothings" target="_blank" rel="noopener">imperfect.clothings</a></div></div>
 </div>
 <div class="contact-form reveal-right">
 <h3>Send a Message</h3>
@@ -709,71 +713,37 @@ const slug = s => String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').repl
 const CAT_ALIAS = { hoodies:"hoodie", hoodie:"hoodie", tee:"tee", tees:"tee", tshirt:"tee", "t-shirt":"tee", shirt:"shirt", shirts:"shirt", sweatshirt:"sweatshirt", sweatshirts:"sweatshirt", sweat:"sweatshirt", pant:"pant", pants:"pant", jeans:"pant", denim:"pant" };
 const catId = c => CAT_ALIAS[slug(c)] || slug(c) || "other";
 
-const DELIVERY_RATES = {
-  inside: { label: 'Inside Dhaka', charge: 60 },
-  outside: { label: 'Outside Dhaka', charge: 110 }
-};
+const DELIVERY_RATES = { inside: { label: 'Inside Dhaka', charge: 60 }, outside: { label: 'Outside Dhaka', charge: 110 } };
 const CART_KEY = 'ipm_cart_v1';
 const CART_META_KEY = 'ipm_cart_meta_v1';
 
-let CART = (() => {
-  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-  catch(e) { return []; }
-})();
-let CART_META = (() => {
-  try { return JSON.parse(localStorage.getItem(CART_META_KEY)) || { delivery:'', name:'', email:'', phone:'', address:'' }; }
-  catch(e) { return { delivery:'', name:'', email:'', phone:'', address:'' }; }
-})();
+let CART = (() => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch(e) { return []; } })();
+let CART_META = (() => { try { return JSON.parse(localStorage.getItem(CART_META_KEY)) || { delivery:'', name:'', email:'', phone:'', address:'' }; } catch(e) { return { delivery:'', name:'', email:'', phone:'', address:'' }; } })();
 const taka = n => '৳' + Number(n || 0).toLocaleString('en-IN');
 
-function saveCart() {
-  localStorage.setItem(CART_KEY, JSON.stringify(CART));
-  updateCartBadge(true);
-  renderCart();
-}
+function saveCart() { localStorage.setItem(CART_KEY, JSON.stringify(CART)); updateCartBadge(true); renderCart(); }
 function saveCartMeta() {
-  const d = document.getElementById('cartDelivery');
-  const n = document.getElementById('cartName');
-  const e = document.getElementById('cartEmail');
-  const p = document.getElementById('cartPhone');
-  const a = document.getElementById('cartAddress');
-  if (d) CART_META.delivery = d.value;
-  if (n) CART_META.name = n.value;
-  if (e) CART_META.email = e.value;
-  if (p) CART_META.phone = p.value;
-  if (a) CART_META.address = a.value;
+  const d = document.getElementById('cartDelivery'), n = document.getElementById('cartName'), e = document.getElementById('cartEmail'), p = document.getElementById('cartPhone'), a = document.getElementById('cartAddress');
+  if (d) CART_META.delivery = d.value; if (n) CART_META.name = n.value; if (e) CART_META.email = e.value; if (p) CART_META.phone = p.value; if (a) CART_META.address = a.value;
   localStorage.setItem(CART_META_KEY, JSON.stringify(CART_META));
 }
 function updateCartBadge(bump) {
-  const el = document.getElementById('cartCount');
-  if (!el) return;
+  const el = document.getElementById('cartCount'); if (!el) return;
   el.textContent = CART.reduce((s, i) => s + i.qty, 0);
   if (bump) { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
 }
-function toggleCart(open) {
-  document.getElementById('cartDrawer').classList.toggle('open', open);
-  document.getElementById('cartOverlay').classList.toggle('open', open);
-}
+function toggleCart(open) { document.getElementById('cartDrawer').classList.toggle('open', open); document.getElementById('cartOverlay').classList.toggle('open', open); }
 function cartSubtotal() { return CART.reduce((s, i) => s + (Number(i.priceNum) || 0) * i.qty, 0); }
 function deliveryCharge() { return (DELIVERY_RATES[CART_META.delivery] || {}).charge || 0; }
 function grandTotal() { return cartSubtotal() + deliveryCharge(); }
 
 function renderCart() {
   const box = document.getElementById('cartItems');
-  const del = document.getElementById('cartDelivery');
-  const name = document.getElementById('cartName');
-  const email = document.getElementById('cartEmail');
-  const phone = document.getElementById('cartPhone');
-  const address = document.getElementById('cartAddress');
-  if (del) del.value = CART_META.delivery || '';
-  if (name) name.value = CART_META.name || '';
-  if (email) email.value = CART_META.email || '';
-  if (phone) phone.value = CART_META.phone || '';
-  if (address) address.value = CART_META.address || '';
+  const del = document.getElementById('cartDelivery'), name = document.getElementById('cartName'), email = document.getElementById('cartEmail'), phone = document.getElementById('cartPhone'), address = document.getElementById('cartAddress');
+  if (del) del.value = CART_META.delivery || ''; if (name) name.value = CART_META.name || ''; if (email) email.value = CART_META.email || ''; if (phone) phone.value = CART_META.phone || ''; if (address) address.value = CART_META.address || '';
 
-  if (!CART.length) {
-    box.innerHTML = '<div class="cart-empty">Your cart is empty 🛒<br>Add some perfect pieces!</div>';
-  } else {
+  if (!CART.length) { box.innerHTML = '<div class="cart-empty">Your cart is empty 🛒<br>Add some perfect pieces!</div>'; } 
+  else {
     box.innerHTML = CART.map((it, i) => `
       <div class="cart-item">
         <button class="ci-remove" onclick="cartRemove(${i})" aria-label="Remove item">×</button>
@@ -781,18 +751,13 @@ function renderCart() {
           <img src="${it.image}" alt="${it.name} thumbnail">
           <div class="ci-details">
             <div class="ci-name">${it.name}</div>
-            <div class="ci-meta">
-              ${it.style ? '<strong>Style:</strong> ' + it.style + '<br>' : ''}
-              ${it.size ? '<strong>Size:</strong> ' + it.size : ''}
-            </div>
+            <div class="ci-meta">${it.style ? '<strong>Style:</strong> ' + it.style + '<br>' : ''}${it.size ? '<strong>Size:</strong> ' + it.size : ''}</div>
             <div class="ci-price">${it.price} each</div>
           </div>
         </div>
         <div class="cart-item-bottom">
           <div class="ci-qty">
-            <button onclick="cartQty(${i},-1)" aria-label="Decrease quantity">−</button>
-            <span>${it.qty}</span>
-            <button onclick="cartQty(${i},1)" aria-label="Increase quantity">+</button>
+            <button onclick="cartQty(${i},-1)" aria-label="Decrease quantity">−</button><span>${it.qty}</span><button onclick="cartQty(${i},1)" aria-label="Increase quantity">+</button>
           </div>
           <div style="font-weight:700;color:var(--primary)">Total: ${taka((Number(it.priceNum) || 0) * it.qty)}</div>
         </div>
@@ -808,12 +773,7 @@ function renderCart() {
 function cartQty(i, d) { CART[i].qty = Math.max(1, CART[i].qty + d); saveCart(); }
 function cartRemove(i) { CART.splice(i, 1); saveCart(); }
 function clearCart() { CART = []; saveCart(); }
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 1800);
-}
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
 
 function addToCart(P) {
   if (P.styles.length && !P_STATE.style) return alert('Please select a Style.');
@@ -822,20 +782,15 @@ function addToCart(P) {
   const size = P.sizes.length ? P_STATE.size : '';
   const key = P.id + '|' + style + '|' + size;
   const found = CART.find(c => c.key === key);
-  if (found) { found.qty += P_STATE.qty; } 
-  else { CART.push({ key, id: P.id, name: P.name, price: P.price, priceNum: Number(P.priceNum) || 0, image: P.image, style, size, qty: P_STATE.qty }); }
-  saveCart();
-  showToast('✓ ' + P.name + ' added to cart');
+  if (found) { found.qty += P_STATE.qty; } else { CART.push({ key, id: P.id, name: P.name, price: P.price, priceNum: Number(P.priceNum) || 0, image: P.image, style, size, qty: P_STATE.qty }); }
+  saveCart(); showToast('✓ ' + P.name + ' added to cart');
 }
 
 async function checkoutCart() {
   saveCartMeta();
   if (!CART.length) return alert('Your cart is empty!');
   if (!CART_META.delivery) return alert('Please select your delivery area.');
-  const name = (CART_META.name || '').trim();
-  const email = (CART_META.email || '').trim();
-  const phone = (CART_META.phone || '').trim();
-  const address = (CART_META.address || '').trim();
+  const name = (CART_META.name || '').trim(), email = (CART_META.email || '').trim(), phone = (CART_META.phone || '').trim(), address = (CART_META.address || '').trim();
   if (!name || !phone || !address) return alert('Please fill in Name, Phone, and Full Address.');
 
   const rate = DELIVERY_RATES[CART_META.delivery];
@@ -843,29 +798,19 @@ async function checkoutCart() {
   let itemsSummary = CART.map(it => `${it.name} (${it.style ? it.style+', ' : ''}${it.size ? it.size+', ' : ''}Qty:${it.qty})`).join('; ');
   const payload = { orderId, name, email, phone, address, deliveryArea: rate.label, items: itemsSummary, subtotal: cartSubtotal(), deliveryCharge: rate.charge, total: grandTotal() };
 
-  const btn = document.getElementById('checkoutBtn');
-  const originalText = btn.innerText;
-  btn.innerText = "Processing..."; btn.disabled = true;
+  const btn = document.getElementById('checkoutBtn'); const originalText = btn.innerText; btn.innerText = "Processing..."; btn.disabled = true;
   try {
-    if (ORDER_SHEET_URL) {
-      await fetch(ORDER_SHEET_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-    }
+    if (ORDER_SHEET_URL) { await fetch(ORDER_SHEET_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }); }
     showToast('✓ Order Placed! Check your email for receipt.');
     setTimeout(() => { clearCart(); toggleCart(false); }, 1500);
-  } catch (error) {
-    console.error("Order sync error:", error);
-    alert("There was an issue syncing, but we received your order!");
-  } finally {
-    btn.innerText = originalText; btn.disabled = false;
-  }
+  } catch (error) { console.error("Order sync error:", error); alert("There was an issue syncing, but we received your order!"); }
+  finally { btn.innerText = originalText; btn.disabled = false; }
 }
 
 ['cartDelivery', 'cartName', 'cartEmail', 'cartPhone', 'cartAddress'].forEach(id => {
-  const el = document.getElementById(id);
-  if (!el) return;
+  const el = document.getElementById(id); if (!el) return;
   const handler = () => { saveCartMeta(); if (id === 'cartDelivery') renderCart(); };
-  el.addEventListener('input', handler);
-  el.addEventListener('change', handler);
+  el.addEventListener('input', handler); el.addEventListener('change', handler);
 });
 
 function parseCSV(text){
@@ -907,7 +852,6 @@ function normalize(rows){
     
     let colors = [];
     if (o.colors) colors = String(o.colors).split(/[,|]/).map(s => s.trim()).filter(Boolean);
-    else if (o.colours) colors = String(o.colours).split(/[,|]/).map(s => s.trim()).filter(Boolean);
     
     if(!styles.length && colors.some(c=>/drop[- ]?shoulder|^solid|^basic$/i.test(c))){ styles=colors; colors=[]; }
     if(!styles.length && o.subcategory && o.subcategory.toLowerCase().includes('pooja')) { styles = ['Drop-Shoulder', 'Solid']; }
@@ -988,8 +932,7 @@ function cardHTML(p,i=0){ return `<div class="bento-item ${p.size} card-3d revea
   <div class="bento-overlay"><div class="bento-category">${p.subcategory}</div><div class="bento-name">${p.name}</div><div class="bento-price">${p.price}</div></div></div>`; }
 
 function categoryTilesHTML(list){
-  return list.map((c,i)=>`
-    <div class="segment-tile reveal-scale" style="transition-delay:${i*.07}s" onclick="go('#/category/${c.id}')">
+  return list.map((c,i)=>`<div class="segment-tile reveal-scale" style="transition-delay:${i*.07}s" onclick="go('#/category/${c.id}')">
       <img src="${c.image}" alt="${c.name} Category" loading="lazy">
       <div class="segment-overlay"><div class="segment-name">${c.name}</div><div class="segment-tag">${c.tag}</div><div class="segment-count">${c.count} styles →</div></div>
     </div>`).join('');
@@ -1008,9 +951,8 @@ function collectionTilesHTML(catId,list){
 function renderHome(){
   document.getElementById('segmentsGrid').innerHTML=categoryTilesHTML(CATEGORIES);
   renderTabs(); 
-  renderBento('all'); // Guaranteed to show all products
-  document.getElementById('lookbookGrid').innerHTML=LOOKBOOK.map((it,i)=>`
-    <div class="lookbook-item reveal" style="transition-delay:${i*.15}s"><img src="${it.image}" alt="${it.label} Lookbook" loading="lazy"><div class="lookbook-item-overlay"><span>${it.label}</span></div></div>`).join('');
+  renderBento('all'); 
+  document.getElementById('lookbookGrid').innerHTML=LOOKBOOK.map((it,i)=>`<div class="lookbook-item reveal" style="transition-delay:${i*.15}s"><img src="${it.image}" alt="${it.label} Lookbook" loading="lazy"><div class="lookbook-item-overlay"><span>${it.label}</span></div></div>`).join('');
   document.getElementById('footShop').innerHTML=CATEGORIES.map(c=>`<a onclick="go('#/category/${c.id}')">${c.name}</a>`).join('')+`<a onclick="go('#/category/all')">All Products</a>`;
 }
 function renderTabs(){
@@ -1063,7 +1005,7 @@ function renderProduct(sub, id) {
   if (!P) { sub.innerHTML = '<p class="empty" style="padding:8rem 2rem">Product not found. <a onclick="go(\'#/\')">Back to store →</a></p>'; return; }
   const meta = CATEGORIES.find(c => c.id === P.category);
   const gallery = P.gallery.length ? P.gallery : [P.image];
-  P_STATE = { style: null, color:P.colors[0] || null, size:null, qty:1 };
+  P_STATE = { style: null, color:P.colors && P.colors.length ? P.colors[0] : null, size:null, qty:1 };
   document.title = P.name + " — I'm Perfect";
   
   const rel = PRODUCTS.filter(x => x.category === P.category && x.subcategory === P.subcategory && x.id !== P.id).slice(0, 4);
@@ -1130,7 +1072,7 @@ function renderProduct(sub, id) {
         </div>
         <p class="note">Add to cart to calculate delivery. We confirm personally via WhatsApp. 72-hour delivery, cash on delivery available.</p>
       </div>
-      ${P.details.length ? `
+      ${P.details && P.details.length ? `
         <div class="details">
           <h3>Product Highlights</h3>
           <ul>${P.details.map(d => `<li>${d}</li>`).join('')}</ul>
