@@ -86,22 +86,30 @@ nav.scrolled .nav-logo-img{box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .cart-head button{background:transparent;border:none;color:var(--bg);font-size:1.6rem;cursor:pointer;line-height:1}
 .cart-items{flex:1;overflow-y:auto;padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:1rem}
 .cart-empty{text-align:center;opacity:.6;padding:3rem 1rem;font-size:1rem;line-height:1.8}
-.cart-item{display:grid;grid-template-columns:70px 1fr auto;gap:.9rem;background:#fff;padding:.7rem;border-radius:10px;box-shadow:0 6px 18px rgba(44,30,26,.08);align-items:center}
-.cart-item img{width:70px;height:84px;object-fit:cover;border-radius:8px}
-.ci-name{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:.95rem;line-height:1.25}
-.ci-meta{font-size:.72rem;color:var(--primary-light);margin:.25rem 0;letter-spacing:.05em}
-.ci-price{font-weight:700;font-size:.85rem;color:var(--red)}
-.ci-qty{display:flex;align-items:center;gap:.4rem}
-.ci-qty button{width:26px;height:26px;border:1px solid var(--primary);background:transparent;border-radius:6px;font-weight:700;cursor:pointer;color:var(--primary)}
+/* NEW BROADER CART ITEM STYLES */
+.cart-item{display:flex;flex-direction:column;gap:.8rem;background:#fff;padding:1rem;border-radius:12px;box-shadow:0 6px 18px rgba(44,30,26,.08);position:relative}
+.cart-item-top{display:flex;gap:1rem;align-items:flex-start}
+.cart-item img{width:80px;height:100px;object-fit:cover;border-radius:8px;flex-shrink:0}
+.ci-details{flex:1;display:flex;flex-direction:column;gap:.3rem;padding-right:1.5rem}
+.ci-name{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;font-size:1.05rem;line-height:1.3;color:var(--primary)}
+.ci-meta{font-size:.8rem;color:var(--primary-light);line-height:1.4}
+.ci-meta strong{color:var(--primary)}
+.ci-price{font-weight:700;font-size:.95rem;color:var(--red);margin-top:.2rem}
+.ci-remove{position:absolute;top:.8rem;right:.8rem;background:transparent;border:none;color:var(--primary-light);font-size:1.4rem;cursor:pointer;transition:color .2s;line-height:1}
+.ci-remove:hover{color:var(--red)}
+.cart-item-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px dashed rgba(44,30,26,.1);padding-top:.8rem;margin-top:.2rem}
+.ci-qty{display:flex;align-items:center;gap:.5rem;background:var(--bg);border-radius:8px;padding:.2rem}
+.ci-qty button{width:32px;height:32px;border:none;background:transparent;border-radius:6px;font-weight:700;cursor:pointer;color:var(--primary);font-size:1.1rem;display:flex;align-items:center;justify-content:center}
 .ci-qty button:hover{background:var(--primary);color:var(--bg)}
-.ci-qty span{min-width:20px;text-align:center;font-weight:700;font-size:.85rem}
-.ci-remove{background:transparent;border:none;color:var(--red);font-size:1.1rem;cursor:pointer;margin-left:.4rem}
+.ci-qty span{min-width:24px;text-align:center;font-weight:700;font-size:.95rem}
+/* END NEW CART STYLES */
 .cart-foot{padding:1.2rem 1.4rem;border-top:2px solid rgba(44,30,26,.12);background:var(--bg);display:flex;flex-direction:column;gap:.8rem}
 .cart-total-row{display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem}
 .cart-total-row span:last-child{color:var(--red);font-size:1.2rem}
-.cart-foot input,.cart-foot select{padding:.7rem .9rem;border:2px solid rgba(44,30,26,.15);border-radius:8px;background:#fff;font-family:'Space Grotesk',sans-serif;font-size:.9rem;outline:none;width:100%}
-.cart-foot input:focus,.cart-foot select:focus{border-color:var(--red)}
+.cart-foot input,.cart-foot select,.cart-foot textarea{padding:.7rem .9rem;border:2px solid rgba(44,30,26,.15);border-radius:8px;background:#fff;font-family:'Space Grotesk',sans-serif;font-size:.9rem;outline:none;width:100%}
+.cart-foot input:focus,.cart-foot select:focus,.cart-foot textarea:focus{border-color:var(--red)}
 .cart-foot select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%232C1E1A' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.5rem}
+.cart-foot textarea{resize:vertical;min-height:60px}
 .cart-foot .ship-row{display:flex;flex-direction:column;gap:.45rem}
 .cart-foot label{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--primary)}
 .cart-total-row.grand{border-top:2px dashed rgba(44,30,26,.18);padding-top:.7rem;margin-top:.2rem;font-size:1.15rem}
@@ -455,6 +463,7 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
   <input type="text" id="cartName" placeholder="Your Name" aria-label="Your Name">
   <input type="email" id="cartEmail" placeholder="Email Address (For Receipt)" aria-label="Email Address">
   <input type="tel" id="cartPhone" placeholder="Phone Number" aria-label="Phone Number">
+  <textarea id="cartAddress" placeholder="Full Delivery Address (Area, Road, House)" aria-label="Full Address"></textarea>
 
   <button class="btn btn-red big" id="checkoutBtn" onclick="checkoutCart()">Place Order Now</button>
   <button class="btn btn-ghost big" onclick="clearCart()">Clear Cart</button>
@@ -630,9 +639,6 @@ const LOGO_URL = "logo.png";
 const STORE = { whatsapp:"8801518423292", facebook:"https://www.facebook.com/imperfect.clothings/", instagram:"https://www.instagram.com/imperfect.clothings" };
 const CATALOG = { googleSheetCsvUrl:"https://docs.google.com/spreadsheets/d/1hpvJthUQ3uAhI6Rb8fcoLwEfHC6CUNy13GVv540WiIc/export?format=csv", refreshSeconds:300 };
 
-// ==========================================
-// GOOGLE APPS SCRIPT WEB APP URL INTEGRATED
-// ==========================================
 const ORDER_SHEET_URL = "https://script.google.com/macros/s/AKfycby3Kh7CCxAEdUnMFph2dquO1sn70tNkKD_BY3mGMZOoP8GmMNi17P53gW1gW5cNZIZSEQ/exec"; 
 
 const CAT_META = [
@@ -675,8 +681,8 @@ let CART = (() => {
 })();
 
 let CART_META = (() => {
-  try { return JSON.parse(localStorage.getItem(CART_META_KEY)) || { delivery:'', name:'', email:'', phone:'' }; }
-  catch(e) { return { delivery:'', name:'', email:'', phone:'' }; }
+  try { return JSON.parse(localStorage.getItem(CART_META_KEY)) || { delivery:'', name:'', email:'', phone:'', address:'' }; }
+  catch(e) { return { delivery:'', name:'', email:'', phone:'', address:'' }; }
 })();
 
 const taka = n => '৳' + Number(n || 0).toLocaleString('en-IN');
@@ -692,11 +698,13 @@ function saveCartMeta() {
   const n = document.getElementById('cartName');
   const e = document.getElementById('cartEmail');
   const p = document.getElementById('cartPhone');
+  const a = document.getElementById('cartAddress');
 
   if (d) CART_META.delivery = d.value;
   if (n) CART_META.name = n.value;
   if (e) CART_META.email = e.value;
   if (p) CART_META.phone = p.value;
+  if (a) CART_META.address = a.value;
 
   localStorage.setItem(CART_META_KEY, JSON.stringify(CART_META));
 }
@@ -737,33 +745,38 @@ function renderCart() {
   const name = document.getElementById('cartName');
   const email = document.getElementById('cartEmail');
   const phone = document.getElementById('cartPhone');
+  const address = document.getElementById('cartAddress');
 
   if (del) del.value = CART_META.delivery || '';
   if (name) name.value = CART_META.name || '';
   if (email) email.value = CART_META.email || '';
   if (phone) phone.value = CART_META.phone || '';
+  if (address) address.value = CART_META.address || '';
 
   if (!CART.length) {
     box.innerHTML = '<div class="cart-empty">Your cart is empty 🛒<br>Add some perfect pieces!</div>';
   } else {
     box.innerHTML = CART.map((it, i) => `
       <div class="cart-item">
-        <img src="${it.image}" alt="${it.name} thumbnail">
-        <div>
-          <div class="ci-name">${it.name}</div>
-          <div class="ci-meta">
-            ${it.style ? 'Style: ' + it.style + ' | ' : ''}
-            ${it.size ? 'Size: ' + it.size : ''}
+        <button class="ci-remove" onclick="cartRemove(${i})" aria-label="Remove item">×</button>
+        <div class="cart-item-top">
+          <img src="${it.image}" alt="${it.name} thumbnail">
+          <div class="ci-details">
+            <div class="ci-name">${it.name}</div>
+            <div class="ci-meta">
+              ${it.style ? '<strong>Style:</strong> ' + it.style + '<br>' : ''}
+              ${it.size ? '<strong>Size:</strong> ' + it.size : ''}
+            </div>
+            <div class="ci-price">${it.price} each</div>
           </div>
-          <div class="ci-price">${it.price} × ${it.qty} = ${taka((Number(it.priceNum) || 0) * it.qty)}</div>
         </div>
-        <div style="display:flex;align-items:center">
+        <div class="cart-item-bottom">
           <div class="ci-qty">
             <button onclick="cartQty(${i},-1)" aria-label="Decrease quantity">−</button>
             <span>${it.qty}</span>
             <button onclick="cartQty(${i},1)" aria-label="Increase quantity">+</button>
           </div>
-          <button class="ci-remove" onclick="cartRemove(${i})" aria-label="Remove item">✕</button>
+          <div style="font-weight:700;color:var(--primary)">Total: ${taka((Number(it.priceNum) || 0) * it.qty)}</div>
         </div>
       </div>
     `).join('');
@@ -843,8 +856,9 @@ async function checkoutCart() {
   const name = (CART_META.name || '').trim();
   const email = (CART_META.email || '').trim();
   const phone = (CART_META.phone || '').trim();
+  const address = (CART_META.address || '').trim();
 
-  if (!name || !phone) return alert('Please fill in your Name and Phone Number to checkout.');
+  if (!name || !phone || !address) return alert('Please fill in your Name, Phone Number, and Full Address to checkout.');
 
   const rate = DELIVERY_RATES[CART_META.delivery];
   const orderId = 'IMP-' + Date.now().toString().slice(-6);
@@ -856,6 +870,7 @@ async function checkoutCart() {
     name: name,
     email: email,
     phone: phone,
+    address: address, 
     deliveryArea: rate.label,
     items: itemsSummary,
     subtotal: cartSubtotal(),
@@ -893,7 +908,7 @@ async function checkoutCart() {
   }
 }
 
-['cartDelivery', 'cartName', 'cartEmail', 'cartPhone'].forEach(id => {
+['cartDelivery', 'cartName', 'cartEmail', 'cartPhone', 'cartAddress'].forEach(id => {
   const el = document.getElementById(id);
   if (!el) return;
 
