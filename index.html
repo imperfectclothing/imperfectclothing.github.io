@@ -84,7 +84,6 @@ nav.scrolled .nav-logo-img{box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .cart-drawer.open{transform:translateX(0)}
 .cart-head{flex:none;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;background:var(--primary);color:var(--bg);font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;font-weight:700}
 .cart-head button{background:transparent;border:none;color:var(--bg);font-size:1.8rem;cursor:pointer;line-height:1;padding:0 .5rem}
-/* SCROLLABLE BODY: items + totals + form all scroll together */
 .cart-body{flex:1 1 0;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column}
 .cart-items{display:flex;flex-direction:column;gap:1.2rem;padding:1.5rem}
 .cart-empty{text-align:center;opacity:.6;padding:3rem 1rem;font-size:1rem;line-height:1.8}
@@ -104,7 +103,6 @@ nav.scrolled .nav-logo-img{box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .ci-qty button:hover{background:var(--primary);color:var(--bg)}
 .ci-qty span{min-width:24px;text-align:center;font-weight:700;font-size:.95rem}
 .cart-foot{padding:1.2rem 1.5rem 1.5rem;border-top:2px dashed rgba(44,30,26,.15);display:flex;flex-direction:column;gap:1rem}
-/* PINNED ACTION BAR AT BOTTOM */
 .cart-actions{flex:none;padding:1rem 1.5rem;padding-bottom:max(1rem, env(safe-area-inset-bottom));background:var(--bg);border-top:2px solid rgba(44,30,26,.12);display:flex;flex-direction:column;gap:.7rem;box-shadow:0 -10px 30px rgba(44,30,26,.08)}
 .cart-total-row{display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem}
 .cart-total-row span:last-child{color:var(--red);font-size:1.2rem}
@@ -185,6 +183,7 @@ nav.scrolled .nav-logo-img{box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .segments-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;color:var(--primary);letter-spacing:.05em;margin-bottom:1rem;font-style:italic}
 .segments-sub{font-size:.9rem;letter-spacing:.4em;color:var(--red);text-transform:uppercase;font-weight:500}
 .segments-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.4rem;max-width:1500px;margin:0 auto}
+.page-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem;max-width:1300px;margin:0 auto;padding:0 2rem 5rem}
 .segment-tile{position:relative;overflow:hidden;aspect-ratio:3/4;cursor:pointer;background:var(--bg-dark)}
 .segment-tile img{width:100%;height:100%;object-fit:cover;transition:transform 1s;filter:saturate(.9)}
 .segment-tile:hover img{transform:scale(1.12)}
@@ -335,7 +334,7 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 .crumbs{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;opacity:.7;padding:1rem 4rem 0}
 .crumbs a{cursor:pointer}
 .crumbs a:hover{color:var(--red)}
-.page-head{padding:1.2rem 4rem 2rem;text-align:center}
+.page-head{padding:1.2rem 4rem 2.5rem;text-align:center}
 .page-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:clamp(2.4rem,6vw,4.5rem)}
 .page-tag{color:var(--primary-light);margin-top:.5rem;letter-spacing:.1em}
 .order-strip{display:flex;flex-wrap:wrap;gap:.9rem;justify-content:center;align-items:center;padding:0 2rem 2.5rem;font-weight:600}
@@ -391,7 +390,7 @@ footer{background:#1a1210;color:var(--bg);padding:4rem 5rem 2rem}
 .mobile-menu a:hover{color:var(--red)}
 .grain{position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")}
 @media (max-width:1200px){.bento-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:250px}.features-grid{grid-template-columns:repeat(2,1fr)}.footer-top{grid-template-columns:1fr 1fr}}
-@media (max-width:1024px){.hero{grid-template-columns:1fr}.hero-right{min-height:50vh}.hero-left{padding:6rem 3rem 3rem}.about{padding:6rem 3rem}.about-content{grid-template-columns:1fr;gap:3rem}.contact{padding:6rem 3rem}.contact-grid{grid-template-columns:1fr;gap:3rem}.products{padding:6rem 2rem 8rem}.lookbook-grid{grid-template-columns:1fr 1fr}.lookbook-item{height:400px}nav{padding:1rem 2rem}nav.scrolled{padding:.8rem 2rem}.custom-section{padding:6rem 2rem 8rem}.custom-grid{grid-template-columns:1fr;gap:3rem}.custom-form{padding:2rem}.prod-wrap{grid-template-columns:1fr;padding:1rem 1.5rem 4rem;gap:2.5rem}.crumbs,.page-head{padding-left:1.5rem;padding-right:1.5rem}}
+@media (max-width:1024px){.hero{grid-template-columns:1fr}.hero-right{min-height:50vh}.hero-left{padding:6rem 3rem 3rem}.about{padding:6rem 3rem}.about-content{grid-template-columns:1fr;gap:3rem}.contact{padding:6rem 3rem}.contact-grid{grid-template-columns:1fr;gap:3rem}.products{padding:6rem 2rem 8rem}.lookbook-grid{grid-template-columns:1fr 1fr}.lookbook-item{height:400px}nav{padding:1rem 2rem}nav.scrolled{padding:.8rem 2rem}.custom-section{padding:6rem 2rem 8rem}.custom-grid{grid-template-columns:1fr;gap:3rem}.custom-form{padding:2rem}.prod-wrap{grid-template-columns:1fr;padding:1rem 1.5rem 4rem;gap:2.5rem}.crumbs,.page-head{padding-left:1.5rem;padding-right:1.5rem}.grid-wrap{padding:0 2rem 4rem}.page-grid{padding:0 2rem 4rem}}
 @media (max-width:768px){
 body{cursor:auto}
 .cursor,.cursor-dot,.spotlight{display:none}
@@ -417,10 +416,11 @@ body{cursor:auto}
 footer{padding:3rem 2rem 2rem}
 .contact-info h2{font-size:2.5rem}
 .grid-wrap{padding:0 1.5rem 4rem}
+.page-grid{padding:0 1.5rem 4rem;grid-template-columns:repeat(2,1fr)}
 .segments{padding:5rem 1.5rem 2rem}
 .size-selector{grid-template-columns:repeat(5,1fr)}
 }
-@media (max-width:480px){.bento-grid{grid-template-columns:1fr;grid-auto-rows:280px}.bento-item.large,.bento-item.wide{grid-column:span 1}.category-tabs{gap:.5rem}.cat-tab{padding:.7rem 1.3rem;font-size:.7rem}.hero-brand{font-size:3rem}.size-selector{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:480px){.bento-grid{grid-template-columns:1fr;grid-auto-rows:280px}.bento-item.large,.bento-item.wide{grid-column:span 1}.category-tabs{gap:.5rem}.cat-tab{padding:.7rem 1.3rem;font-size:.7rem}.hero-brand{font-size:3rem}.size-selector{grid-template-columns:repeat(3,1fr)}.page-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -548,7 +548,7 @@ footer{padding:3rem 2rem 2rem}
 <div class="segments-header reveal">
 <div class="section-label" style="justify-content:center">Segments</div>
 <h2 class="segments-title">Shop by Category</h2>
-<div class="segments-sub">Tap a segment to explore</div>
+<div class="segments-sub">Tap a segment to open its collections</div>
 </div>
 <div class="segments-grid" id="segmentsGrid"></div>
 </section>
@@ -683,8 +683,7 @@ const LOOKBOOK = [
   { image:"https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80", label:"Avant-Garde" }
 ];
 const FALLBACK = [
-  { name:"Durga Puja Tee — Design 1", price:"449", image:"https://scontent.fmaa5-1.fna.fbcdn.net/v/t39.30808-6/842609256_1090686607285200_9102563816454863060_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s1254x1254&_nc_cat=109&_nc_sid=833d8c&oh=00_AQNlSdsLeK2c1x3tWScZWClRCzxGhyQQHBzWAXGrJeWFEw&oe=6ADD66D8", category:"tee", subcategory:"Pooja 2026", badge:"PUJA", badgecolor:"red", cardsize:"large", sizes:"L|XL|XXL", colors:"Drop-Shoulder|Solid", description:"Durga Puja Festival Pack — trending unisex design.", details:"Premium Interlock Fabric|Drop-Shoulder Fit|Festival Special" },
-  { name:"Durga Puja Tee — Design 2", price:"449", image:"https://scontent.fmaa5-1.fna.fbcdn.net/v/t39.30808-6/841736622_1090686673951860_2044476672344297027_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s1254x1254&_nc_cat=108&_nc_sid=833d8c&oh=00_AQPhcJ7dU3xtBzj16j-pu0NvkUJmBMCzs-Mq_a6LRZHHgw&oe=6ADD7D0D", category:"tee", subcategory:"Pooja 2026", badge:"PUJA", badgecolor:"red", sizes:"L|XL|XXL", colors:"Drop-Shoulder|Solid", description:"Durga Puja Festival Pack.", details:"Premium Interlock Fabric|Drop-Shoulder Fit|Festival Special" }
+  { name:"Durga Puja Tee — Design 1", price:"449", image:"https://scontent.fmaa5-1.fna.fbcdn.net/v/t39.30808-6/842609256_1090686607285200_9102563816454863060_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s1254x1254&_nc_cat=109&_nc_sid=833d8c&oh=00_AQNlSdsLeK2c1x3tWScZWClRCzxGhyQQHBzWAXGrJeWFEw&oe=6ADD66D8", category:"tee", subcategory:"Pooja 2026", badge:"PUJA", badgecolor:"red", cardsize:"large", sizes:"M|L|XL", types:"Drop-Shoulder|Solid", description:"Durga Puja Festival Pack.", details:"Premium Interlock Fabric|Drop-Shoulder Fit|Festival Special" }
 ];
 
 let PRODUCTS = [], CATEGORIES = [], homeCat = 'all';
@@ -740,9 +739,7 @@ function saveCartMeta() {
 function updateCartBadge(bump) {
   const el = document.getElementById('cartCount');
   if (!el) return;
-
   el.textContent = CART.reduce((s, i) => s + i.qty, 0);
-
   if (bump) {
     el.classList.remove('bump');
     void el.offsetWidth;
@@ -841,10 +838,9 @@ function showToast(msg) {
 }
 
 function addToCart(P) {
-  if ((P.styles.length || P.subcategory.toLowerCase().includes('pooja')) && !P_STATE.style) {
-    return alert('Please select a Style: Drop-Shoulder or Solid.');
+  if (P.styles.length && !P_STATE.style) {
+    return alert('Please select a Style: Drop-Shoulder or Solid / Basic.');
   }
-
   if (P.sizes.length && !P_STATE.size) {
     return alert('Please select a size.');
   }
@@ -854,20 +850,12 @@ function addToCart(P) {
   const key = P.id + '|' + style + '|' + size;
 
   const found = CART.find(c => c.key === key);
-
   if (found) {
     found.qty += P_STATE.qty;
   } else {
     CART.push({
-      key,
-      id: P.id,
-      name: P.name,
-      price: P.price,
-      priceNum: Number(P.priceNum) || 0,
-      image: P.image,
-      style,
-      size,
-      qty: P_STATE.qty
+      key, id: P.id, name: P.name, price: P.price, priceNum: Number(P.priceNum) || 0,
+      image: P.image, style, size, qty: P_STATE.qty
     });
   }
 
@@ -894,11 +882,7 @@ async function checkoutCart() {
   let itemsSummary = CART.map(it => `${it.name} (${it.style ? it.style+', ' : ''}${it.size ? it.size+', ' : ''}Qty:${it.qty})`).join('; ');
 
   const payload = {
-    orderId: orderId,
-    name: name,
-    email: email,
-    phone: phone,
-    address: address,
+    orderId, name, email, phone, address,
     deliveryArea: rate.label,
     items: itemsSummary,
     subtotal: cartSubtotal(),
@@ -920,13 +904,8 @@ async function checkoutCart() {
         body: JSON.stringify(payload)
       });
     }
-    
     showToast('✓ Order Placed! Check your email for receipt.');
-    setTimeout(() => {
-      clearCart();
-      toggleCart(false);
-    }, 1500);
-
+    setTimeout(() => { clearCart(); toggleCart(false); }, 1500);
   } catch (error) {
     console.error("Order sync error:", error);
     alert("There was an issue syncing to the sheet, but we received your order!");
@@ -939,12 +918,10 @@ async function checkoutCart() {
 ['cartDelivery', 'cartName', 'cartEmail', 'cartPhone', 'cartAddress'].forEach(id => {
   const el = document.getElementById(id);
   if (!el) return;
-
   const handler = () => {
     saveCartMeta();
     if (id === 'cartDelivery') renderCart();
   };
-
   el.addEventListener('input', handler);
   el.addEventListener('change', handler);
 });
@@ -983,9 +960,10 @@ function normalize(rows){
     const meta=CAT_META.find(m=>m.id===cat);
     
     let styles=o.styles? o.styles.split(/[,|]/).map(s=>s.trim()).filter(Boolean):[];
+    if(!styles.length && o.types) styles=o.types.split(/[,|]/).map(s=>s.trim()).filter(Boolean);
     let colors=o.colors? o.colors.split(/[,|]/).map(s=>s.trim()).filter(Boolean):[];
     
-    if(!styles.length && colors.some(c=>/drop[- ]?shoulder|^solid$/i.test(c))){ 
+    if(!styles.length && colors.some(c=>/drop[- ]?shoulder|^solid|^basic$/i.test(c))){ 
       styles=colors; colors=[]; 
     }
     if(!styles.length && o.subcategory && o.subcategory.toLowerCase().includes('pooja')) {
@@ -1066,23 +1044,35 @@ function cardHTML(p,i=0){ return `<div class="bento-item ${p.size} card-3d revea
   ${p.badge?`<div class="bento-badge ${p.badgeColor||''}">${p.badge}</div>`:''}
   <img src="${p.image}" alt="${p.name} - I'm Perfect Clothing" class="bento-image" loading="lazy">
   <div class="bento-overlay"><div class="bento-category">${p.subcategory}</div><div class="bento-name">${p.name}</div><div class="bento-price">${p.price}</div></div></div>`; }
-function renderHome(){
-  document.getElementById('segmentsGrid').innerHTML=CATEGORIES.map((c,i)=>`
+
+/* ===== LEVEL 1: category tiles (home + #/category/all) ===== */
+function categoryTilesHTML(list){
+  return list.map((c,i)=>`
     <div class="segment-tile reveal-scale" style="transition-delay:${i*.07}s" onclick="go('#/category/${c.id}')">
       <img src="${c.image}" alt="${c.name} Category" loading="lazy">
       <div class="segment-overlay"><div class="segment-name">${c.name}</div><div class="segment-tag">${c.tag}</div><div class="segment-count">${c.count} styles →</div></div>
     </div>`).join('');
+}
+/* ===== LEVEL 2: collection (subcategory) tiles ===== */
+function collectionTilesHTML(catId,list){
+  const subs=[...new Set(list.map(p=>p.subcategory))];
+  return subs.map((s,i)=>{
+    const items=list.filter(p=>p.subcategory===s);
+    return `
+    <div class="segment-tile reveal-scale" style="transition-delay:${i*.07}s" onclick="go('#/category/${catId}/${slug(s)}')">
+      <img src="${items[0].image}" alt="${s} collection" loading="lazy">
+      <div class="segment-overlay"><div class="segment-name">${s}</div><div class="segment-tag">${items[0].badge||'Collection'}</div><div class="segment-count">${items.length} designs →</div></div>
+    </div>`;
+  }).join('');
+}
+
+function renderHome(){
+  document.getElementById('segmentsGrid').innerHTML=categoryTilesHTML(CATEGORIES);
   renderTabs(); renderBento(homeCat);
   document.getElementById('lookbookGrid').innerHTML=LOOKBOOK.map((it,i)=>`
     <div class="lookbook-item reveal" style="transition-delay:${i*.15}s"><img src="${it.image}" alt="${it.label} Lookbook" loading="lazy"><div class="lookbook-item-overlay"><span>${it.label}</span></div></div>`).join('');
   document.getElementById('footShop').innerHTML=CATEGORIES.map(c=>`<a onclick="go('#/category/${c.id}')">${c.name}</a>`).join('')+`<a onclick="go('#/category/all')">All Products</a>`;
-  
-  injectSchema({
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "I'm Perfect",
-    "url": "https://imperfectclothing.github.io/"
-  });
+  injectSchema({ "@context":"https://schema.org","@type":"WebSite","name":"I'm Perfect","url":"https://imperfectclothing.github.io/" });
 }
 function renderTabs(){
   const el=document.getElementById('catTabs');
@@ -1093,23 +1083,44 @@ function renderBento(cat){
   const list=cat==='all'?PRODUCTS:PRODUCTS.filter(p=>p.category===cat);
   document.getElementById('bentoGrid').innerHTML=list.map((p,i)=>cardHTML(p,i)).join('');
 }
+
+/* ===== CATEGORY PAGE = shows COLLECTION FOLDERS ===== */
 function renderCategory(sub,id){
   const info=CATEGORIES.find(c=>c.id===id);
-  const title=info?info.name+' Collection':'All Products';
-  const list=id==='all'?PRODUCTS:PRODUCTS.filter(p=>p.category===id);
-  document.title=title+" — I'm Perfect";
-  updateMetaTags(title, `Browse our exclusive ${title} at I'm Perfect. Premium experimental streetwear.`);
-
+  if(id==='all'){
+    document.title="All Categories — I'm Perfect";
+    updateMetaTags("All Categories — I'm Perfect","Browse every segment of I'm Perfect streetwear.");
+    sub.innerHTML=`
+    <div class="crumbs"><a onclick="go('#/')">Home</a> / <span>Collection</span></div>
+    <div class="page-head"><h1 class="page-title">All Categories</h1><p class="page-tag">Choose a segment to open its collections</p></div>
+    <div class="page-grid">${categoryTilesHTML(CATEGORIES)}</div>`;
+    return;
+  }
+  const title=info?info.name:'Collection';
+  const list=PRODUCTS.filter(p=>p.category===id);
+  document.title=title+" Collections — I'm Perfect";
+  updateMetaTags(title+" Collections", `Browse all ${title} collections at I'm Perfect.`);
   sub.innerHTML=`
-  <div class="crumbs"><a onclick="go('#/')">Home</a> / <span>${title}</span></div>
-  <div class="page-head"><h1 class="page-title">${title}</h1><p class="page-tag">${info?info.tag:'Every segment, one page.'}</p></div>
-  <div class="order-strip reveal"><span>Order any style directly:</span>
-    <a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink("Hi I'm Perfect! I'm browsing the "+title+". I want to order.")}">WhatsApp</a>
-    <a class="btn btn-fb" target="_blank" rel="noopener" href="${BRAND.facebook}">Facebook</a>
-    <a class="btn btn-ig" target="_blank" rel="noopener" href="${BRAND.instagram}">Instagram</a>
-  </div>
-  <div class="chips"><a class="chip ${id==='all'?'on':''}" onclick="go('#/category/all')">All</a>
-    ${CATEGORIES.map(c=>`<a class="chip ${id===c.id?'on':''}" onclick="go('#/category/${c.id}')">${c.name}</a>`).join('')}</div>
+  <div class="crumbs"><a onclick="go('#/')">Home</a> / <a onclick="go('#/category/all')">Collection</a> / <span>${title}</span></div>
+  <div class="page-head"><h1 class="page-title">${title} Collections</h1><p class="page-tag">Pick a collection folder to see its designs</p></div>
+  <div class="chips"><a class="chip on" onclick="go('#/category/${id}/all')">View All ${title}</a></div>
+  <div class="page-grid">${collectionTilesHTML(id,list)}</div>`;
+}
+
+/* ===== COLLECTION PAGE = shows PRODUCTS of one subcategory ===== */
+function renderCollection(sub,catId,subSlug){
+  const info=CATEGORIES.find(c=>c.id===catId);
+  const catList=PRODUCTS.filter(p=>p.category===catId);
+  let list,title;
+  if(subSlug==='all'){ list=catList; title=(info?info.name:'')+' — All Designs'; }
+  else { list=catList.filter(p=>slug(p.subcategory)===subSlug); title=list.length?list[0].subcategory:subSlug; }
+  document.title=title+" — I'm Perfect";
+  updateMetaTags(title, `Browse ${title} at I'm Perfect.`);
+  const subs=[...new Set(catList.map(p=>p.subcategory))];
+  sub.innerHTML=`
+  <div class="crumbs"><a onclick="go('#/')">Home</a> / <a onclick="go('#/category/${catId}')">${info?info.name:catId}</a> / <span>${title}</span></div>
+  <div class="page-head"><h1 class="page-title">${title}</h1><p class="page-tag">${list.length} designs in this collection</p></div>
+  <div class="chips">${subs.map(s=>`<a class="chip ${slug(s)===subSlug?'on':''}" onclick="go('#/category/${catId}/${slug(s)}')">${s}</a>`).join('')}<a class="chip ${subSlug==='all'?'on':''}" onclick="go('#/category/${catId}/all')">All</a></div>
   <div class="grid-wrap"><div class="bento-grid">${list.length?list.map((p,i)=>cardHTML(p,i)).join(''):'<p class="empty">No products here yet. <a onclick="go(\'#/category/all\')">See all →</a></p>'}</div></div>`;
 }
 
@@ -1137,45 +1148,29 @@ let P_STATE = { style:null, color:null, size:null, qty:1 };
 
 function renderProduct(sub, id) {
   const P = PRODUCTS.find(p => p.id === id);
-
   if (!P) {
     sub.innerHTML = '<p class="empty" style="padding:8rem 2rem">Product not found. <a onclick="go(\'#/\')">Back to store →</a></p>';
     return;
   }
-
   const meta = CATEGORIES.find(c => c.id === P.category);
   const gallery = P.gallery.length ? P.gallery : [P.image];
-
   P_STATE = { style: null, color:P.colors[0] || null, size:null, qty:1 };
-
   document.title = P.name + " — I'm Perfect";
   updateMetaTags(P.name, P.description || `Buy ${P.name} from I'm Perfect. ${P.price}.`);
-
   injectSchema({
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    "name": P.name,
-    "image": P.image,
-    "description": P.description,
+    "@context": "https://schema.org/", "@type": "Product", "name": P.name, "image": P.image, "description": P.description,
     "brand": { "@type": "Brand", "name": "I'm Perfect" },
-    "offers": {
-      "@type": "Offer",
-      "url": window.location.href,
-      "priceCurrency": "BDT",
-      "price": P.priceNum,
-      "availability": "https://schema.org/InStock"
-    }
+    "offers": { "@type": "Offer", "url": window.location.href, "priceCurrency": "BDT", "price": P.priceNum, "availability": "https://schema.org/InStock" }
   });
-
-  const rel = PRODUCTS.filter(x => x.category === P.category && x.id !== P.id).slice(0, 4);
+  const rel = PRODUCTS.filter(x => x.category === P.category && x.subcategory === P.subcategory && x.id !== P.id).slice(0, 4);
 
   sub.innerHTML = `
   <div class="crumbs">
     <a onclick="go('#/')">Home</a> /
     <a onclick="go('#/category/${P.category}')">${meta ? meta.name : 'Collection'}</a> /
+    <a onclick="go('#/category/${P.category}/${slug(P.subcategory)}')">${P.subcategory}</a> /
     <span>${P.name}</span>
   </div>
-
   <section class="prod-wrap">
     <div>
       <div class="g-main"><img id="gMain" src="${gallery[0]}" alt="${P.name} Main View"></div>
@@ -1183,41 +1178,33 @@ function renderProduct(sub, id) {
         ${gallery.map((g, i) => `<img class="${i === 0 ? 'on' : ''}" src="${g}" alt="${P.name} View ${i+1}" onclick="pickThumb(this,'${g}')">`).join('')}
       </div>
     </div>
-
     <div class="info">
       ${P.badge ? `<span class="badge ${P.badgeColor}">${P.badge}</span>` : ''}
       <div class="p-sub">${P.subcategory}</div>
       <h1>${P.name}</h1>
       <div class="p-price big">${P.price}</div>
       <p class="desc">${P.description}</p>
-
       ${P.styles.length ? `
         <div class="opt">
           <label>Style <span class="req">*</span></label>
           <div class="chips left" id="stChips">
             ${P.styles.map(s => `<button class="chip" onclick="pickStyle(this,'${s}')">${s}</button>`).join('')}
           </div>
-        </div>
-      ` : ''}
-
+        </div>` : ''}
       ${P.colors.length ? `
         <div class="opt">
           <label>Color</label>
           <div class="chips left" id="cChips">
             ${P.colors.map(c => `<button class="chip ${c === P_STATE.color ? 'on' : ''}" onclick="pickColor(this,'${c}')">${c}</button>`).join('')}
           </div>
-        </div>
-      ` : ''}
-
+        </div>` : ''}
       ${P.sizes.length ? `
         <div class="opt">
           <label>Size <span class="req">*</span></label>
           <div class="chips left" id="sChips">
             ${P.sizes.map(s => `<button class="chip" onclick="pickSize(this,'${s}')">${s}</button>`).join('')}
           </div>
-        </div>
-      ` : ''}
-
+        </div>` : ''}
       <div class="opt">
         <label>Quantity</label>
         <div class="qty">
@@ -1226,33 +1213,24 @@ function renderProduct(sub, id) {
           <button class="qty-btn" onclick="chgQty(1)" aria-label="Increase Quantity">+</button>
         </div>
       </div>
-
       <div class="order-col">
         <button class="btn btn-red big" onclick="addCurrentToCart()">Add to Cart 🛒</button>
-
         <div class="order-row">
           <a class="btn btn-fb" target="_blank" rel="noopener" href="${BRAND.facebook}">Facebook</a>
           <a class="btn btn-ig" target="_blank" rel="noopener" href="${BRAND.instagram}">Instagram</a>
         </div>
-
-        <p class="note">
-          Add to cart to calculate delivery. We confirm personally via WhatsApp.
-          72-hour delivery, cash on delivery available.
-        </p>
+        <p class="note">Add to cart to calculate delivery. We confirm personally via WhatsApp. 72-hour delivery, cash on delivery available.</p>
       </div>
-
       ${P.details.length ? `
         <div class="details">
           <h3>Product Details</h3>
           <ul>${P.details.map(d => `<li>${d}</li>`).join('')}</ul>
-        </div>
-      ` : ''}
+        </div>` : ''}
     </div>
   </section>
-
   <section class="related">
     <div class="sec-head">
-      <div class="section-label">Keep Browsing</div>
+      <div class="section-label">More From ${P.subcategory}</div>
       <h2 class="sec-title">Related Styles</h2>
     </div>
     <div class="grid-wrap">
@@ -1262,35 +1240,11 @@ function renderProduct(sub, id) {
     </div>
   </section>`;
 
-  window.pickThumb = (el, src) => {
-    document.getElementById('gMain').src = src;
-    sub.querySelectorAll('.g-thumbs img').forEach(x => x.classList.remove('on'));
-    el.classList.add('on');
-  };
-
-  window.pickStyle = (el, v) => {
-    P_STATE.style = v;
-    sub.querySelectorAll('#stChips .chip').forEach(c => c.classList.remove('on'));
-    el.classList.add('on');
-  };
-
-  window.pickColor = (el, v) => {
-    P_STATE.color = v;
-    sub.querySelectorAll('#cChips .chip').forEach(c => c.classList.remove('on'));
-    el.classList.add('on');
-  };
-
-  window.pickSize = (el, v) => {
-    P_STATE.size = v;
-    sub.querySelectorAll('#sChips .chip').forEach(c => c.classList.remove('on'));
-    el.classList.add('on');
-  };
-
-  window.chgQty = d => {
-    P_STATE.qty = Math.max(1, Math.min(99, P_STATE.qty + d));
-    document.getElementById('qVal').textContent = P_STATE.qty;
-  };
-
+  window.pickThumb = (el, src) => { document.getElementById('gMain').src = src; sub.querySelectorAll('.g-thumbs img').forEach(x => x.classList.remove('on')); el.classList.add('on'); };
+  window.pickStyle = (el, v) => { P_STATE.style = v; sub.querySelectorAll('#stChips .chip').forEach(c => c.classList.remove('on')); el.classList.add('on'); };
+  window.pickColor = (el, v) => { P_STATE.color = v; sub.querySelectorAll('#cChips .chip').forEach(c => c.classList.remove('on')); el.classList.add('on'); };
+  window.pickSize = (el, v) => { P_STATE.size = v; sub.querySelectorAll('#sChips .chip').forEach(c => c.classList.remove('on')); el.classList.add('on'); };
+  window.chgQty = d => { P_STATE.qty = Math.max(1, Math.min(99, P_STATE.qty + d)); document.getElementById('qVal').textContent = P_STATE.qty; };
   window.addCurrentToCart = () => addToCart(P);
 }
 
@@ -1298,7 +1252,8 @@ function route(){
   const h=location.hash||'#/';
   const home=document.getElementById('homePage'), sub=document.getElementById('subPage');
   let m;
-  if((m=h.match(/^#\/category\/(.+)$/))){ home.style.display='none'; sub.style.display=''; renderCategory(sub,m[1]); }
+  if((m=h.match(/^#\/category\/([^\/]+)\/([^\/]+)$/))){ home.style.display='none'; sub.style.display=''; renderCollection(sub,m[1],m[2]); }
+  else if((m=h.match(/^#\/category\/([^\/]+)$/))){ home.style.display='none'; sub.style.display=''; renderCategory(sub,m[1]); }
   else if((m=h.match(/^#\/product\/(.+)$/))){ home.style.display='none'; sub.style.display=''; renderProduct(sub,m[1]); }
   else { home.style.display=''; sub.style.display='none'; document.title="I'm Perfect — Premium Experimental Streetwear"; updateMetaTags("I'm Perfect — Premium Experimental Streetwear", "Shop I'm Perfect for premium experimental streetwear, custom DTF prints, acid wash hoodies, and exclusive festival collections."); renderHome(); }
   window.scrollTo(0,0); observeAll(); hoverAll(); init3DCards(); attachMagnetic();
