@@ -117,6 +117,15 @@ nav.scrolled .nav-logo-img{box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .req{color:var(--red)}
 .toast{position:fixed;bottom:2rem;left:50%;transform:translate(-50%,150%);background:var(--primary);color:var(--bg);padding:.9rem 1.8rem;border-radius:50px;font-size:.85rem;font-weight:700;letter-spacing:.1em;z-index:1300;transition:transform .45s cubic-bezier(.16,1,.3,1);box-shadow:0 12px 40px rgba(0,0,0,.3);white-space:nowrap}
 .toast.show{transform:translate(-50%,0)}
+
+/* ===== COLOR SWATCH STYLES ===== */
+.color-option{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border:2px solid rgba(44,30,26,.15);border-radius:25px;background:#fff;cursor:pointer;transition:all .25s;margin:.3rem;font-family:'Space Grotesk',sans-serif;font-size:.82rem;font-weight:600;color:var(--primary)}
+.color-option:hover{border-color:var(--red);transform:translateY(-2px)}
+.color-option.selected{border-color:var(--red);background:var(--cream);box-shadow:0 4px 12px rgba(183,28,28,.15)}
+.color-swatch{display:inline-block;width:22px;height:22px;border-radius:50%;border:2px solid rgba(44,30,26,.2);flex-shrink:0;box-shadow:inset 0 1px 2px rgba(0,0,0,.1)}
+.color-option.selected .color-swatch{border-color:var(--red);box-shadow:0 0 0 3px rgba(183,28,28,.25),inset 0 1px 2px rgba(0,0,0,.1)}
+/* ===== END COLOR SWATCH STYLES ===== */
+
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;background:var(--bg)}
 .hero-left{display:flex;flex-direction:column;justify-content:center;padding:8rem 5rem 4rem;position:relative;z-index:2}
 .hero-logo-container{width:230px;height:270px;margin-bottom:2rem;position:relative;perspective:1000px;opacity:0;animation:fadeInLogo 1.2s ease 2.2s forwards}
@@ -683,12 +692,23 @@ const LOOKBOOK = [
   { image:"https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80", label:"Avant-Garde" }
 ];
 const FALLBACK = [
-  { name:"Durga Puja Tee — Design 1", price:"449", image:"https://scontent.fmaa5-1.fna.fbcdn.net/v/t39.30808-6/842609256_1090686607285200_9102563816454863060_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s1254x1254&_nc_cat=109&_nc_sid=833d8c&oh=00_AQNlSdsLeK2c1x3tWScZWClRCzxGhyQQHBzWAXGrJeWFEw&oe=6ADD66D8", category:"tee", subcategory:"Pooja 2026", badge:"PUJA", badgecolor:"red", cardsize:"large", sizes:"M|L|XL", types:"Drop-Shoulder|Solid", description:"Durga Puja Festival Pack.", details:"Premium Interlock Fabric|Drop-Shoulder Fit|Festival Special" }
+  { name:"Durga Puja Tee — Design 1", price:"449", image:"https://scontent.fmaa5-1.fna.fbcdn.net/v/t39.30808-6/842609256_1090686607285200_9102563816454863060_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s1254x1254&_nc_cat=109&_nc_sid=833d8c&oh=00_AQNlSdsLeK2c1x3tWScZWClRCzxGhyQQHBzWAXGrJeWFEw&oe=6ADD66D8", category:"tee", subcategory:"Pooja 2026", badge:"PUJA", badgecolor:"red", cardsize:"large", sizes:"M|L|XL", types:"Drop-Shoulder|Solid", colors:"Black|White|Red|Blue|Navy|Maroon|Beige", description:"Durga Puja Festival Pack.", details:"Premium Interlock Fabric|Drop-Shoulder Fit|Festival Special" }
 ];
 
 let PRODUCTS = [], CATEGORIES = [], homeCat = 'all';
 let BRAND = { logo:LOGO_URL, facebook:STORE.facebook, instagram:STORE.instagram, whatsapp:STORE.whatsapp };
 const waLink = m => "https://wa.me/" + BRAND.whatsapp + "?text=" + encodeURIComponent(m);
+
+// ===== COLOR MAP FOR VISUAL SWATCHES =====
+const COLOR_MAP = {
+  'black':'#1a1a1a','white':'#FFFFFF','red':'#C62828','blue':'#1976D2',
+  'navy':'#1A237E','maroon':'#6D1B1B','beige':'#D4B896',
+  'green':'#2E7D32','yellow':'#F9A825','pink':'#E91E63','grey':'#757575',
+  'gray':'#757575','orange':'#EF6C00','purple':'#7B1FA2','brown':'#5D4037'
+};
+const getColorHex = (name) => COLOR_MAP[String(name).toLowerCase().trim()] || '#888888';
+// ==========================================
+
 const slug = s => String(s).toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
 const CAT_ALIAS = { hoodies:"hoodie", hoodie:"hoodie", tee:"tee", tees:"tee", tshirt:"tee", "t-shirt":"tee", shirt:"shirt", shirts:"shirt", sweatshirt:"sweatshirt", sweatshirts:"sweatshirt", sweat:"sweatshirt", pant:"pant", pants:"pant", jeans:"pant", denim:"pant" };
 const catId = c => CAT_ALIAS[slug(c)] || slug(c) || "other";
@@ -1193,9 +1213,14 @@ function renderProduct(sub, id) {
         </div>` : ''}
       ${P.colors.length ? `
         <div class="opt">
-          <label>Color</label>
-          <div class="chips left" id="cChips">
-            ${P.colors.map(c => `<button class="chip ${c === P_STATE.color ? 'on' : ''}" onclick="pickColor(this,'${c}')">${c}</button>`).join('')}
+          <label>Available Colors <span style="font-size:.7rem;opacity:.6;text-transform:none;letter-spacing:0;font-weight:400">(Tap to select)</span></label>
+          <div id="cChips" style="display:flex;flex-wrap:wrap;margin-top:.4rem">
+            ${P.colors.map(c => `
+              <button type="button" class="color-option ${c === P_STATE.color ? 'selected' : ''}" onclick="pickColorVisual(this,'${c}')">
+                <span class="color-swatch" style="background:${getColorHex(c)};${c.toLowerCase()==='white'?'border-color:#ccc':''}"></span>
+                <span>${c}</span>
+              </button>
+            `).join('')}
           </div>
         </div>` : ''}
       ${P.sizes.length ? `
@@ -1243,6 +1268,7 @@ function renderProduct(sub, id) {
   window.pickThumb = (el, src) => { document.getElementById('gMain').src = src; sub.querySelectorAll('.g-thumbs img').forEach(x => x.classList.remove('on')); el.classList.add('on'); };
   window.pickStyle = (el, v) => { P_STATE.style = v; sub.querySelectorAll('#stChips .chip').forEach(c => c.classList.remove('on')); el.classList.add('on'); };
   window.pickColor = (el, v) => { P_STATE.color = v; sub.querySelectorAll('#cChips .chip').forEach(c => c.classList.remove('on')); el.classList.add('on'); };
+  window.pickColorVisual = (el, v) => { P_STATE.color = v; sub.querySelectorAll('#cChips .color-option').forEach(c => c.classList.remove('selected')); el.classList.add('selected'); };
   window.pickSize = (el, v) => { P_STATE.size = v; sub.querySelectorAll('#sChips .chip').forEach(c => c.classList.remove('on')); el.classList.add('on'); };
   window.chgQty = d => { P_STATE.qty = Math.max(1, Math.min(99, P_STATE.qty + d)); document.getElementById('qVal').textContent = P_STATE.qty; };
   window.addCurrentToCart = () => addToCart(P);
