@@ -629,6 +629,46 @@ footer{padding-top:3.5rem}
   .bento-view{display:none}
 }
 
+
+/* ===== STORE LOGIC / FILTER UX FIXES ===== */
+.category-tabs{position:relative;z-index:3}
+.cat-tab{min-width:105px;border-radius:8px;overflow:visible;isolation:isolate}
+.cat-tab::before{display:none!important}
+.cat-tab:hover{background:var(--primary);border-color:var(--primary);color:var(--bg)!important;transform:translateY(-2px)}
+.cat-tab.active{background:var(--primary);border-color:var(--primary);color:var(--bg)!important;box-shadow:0 8px 22px rgba(44,30,26,.12)}
+.cat-tab.active-red{background:var(--red);border-color:var(--red)}
+.cat-tab.active-blue{background:var(--blue);border-color:var(--blue)}
+.product-card{opacity:1;animation:productIn .32s ease both}
+@keyframes productIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.price-from{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-right:.2rem}
+.style-price-chip{display:inline-flex;align-items:center;gap:.65rem}
+.style-price-chip small{font-size:.72rem;opacity:.72;font-weight:700;letter-spacing:0}
+.style-price-chip.on small{opacity:.9}
+.shop-empty{grid-column:1/-1;background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:14px;padding:3rem 1.5rem!important;color:var(--primary-light)}
+.shop-empty strong{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--primary)}
+@media(max-width:768px){.category-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;padding:0 .25rem}.cat-tab{width:100%;min-width:0;padding:.85rem .6rem;letter-spacing:.1em}}
+/* ===== END STORE LOGIC / FILTER UX FIXES ===== */
+
+
+
+/* ===== APPAREL OPTIONS + SIZE GUIDE ===== */
+.size-guide-trigger{display:inline-flex;align-items:center;gap:.65rem;margin-top:.85rem;padding:.78rem 1rem;border:1.5px solid rgba(44,30,26,.25);background:#fff;color:var(--primary);font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .25s ease;border-radius:8px}
+.size-guide-trigger:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px);box-shadow:0 8px 22px rgba(44,30,26,.08)}
+.size-guide-page{padding:8rem 1.5rem 6rem;min-height:78vh;background:linear-gradient(180deg,var(--bg) 0%,#fff8e8 100%)}
+.size-guide-wrap{max-width:1000px;margin:0 auto}
+.size-guide-head{text-align:center;margin-bottom:2.2rem}
+.size-guide-head h1{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(2.6rem,6vw,5rem);line-height:1;color:var(--primary);margin:.5rem 0 1rem}
+.size-guide-head p{max-width:680px;margin:0 auto;color:var(--primary-light);line-height:1.7}
+.size-guide-tabs{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin:2rem 0}
+.size-guide-tab{padding:.85rem 1.4rem;border:2px solid var(--primary);background:transparent;color:var(--primary);font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:999px;transition:all .25s ease}
+.size-guide-tab.on,.size-guide-tab:hover{background:var(--primary);color:var(--bg)}
+.size-chart-card{max-width:820px;margin:0 auto;background:#fff;border:1px solid rgba(44,30,26,.1);border-radius:18px;padding:1rem;box-shadow:0 20px 60px rgba(44,30,26,.1)}
+.size-chart-card img{display:block;width:100%;height:auto;max-height:900px;object-fit:contain;border-radius:12px;background:#faf7ef}
+.size-chart-missing{display:none;padding:4rem 1.5rem;text-align:center;line-height:1.8;color:var(--primary-light);background:#faf7ef;border-radius:12px}
+.size-guide-note{text-align:center;margin-top:1.2rem;font-size:.85rem;color:var(--primary-light)}
+@media(max-width:768px){.size-guide-page{padding-top:6rem}.size-chart-card{padding:.65rem}.size-guide-trigger{width:100%;justify-content:center}}
+/* ===== END APPAREL OPTIONS + SIZE GUIDE ===== */
+
 </style>
 </head>
 <body>
@@ -884,7 +924,7 @@ footer{padding-top:3.5rem}
 <a onclick="goSection('about')">About Us</a><a onclick="goSection('lookbook')">Lookbook</a><a onclick="goSection('custom')">Custom Order</a><a onclick="goSection('contact')">Contact</a>
 </div>
 <div class="footer-col"><h4>Support</h4>
-<a id="supWa" href="https://wa.me/8801518423292" target="_blank" rel="noopener">Track Order</a><a id="supIg" href="https://www.instagram.com/imperfect.clothings" target="_blank" rel="noopener">Size Guide</a><a id="supFb" href="https://www.facebook.com/imperfect.clothings/" target="_blank" rel="noopener">Shipping Info</a>
+<a id="supWa" href="https://wa.me/8801518423292" target="_blank" rel="noopener">Track Order</a><a onclick="go('#/size-guide/tee')">Size Guide</a><a id="supFb" href="https://www.facebook.com/imperfect.clothings/" target="_blank" rel="noopener">Shipping Info</a>
 </div>
 </div>
 <div class="footer-bottom"><span>© 2026 I'm Perfect. All Rights Reserved.</span><span>Designed with experimental passion</span></div>
@@ -896,18 +936,53 @@ const STORE = { whatsapp:"8801518423292", facebook:"https://www.facebook.com/imp
 const CATALOG = { googleSheetCsvUrl:"https://docs.google.com/spreadsheets/d/1hpvJthUQ3uAhI6Rb8fcoLwEfHC6CUNy13GVv540WiIc/export?format=csv", refreshSeconds:300 };
 const ORDER_SHEET_URL = "https://script.google.com/macros/s/AKfycby3Kh7CCxAEdUnMFph2dquO1sn70tNkKD_BY3mGMZOoP8GmMNi17P53gW1gW5cNZIZSEQ/exec"; 
 
+// ===== PRODUCT RULES / GITHUB ASSETS =====
+// First-run friendly: local apparel assets are resolved from BOTH img/ and IMG/.
+// For each filename the site tries PNG -> JPG -> JPEG -> WEBP automatically.
+const APPAREL = {
+  ASSET_DIRS: ["img", "IMG"],
+  ASSET_EXTS: [".png", ".jpg", ".jpeg", ".webp"],
+  tee: {
+    stylePrices: { "solid":339, "basic":339, "drop-shoulder":449, "drop":449 },
+    sizeChart: "TEE-Size-Chart"
+  },
+  hoodie: {
+    autoGenerate: true,
+    designCount: 33,
+    imagePrefix: "Hoodie-",
+    styles: ["Solid","Drop-Shoulder"],
+    stylePrices: { "solid":699, "basic":699, "drop-shoulder":799, "drop":799 },
+    colors: ["Black","White","Red","Blue","Maroon","Navy","Pink","Purple","Dark Green","Beige"],
+    sizes: ["S","M","L","XL","XXL"],
+    sizeChart: "Hoodie-Size-Chart"
+  }
+};
+
+function assetCandidates(name) {
+  if (!name) return [];
+  const out = [];
+  APPAREL.ASSET_DIRS.forEach(dir => {
+    APPAREL.ASSET_EXTS.forEach(ext => out.push(`${dir}/${name}${ext}`));
+  });
+  return out;
+}
+function assetInitial(name) {
+  const c = assetCandidates(name);
+  return c.length ? c[0] : PLACEHOLDER;
+}
+
 const CAT_META = [
-  { id:"tee", name:"Tee", tag:"Everyday graphics" },
+  { id:"tee", name:"TEE", tag:"Everyday graphics" },
+  { id:"hoodie", name:"Hoodie", tag:"33 designs · 10 colors · 2 fits" },
   { id:"shirt", name:"Shirts", tag:"Oversized & printed" },
-  { id:"hoodie", name:"Hoodie", tag:"Acid wash · DTF · Zip" },
   { id:"sweatshirt", name:"Sweatshirt", tag:"Heavyweight comfort" },
   { id:"pant", name:"Pants", tag:"Baggy · Cargo · Denim" }
 ];
 const PLACEHOLDER = "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=900&q=80";
 const LOOKBOOK = [
-  { image:"https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80", label:"Street Style" },
-  { image:"https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=600&q=80", label:"Urban Edge" },
-  { image:"https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80", label:"Avant-Garde" }
+  { image:"https://images.unsplash.com/photo-1589905803031-9128fd807bbe?auto=format&fit=crop&w=1400&q=86", label:"Street Style" },
+  { image:"https://images.unsplash.com/photo-1767036841733-cf7f5c40c18d?auto=format&fit=crop&w=1400&q=86", label:"Urban Edge" },
+  { image:"https://images.unsplash.com/photo-1790802924670-b5d7c0abf651?auto=format&fit=crop&w=1400&q=86", label:"Avant-Garde" }
 ];
 const FALLBACK = [
   { name:"Durga Puja Tee — Design 1", price:"449", image:"https://scontent.fmaa5-1.fna.fbcdn.net/v/t39.30808-6/842609256_1090686607285200_9102563816454863060_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s1254x1254&_nc_cat=109&_nc_sid=833d8c&oh=00_AQNlSdsLeK2c1x3tWScZWClRCzxGhyQQHBzWAXGrJeWFEw&oe=6ADD66D8", category:"tee", subcategory:"Pooja 2026", badge:"PUJA", badgecolor:"red", cardsize:"large", sizes:"M|L|XL", types:"Drop-Shoulder|Solid", colors:"Black|White|Red|Blue|Navy|Maroon|Beige", description:"Durga Puja Festival Pack.", details:"Premium Interlock Fabric|Drop-Shoulder Fit|Festival Special" }
@@ -921,7 +996,8 @@ const COLOR_MAP = {
   'black':'#1a1a1a','white':'#FFFFFF','red':'#C62828','blue':'#1976D2',
   'navy':'#1A237E','maroon':'#6D1B1B','beige':'#D4B896',
   'green':'#2E7D32','yellow':'#F9A825','pink':'#E91E63','grey':'#757575',
-  'gray':'#757575','orange':'#EF6C00','purple':'#7B1FA2','brown':'#5D4037'
+  'gray':'#757575','orange':'#EF6C00','purple':'#7B1FA2','brown':'#5D4037',
+  'dark green':'#1B5E20','dark-green':'#1B5E20'
 };
 const getColorHex = (name) => COLOR_MAP[String(name).toLowerCase().trim()] || '#888888';
 
@@ -951,9 +1027,36 @@ function parseStylePrices(raw) {
 
 function getPriceForStyle(product, style) {
   if (!product) return 0;
-  const styleKey = String(style || '').trim().toLowerCase();
-  if (styleKey && product.stylePrices && product.stylePrices[styleKey]) return product.stylePrices[styleKey];
+  const styleKey = slug(style || '');
+
+  // Category-specific store rules: TEE and Hoodie use different prices.
+  const rules = APPAREL[product.category] && APPAREL[product.category].stylePrices;
+  if (rules) {
+    if (Number(rules[styleKey])) return Number(rules[styleKey]);
+    if (styleKey.includes('drop') && Number(rules['drop-shoulder'])) return Number(rules['drop-shoulder']);
+    if ((styleKey.includes('solid') || styleKey.includes('basic')) && Number(rules['solid'])) return Number(rules['solid']);
+  }
+
+  // Optional Google Sheet pricing for other categories/styles.
+  if (styleKey && product.stylePrices && Number(product.stylePrices[styleKey])) {
+    return Number(product.stylePrices[styleKey]);
+  }
   return Number(product.priceNum) || 0;
+}
+
+function getStartingPrice(product) {
+  if (!product) return 0;
+  if (product.styles && product.styles.length) {
+    const prices = product.styles.map(style => getPriceForStyle(product, style)).filter(price => Number(price) > 0);
+    if (prices.length) return Math.min(...prices);
+  }
+  return Number(product.priceNum) || 0;
+}
+
+function hasVariableStylePrice(product) {
+  if (!product || !product.styles || !product.styles.length) return false;
+  const prices = [...new Set(product.styles.map(style => getPriceForStyle(product, style)).filter(Boolean))];
+  return prices.length > 1;
 }
 
 function saveCart() { localStorage.setItem(CART_KEY, JSON.stringify(CART)); updateCartBadge(true); renderCart(); }
@@ -1094,6 +1197,21 @@ function normalize(rows){
     if (o.colors) colors = String(o.colors).split(/[,|]/).map(s => s.trim()).filter(Boolean);
     if(!styles.length && colors.some(c=>/drop[- ]?shoulder|^solid|^basic$/i.test(c))){ styles=colors; colors=[]; }
     if(!styles.length && o.subcategory && o.subcategory.toLowerCase().includes('pooja')) { styles = ['Drop-Shoulder', 'Solid']; }
+
+    const stylePrices = {};
+    String(o.styleprices || '').split('|').forEach(pair => {
+      const parts = pair.split(':');
+      if(parts.length < 2) return;
+      const key = String(parts.shift()).trim().toLowerCase();
+      const value = Number(String(parts.join(':')).replace(/[^\d.]/g,''));
+      if(key && value > 0) stylePrices[key] = value;
+    });
+    const comparePrice = Number(String(o.compareprice || '').replace(/[^\d.]/g,'')) || 0;
+    const stockRaw = String(o.stock || '').trim();
+    const stock = stockRaw === '' ? NaN : Number(stockRaw);
+    const featured = ['1','true','yes','featured'].includes(String(o.featured || '').trim().toLowerCase());
+    const sortOrder = Number(o.sort || o.sortorder || 9999) || 9999;
+
     let id=slug(nm)||('p'+(i+1)); if(seen[id]){ id=id+'-'+(i+1); } seen[id]=1;
     prods.push({
       id, name:nm, price, priceNum, category:cat,
@@ -1102,7 +1220,7 @@ function normalize(rows){
       image:o.image||PLACEHOLDER,
       gallery:o.gallery? String(o.gallery).split(/[,|]/).map(s=>s.trim()).filter(Boolean):[],
       sizes:o.sizes? String(o.sizes).split(/[,|\/]/).map(s=>s.trim()).filter(Boolean):['S','M','L','XL','XXL'],
-      styles, colors,
+      styles, colors, stylePrices, comparePrice, stock, featured, sortOrder,
       description:o.description||'',
       details:o.details? String(o.details).split('|').map(s=>s.trim()).filter(Boolean):[],
       size:['large','wide','tall'].includes(o.cardsize)?o.cardsize:'normal'
@@ -1111,29 +1229,112 @@ function normalize(rows){
   return prods;
 }
 
+
+// Tries both img/ and IMG/, with PNG/JPG/JPEG/WEBP fallbacks.
+function tryAssetFallback(img) {
+  const name = img.dataset.assetName;
+  if (!name) { img.onerror = null; img.src = PLACEHOLDER; return; }
+  const candidates = assetCandidates(name);
+  const next = Number(img.dataset.assetIndex || 0) + 1;
+  if (next < candidates.length) {
+    img.dataset.assetIndex = String(next);
+    img.src = candidates[next];
+  } else {
+    img.onerror = null;
+    img.src = PLACEHOLDER;
+  }
+}
+
+function localAssetAttrs(name) {
+  return name ? `data-asset-name="${name}" data-asset-index="0" onerror="tryAssetFallback(this)"` : `onerror="this.onerror=null;this.src='${PLACEHOLDER}'"`;
+}
+
+function hoodieNameFromTee(name, index) {
+  const original = String(name || '').trim();
+  let converted = original
+    .replace(/\bT[- ]?Shirt\b/gi, 'Hoodie')
+    .replace(/\bTee\b/gi, 'Hoodie');
+  if (!converted || converted === original) converted = `Hoodie Design ${index + 1} — ${original || 'I\'M PERFECT'}`;
+  return converted;
+}
+
+function applyAutoHoodieCatalog(products) {
+  if (!APPAREL.hoodie.autoGenerate) return products;
+
+  // Hoodie is intentionally generated as a parallel version of the TEE design library.
+  // Remove sheet-level hoodie rows while autoGenerate=true to avoid duplicate hoodie listings.
+  const baseProducts = products.filter(p => p.category !== 'hoodie');
+  const teeProducts = baseProducts.filter(p => p.category === 'tee');
+  const hoodies = [];
+
+  for (let i = 0; i < APPAREL.hoodie.designCount; i++) {
+    const src = teeProducts[i] || {};
+    const assetName = `${APPAREL.hoodie.imagePrefix}${i + 1}`;
+    const stylePrices = { ...APPAREL.hoodie.stylePrices };
+    hoodies.push({
+      ...src,
+      id: `hoodie-design-${i + 1}`,
+      name: hoodieNameFromTee(src.name, i),
+      price: '৳699',
+      priceNum: 699,
+      category: 'hoodie',
+      subcategory: src.subcategory || 'Hoodie Collection',
+      badge: src.badge || '',
+      badgeColor: src.badgeColor || 'red',
+      image: assetInitial(assetName),
+      assetName,
+      gallery: [],
+      sizes: [...APPAREL.hoodie.sizes],
+      styles: [...APPAREL.hoodie.styles],
+      colors: [...APPAREL.hoodie.colors],
+      stylePrices,
+      comparePrice: 0,
+      stock: Number.isFinite(src.stock) ? src.stock : NaN,
+      featured: !!src.featured,
+      sortOrder: Number.isFinite(src.sortOrder) ? src.sortOrder : (i + 1),
+      description: src.description || 'Choose your hoodie design, fit, color and size. Available in Solid and Drop-Shoulder.',
+      details: ['10 Color Options','Solid Fit — ৳699','Drop-Shoulder Fit — ৳799','Custom I\'M PERFECT Hoodie Design'],
+      size: 'normal',
+      autoGeneratedHoodie: true
+    });
+  }
+  return [...baseProducts, ...hoodies];
+}
+
+function sizeChartAssetName(type) {
+  const cfg = APPAREL[type];
+  return cfg ? cfg.sizeChart : '';
+}
+
+function reportStoreConfig() {
+  console.info("[I'M PERFECT] Asset folders:", APPAREL.ASSET_DIRS.join(' -> '));
+  console.info("[I'M PERFECT] TEE prices: Solid/Basic ৳339, Drop-Shoulder ৳449");
+  console.info("[I'M PERFECT] Hoodie prices: Solid ৳699, Drop-Shoulder ৳799; 33 designs; 10 colors");
+}
+
 async function loadCatalog(){
   if(CATALOG.googleSheetCsvUrl){
     try{
       const res=await fetch(CATALOG.googleSheetCsvUrl+(CATALOG.googleSheetCsvUrl.includes('?')?'&':'?')+'t='+Date.now(),{cache:'no-store'});
-      if(res.ok){ const rows=parseCSV(await res.text()); const p=normalize(rows); if(p.length){ PRODUCTS=p; console.log('[engine] sheet loaded → '+p.length+' products'); return; } }
+      if(res.ok){ const rows=parseCSV(await res.text()); const p=normalize(rows); if(p.length){ PRODUCTS=applyAutoHoodieCatalog(p); console.log('[engine] sheet loaded → '+PRODUCTS.length+' products including hoodie variants'); return; } }
     }catch(e){ console.warn('[engine] sheet failed, using fallback', e); }
   }
   BRAND={ logo:LOGO_URL, facebook:STORE.facebook, instagram:STORE.instagram, whatsapp:STORE.whatsapp, heroImage:"" };
-  PRODUCTS=normalize(FALLBACK);
+  PRODUCTS=applyAutoHoodieCatalog(normalize(FALLBACK));
 }
 
 function computeCats(){
   const order=CAT_META.map(m=>m.id);
   const ids=[...new Set(PRODUCTS.map(p=>p.category))].sort((a,b)=>((order.indexOf(a)<0)?99:order.indexOf(a))-((order.indexOf(b)<0)?99:order.indexOf(b)));
   CATEGORIES=ids.map(id=>{ const m=CAT_META.find(x=>x.id===id); const first=PRODUCTS.find(p=>p.category===id);
-    return { id, name:m?m.name:(id.charAt(0).toUpperCase()+id.slice(1)), tag:m?m.tag:'New drops', count:PRODUCTS.filter(p=>p.category===id).length, image:first?first.image:PLACEHOLDER }; });
+    return { id, name:m?m.name:(id.charAt(0).toUpperCase()+id.slice(1)), tag:m?m.tag:'New drops', count:PRODUCTS.filter(p=>p.category===id).length, image:first?first.image:PLACEHOLDER, assetName:first?first.assetName:'' }; });
 }
 
 function applyBranding(){
   const set=(id,href)=>{ const a=document.getElementById(id); if(a){ a.href=href; } };
   set('fbLink',BRAND.facebook); set('igLink',BRAND.instagram);
   set('footFb',BRAND.facebook); set('footIg',BRAND.instagram); set('footWa',waLink("Hi I'm Perfect! I want to place an order."));
-  set('supWa',waLink('I want to track my order.')); set('supIg',BRAND.instagram); set('supFb',BRAND.facebook);
+  set('supWa',waLink('I want to track my order.')); set('supFb',BRAND.facebook);
   set('heroWa',waLink("Hi I'm Perfect! I want to place an order."));
   const hero=document.getElementById('heroImg'); if(hero&&BRAND.heroImage) hero.src=BRAND.heroImage;
 }
@@ -1170,10 +1371,15 @@ function goSection(id){ const h=location.hash||'#/'; if(h.startsWith('#/category
 
 function cardHTML(p,i=0){
   const soldOut = Number.isFinite(p.stock) && p.stock <= 0;
-  const priceHTML = p.comparePrice && p.comparePrice > p.priceNum
-    ? `<span style="text-decoration:line-through;color:#93857f;font-weight:500;margin-right:.45rem">৳${p.comparePrice.toLocaleString('en-IN')}</span>${p.price}`
-    : p.price;
-  return `<div class="bento-item ${p.size} card-3d reveal-scale" style="transition-delay:${i*.035}s" role="link" tabindex="0" aria-label="View ${p.name}" onclick="go('#/product/${p.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('#/product/${p.id}')}" >
+  const startPrice = getStartingPrice(p);
+  const variablePrice = hasVariableStylePrice(p);
+  const basePriceHTML = startPrice > 0 ? `৳${startPrice.toLocaleString('en-IN')}` : p.price;
+  const priceHTML = variablePrice
+    ? `<span class="price-from">From</span> ${basePriceHTML}`
+    : (p.comparePrice && p.comparePrice > startPrice
+      ? `<span style="text-decoration:line-through;color:#93857f;font-weight:500;margin-right:.45rem">৳${p.comparePrice.toLocaleString('en-IN')}</span>${basePriceHTML}`
+      : basePriceHTML);
+  return `<div class="bento-item ${p.size} card-3d product-card" style="animation-delay:${Math.min(i*.025,.3)}s" role="link" tabindex="0" aria-label="View ${p.name}" onclick="go('#/product/${p.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('#/product/${p.id}')}" >
   ${soldOut?`<div class="bento-badge">Sold Out</div>`:(p.badge?`<div class="bento-badge ${p.badgeColor||''}">${p.badge}</div>`:'')}
   <img class="bento-image" src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x750?text=No+Image'">
   <div class="bento-overlay"><div class="bento-category">${p.subcategory}</div><div class="bento-name">${p.name}</div><div class="bento-price">${priceHTML}</div><div class="bento-view">View product →</div></div></div>`;
@@ -1181,7 +1387,7 @@ function cardHTML(p,i=0){
 
 function categoryTilesHTML(list){
   return list.map((c,i)=>`<div class="segment-tile reveal-scale" style="transition-delay:${i*.07}s" onclick="go('#/category/${c.id}')">
-      <img src="${c.image}" alt="${c.name}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Image'">
+      <img src="${c.image}" alt="${c.name}" ${localAssetAttrs(c.assetName)} loading="lazy">
       <div class="segment-overlay"><div class="segment-name">${c.name}</div><div class="segment-tag">${c.tag}</div><div class="segment-count">${c.count} styles →</div></div>
     </div>`).join('');
 }
@@ -1191,7 +1397,7 @@ function collectionTilesHTML(catId,list){
   return subs.map((s,i)=>{
     const items=list.filter(p=>p.subcategory===s);
     return `<div class="segment-tile reveal-scale" style="transition-delay:${i*.07}s" onclick="go('#/category/${catId}/${slug(s)}')">
-      <img src="${items[0].image}" alt="${s}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Image'">
+      <img src="${items[0].image}" alt="${s}" ${localAssetAttrs(items[0].assetName)} loading="lazy">
       <div class="segment-overlay"><div class="segment-name">${s}</div><div class="segment-tag">${items[0].badge||'Collection'}</div><div class="segment-count">${items.length} designs →</div></div>
     </div>`;
   }).join('');
@@ -1208,18 +1414,31 @@ function renderHome(){
 
 function renderTabs(){
   const el=document.getElementById('catTabs');
-  el.innerHTML=`<button class="cat-tab ${homeCat==='all'?'active active-red':''}" data-c="all">All</button>`+CATEGORIES.map(c=>`<button class="cat-tab ${homeCat===c.id?'active active-blue':''}" data-c="${c.id}">${c.name}</button>`).join('');
-  el.querySelectorAll('.cat-tab').forEach(t=>t.addEventListener('click',()=>{ homeCat=t.dataset.c; renderTabs(); renderBento(homeCat); }));
+  if(!el) return;
+  el.innerHTML=`<button class="cat-tab ${homeCat==='all'?'active active-red':''}" data-c="all">All</button>`+
+    CATEGORIES.map(c=>`<button class="cat-tab ${homeCat===c.id?'active active-blue':''}" data-c="${c.id}">${c.name}</button>`).join('');
+  el.querySelectorAll('.cat-tab').forEach(t=>t.addEventListener('click',()=>{
+    homeCat=t.dataset.c;
+    homeSearch='';
+    const search=document.getElementById('productSearch');
+    if(search) search.value='';
+    renderTabs();
+    renderBento(homeCat);
+  }));
 }
 
 function getHomeProducts(cat){
   let list = cat === 'all' ? [...PRODUCTS] : PRODUCTS.filter(p => p.category === cat);
   const q = homeSearch.trim().toLowerCase();
   if(q){
-    list = list.filter(p => [p.name,p.subcategory,p.category,(p.styles||[]).join(' '),(p.colors||[]).join(' '),p.description].join(' ').toLowerCase().includes(q));
+    list = [...PRODUCTS].filter(p => {
+      const meta = CAT_META.find(m => m.id === p.category);
+      const haystack = [p.name,p.subcategory,p.category,meta?meta.name:'',(p.styles||[]).join(' '),(p.colors||[]).join(' '),p.description,(p.details||[]).join(' '),p.category==='tee'?'tshirt t-shirt t shirt tee':'',p.category==='hoodie'?'hoodie hoodies':'',p.category==='sweatshirt'?'sweatshirt sweatshirts sweat shirt':''].join(' ').toLowerCase();
+      return haystack.includes(q);
+    });
   }
-  if(homeSort==='price-asc') list.sort((a,b)=>(a.priceNum||0)-(b.priceNum||0));
-  else if(homeSort==='price-desc') list.sort((a,b)=>(b.priceNum||0)-(a.priceNum||0));
+  if(homeSort==='price-asc') list.sort((a,b)=>getStartingPrice(a)-getStartingPrice(b));
+  else if(homeSort==='price-desc') list.sort((a,b)=>getStartingPrice(b)-getStartingPrice(a));
   else if(homeSort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
   else list.sort((a,b)=>(Number(b.featured)-Number(a.featured)) || ((a.sortOrder||9999)-(b.sortOrder||9999)) || a.name.localeCompare(b.name));
   return list;
@@ -1227,8 +1446,20 @@ function getHomeProducts(cat){
 
 function bindShopToolbar(){
   const search=document.getElementById('productSearch'), sort=document.getElementById('productSort');
-  if(search && !search._bound){ search._bound=1; search.addEventListener('input',()=>{ homeSearch=search.value; renderBento(homeCat); }); }
-  if(sort && !sort._bound){ sort._bound=1; sort.addEventListener('change',()=>{ homeSort=sort.value; renderBento(homeCat); }); }
+  if(search && !search._bound){
+    search._bound=1;
+    search.addEventListener('input',()=>{
+      homeSearch=search.value;
+      if(homeSearch.trim()) homeCat='all';
+      renderTabs();
+      renderBento(homeCat);
+    });
+    search.addEventListener('search',()=>{ homeSearch=search.value; renderBento(homeCat); });
+  }
+  if(sort && !sort._bound){
+    sort._bound=1;
+    sort.addEventListener('change',()=>{ homeSort=sort.value; renderBento(homeCat); });
+  }
 }
 
 function renderBento(cat){
@@ -1236,9 +1467,19 @@ function renderBento(cat){
   const grid = document.getElementById('bentoGrid');
   const count = document.getElementById('productResultCount');
   if(count) count.textContent = `${list.length} ${list.length===1?'product':'products'}`;
-  if(grid) grid.innerHTML = list.length ? list.map((p,i)=>cardHTML(p,i)).join('') : '<p class="empty">No products match your search. Try another keyword or category.</p>';
-  hoverAll(); init3DCards();
+  if(grid) grid.innerHTML = list.length ? list.map((p,i)=>cardHTML(p,i)).join('') : `<div class="empty shop-empty"><strong>No matching products.</strong><br><span>Try “hoodie”, “solid”, “drop shoulder”, a color, or clear the search.</span><br><button type="button" class="btn btn-ghost" style="margin-top:1rem" onclick="clearProductFilters()">Clear Filters</button></div>`;
+  hoverAll();
+  init3DCards();
 }
+
+window.clearProductFilters = () => {
+  homeCat='all'; homeSearch=''; homeSort='recommended';
+  const search=document.getElementById('productSearch'), sort=document.getElementById('productSort');
+  if(search) search.value='';
+  if(sort) sort.value='recommended';
+  renderTabs();
+  renderBento('all');
+};
 
 function renderCategory(sub,id){
   const info=CATEGORIES.find(c=>c.id===id);
@@ -1291,7 +1532,7 @@ function updateProductSchema(P){
     '@context':'https://schema.org','@type':'Product',name:P.name,
     image:[P.image,...(P.gallery||[])],description:P.description||P.name,
     brand:{'@type':'Brand',name:"I'm Perfect"},
-    offers:{'@type':'Offer',priceCurrency:'BDT',price:Number(P.priceNum)||0,url:location.href,availability:(Number.isFinite(P.stock)&&P.stock<=0)?'https://schema.org/OutOfStock':'https://schema.org/InStock'}
+    offers:{'@type':'Offer',priceCurrency:'BDT',price:getStartingPrice(P)||Number(P.priceNum)||0,url:location.href,availability:(Number.isFinite(P.stock)&&P.stock<=0)?'https://schema.org/OutOfStock':'https://schema.org/InStock'}
   };
   el.textContent=JSON.stringify(obj);
 }
@@ -1317,22 +1558,22 @@ function renderProduct(sub, id) {
   </div>
   <section class="prod-wrap">
     <div>
-      <div class="g-main"><img id="gMain" src="${gallery[0]}" alt="${P.name}" onerror="this.src='https://via.placeholder.com/600x750?text=No+Image'"></div>
+      <div class="g-main"><img id="gMain" src="${gallery[0]}" alt="${P.name}" ${localAssetAttrs(P.assetName)}></div>
       <div class="g-thumbs">
-        ${gallery.map((g, i) => `<img class="${i === 0 ? 'on' : ''}" src="${g}" alt="${P.name}" onerror="this.src='https://via.placeholder.com/86x100?text=No+Image'" onclick="pickThumb(this,'${g}')">`).join('')}
+        ${gallery.map((g, i) => `<img class="${i === 0 ? 'on' : ''}" src="${g}" alt="${P.name}" ${localAssetAttrs(P.assetName)} onclick="pickThumb(this,'${g}')">`).join('')}
       </div>
     </div>
     <div class="info">
       ${P.badge ? `<span class="badge ${P.badgeColor}">${P.badge}</span>` : ''}
       <div class="p-sub">${P.subcategory}</div>
       <h1>${P.name}</h1>
-      <div class="p-price big" id="dynamicPrice">${P.price}</div>
+      <div class="p-price big" id="dynamicPrice">${P.styles.length ? `From ৳${getStartingPrice(P).toLocaleString('en-IN')}` : P.price}</div>
       <p class="desc">${P.description}</p>
       ${P.styles.length ? `
         <div class="opt">
           <label>Style <span class="req">*</span></label>
           <div class="chips left" id="stChips">
-            ${P.styles.map(s => `<button class="chip" onclick="pickStyle(this,'${s}')">${s}</button>`).join('')}
+            ${P.styles.map(s => `<button class="chip style-price-chip" onclick="pickStyle(this,'${s}')"><span>${s}</span><small>৳${getPriceForStyle(P,s).toLocaleString('en-IN')}</small></button>`).join('')}
           </div>
         </div>` : ''}
       ${P.colors && P.colors.length > 0 ? `
@@ -1353,6 +1594,10 @@ function renderProduct(sub, id) {
           <div class="chips left" id="sChips">
             ${P.sizes.map(s => `<button class="chip" onclick="pickSize(this,'${s}')">${s}</button>`).join('')}
           </div>
+        </div>` : ''}
+      ${['tee','hoodie'].includes(P.category) ? `
+        <div class="opt">
+          <button type="button" class="size-guide-trigger" onclick="go('#/size-guide/${P.category}')">↗ View ${P.category === 'hoodie' ? 'Hoodie' : 'TEE'} Size Chart</button>
         </div>` : ''}
       <div class="opt">
         <label>Quantity</label>
@@ -1408,11 +1653,57 @@ function renderProduct(sub, id) {
   window.addCurrentToCart = () => addToCart(P);
 }
 
+
+function renderSizeGuide(sub, selectedType='tee') {
+  const type = selectedType === 'hoodie' ? 'hoodie' : 'tee';
+  const title = type === 'hoodie' ? 'Hoodie Size Chart' : 'TEE Size Chart';
+  const assetName = sizeChartAssetName(type);
+  const initialSrc = assetInitial(assetName);
+  updateMetaTags(`${title} — I'm Perfect`, `Official ${title} for I'm Perfect apparel.`);
+
+  sub.innerHTML = `
+    <section class="size-guide-page">
+      <div class="size-guide-wrap">
+        <div class="crumbs" style="padding:0 0 1rem"><a onclick="go('#/')">Home</a> / <span>Size Guide</span></div>
+        <div class="size-guide-head">
+          <div class="section-label" style="justify-content:center">Fit With Confidence</div>
+          <h1>Size Guide</h1>
+          <p>Select the garment you are buying. TEE and Hoodie measurements use separate charts so you can choose the correct fit before ordering.</p>
+        </div>
+        <div class="size-guide-tabs">
+          <button class="size-guide-tab ${type==='tee'?'on':''}" onclick="go('#/size-guide/tee')">TEE Size Chart</button>
+          <button class="size-guide-tab ${type==='hoodie'?'on':''}" onclick="go('#/size-guide/hoodie')">Hoodie Size Chart</button>
+        </div>
+        <div class="size-chart-card">
+          <img src="${initialSrc}" data-asset-name="${assetName}" data-asset-index="0" alt="${title}" onerror="sizeChartFallback(this)">
+          <div class="size-chart-missing">Upload <strong>img/${APPAREL[type].sizeChart}.png</strong> or <strong>IMG/${APPAREL[type].sizeChart}.png</strong> to your GitHub repository. JPG, JPEG and WEBP are also supported automatically.</div>
+        </div>
+        <p class="size-guide-note">Measurements can vary slightly by production batch. If you are between sizes, contact us before ordering.</p>
+      </div>
+    </section>`;
+}
+
+function sizeChartFallback(img) {
+  const name = img.dataset.assetName;
+  const candidates = assetCandidates(name);
+  const next = Number(img.dataset.assetIndex || 0) + 1;
+  if (next < candidates.length) {
+    img.dataset.assetIndex = String(next);
+    img.src = candidates[next];
+    return;
+  }
+  img.onerror = null;
+  img.style.display = 'none';
+  const missing = img.nextElementSibling;
+  if (missing) missing.style.display = 'block';
+}
+
 function route(){
   const h=location.hash||'#/';
   const home=document.getElementById('homePage'), sub=document.getElementById('subPage');
   let m;
-  if((m=h.match(/^#\/category\/([^\/]+)\/([^\/]+)$/))){ home.style.display='none'; sub.style.display=''; renderCollection(sub,m[1],m[2]); }
+  if((m=h.match(/^#\/size-guide(?:\/(tee|hoodie))?$/))){ home.style.display='none'; sub.style.display=''; renderSizeGuide(sub,m[1]||'tee'); }
+  else if((m=h.match(/^#\/category\/([^\/]+)\/([^\/]+)$/))){ home.style.display='none'; sub.style.display=''; renderCollection(sub,m[1],m[2]); }
   else if((m=h.match(/^#\/category\/([^\/]+)$/))){ home.style.display='none'; sub.style.display=''; renderCategory(sub,m[1]); }
   else if((m=h.match(/^#\/product\/(.+)$/))){ home.style.display='none'; sub.style.display=''; renderProduct(sub,m[1]); }
   else { home.style.display=''; sub.style.display='none'; updateMetaTags("I'm Perfect — Premium Experimental Streetwear","Shop I'm Perfect for experimental streetwear, customized T-shirts, sweatshirts, hoodies and event merchandise in Bangladesh."); const ps=document.getElementById('productSchema'); if(ps) ps.remove(); renderHome(); }
@@ -1457,7 +1748,7 @@ document.getElementById('submitCustom').addEventListener('click',()=>{
 });
 
 (async function boot(){
-  await loadCatalog(); computeCats(); applyBranding(); createParticles(); animateHeroText();
+  reportStoreConfig(); await loadCatalog(); computeCats(); applyBranding(); createParticles(); animateHeroText();
   updateCartBadge(false); renderCart(); route();
   window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hidden'),1800));
   setTimeout(()=>document.getElementById('loader').classList.add('hidden'),4500);
