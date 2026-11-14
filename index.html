@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1a1210">
+<link rel="icon" href="logo.png">
 <title>I'm Perfect — Premium Experimental Streetwear</title>
 <meta name="google-site-verification" content="0FcTpGYi9_5GVQn1PZjNk9Deyo-CFF1ahio53TrQ5iA" />
 <meta name="description" content="Shop I'm Perfect for premium experimental streetwear, custom DTF prints, acid wash hoodies, and exclusive festival collections like Durga Puja 2026. Choose Perfect, Look Perfect.">
@@ -25,6 +27,8 @@
   "name": "I'm Perfect",
   "url": "https://imperfectclothing.github.io/",
   "logo": "https://imperfectclothing.github.io/logo.png",
+  "email": "mailto:imperfectcloth1@gmail.com",
+  "telephone": "+8801518423292",
   "sameAs": [
     "https://www.facebook.com/imperfect.clothings/",
     "https://www.instagram.com/imperfect.clothings"
@@ -70,7 +74,7 @@ nav.scrolled .nav-logo-img{box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .cart-count{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;background:var(--red);color:#fff;border-radius:10px;font-size:.68rem;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;border:2px solid var(--bg)}
 .cart-count.bump{animation:bump .4s ease}
 @keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.5)}100%{transform:scale(1)}}
-.menu-toggle{display:none;flex-direction:column;gap:6px;cursor:pointer;z-index:1001;padding:10px}
+.menu-toggle{display:none;border:0;background:transparent;flex-direction:column;gap:6px;cursor:pointer;z-index:1001;padding:10px}
 .menu-toggle span{width:30px;height:2px;background:var(--bg);transition:all .4s cubic-bezier(.16,1,.3,1)}
 .menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,6px)}
 .menu-toggle.active span:nth-child(2){opacity:0}
@@ -456,6 +460,175 @@ footer{padding:3rem 2rem 2rem}
 .size-selector{grid-template-columns:repeat(5,1fr)}
 }
 @media (max-width:480px){.bento-grid{grid-template-columns:1fr;grid-auto-rows:280px}.bento-item.large,.bento-item.wide{grid-column:span 1}.category-tabs{gap:.5rem}.cat-tab{padding:.7rem 1.3rem;font-size:.7rem}.hero-brand{font-size:3rem}.size-selector{grid-template-columns:repeat(3,1fr)}.page-grid{grid-template-columns:1fr}}
+
+
+/* =========================================================
+   PROFESSIONAL COMMERCE UX OVERRIDES — 2026
+   ========================================================= */
+:root{
+  --surface:#FFFDF8;
+  --surface-2:#F1E3BC;
+  --ink:#241916;
+  --muted:#6F625E;
+  --line:rgba(44,30,26,.13);
+  --shadow:0 18px 50px rgba(44,30,26,.10);
+  --radius:18px;
+}
+body{cursor:auto;background:var(--bg);text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+.cursor,.cursor-dot,.spotlight,.particles{display:none!important}
+#loader{display:none!important}
+:focus-visible{outline:3px solid rgba(183,28,28,.42);outline-offset:4px}
+
+/* Navigation is readable from the first pixel — no cream-on-cream state */
+nav,nav.scrolled{
+  background:rgba(26,18,16,.94);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  padding:.8rem 4rem;
+  box-shadow:0 8px 30px rgba(0,0,0,.14);
+}
+.nav-links{gap:1.9rem}
+.nav-links a{font-size:.74rem;letter-spacing:.16em}
+.nav-logo-img{width:42px;height:48px}
+.cart-btn{width:42px;height:42px}
+
+/* Faster, cleaner hero */
+.hero{min-height:86vh;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);padding-top:74px}
+.hero-left{padding:5rem 5rem 4rem}
+.hero-logo-container{width:140px;height:160px;margin-bottom:1.2rem;opacity:1;animation:none}
+.hero-logo{animation:none;filter:drop-shadow(10px 10px 0 rgba(44,30,26,.09))}
+.hero-brand{font-size:clamp(3.5rem,6vw,5.7rem);margin-bottom:.8rem}
+.hero-brand .letter{animation-delay:0s!important;animation-duration:.55s}
+.hero-slogan{opacity:1;animation:none;margin-bottom:1.8rem;font-size:clamp(1rem,1.6vw,1.25rem)}
+.hero-cta{opacity:1;animation:none;border-radius:10px;padding:1.05rem 1.55rem;letter-spacing:.12em}
+.hero-cta.wa{animation:none}
+.hero-image-wrapper{inset:0}
+.hero-image{animation:none}
+.hero-scroll-indicator{display:none}
+
+.trust-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  max-width:1500px;margin:0 auto;padding:0 3rem;
+  background:var(--surface);border-bottom:1px solid var(--line)
+}
+.trust-item{padding:1.15rem 1.3rem;display:flex;align-items:center;justify-content:center;gap:.7rem;text-align:center;border-right:1px solid var(--line);font-size:.84rem;color:var(--muted)}
+.trust-item:last-child{border-right:0}
+.trust-item strong{color:var(--ink);font-weight:700}
+.trust-icon{font-size:1rem;color:var(--red)}
+
+/* Homepage hierarchy */
+.segments{padding:6rem 4rem 3rem}
+.products{padding:4rem 4rem 8rem}
+.products-header{margin-bottom:2.5rem}
+.category-tabs{margin-bottom:1.4rem}
+.about{padding:7rem 5rem}
+.lookbook{padding:6rem 0}
+.custom-section{padding:7rem 4rem 8rem}
+
+/* Search + sort */
+.shop-toolbar{max-width:1500px;margin:0 auto 2rem;display:grid;grid-template-columns:minmax(260px,1fr) auto auto;gap:.8rem;align-items:center}
+.shop-search-wrap{position:relative}
+.shop-search{width:100%;height:48px;border:1px solid var(--line);background:rgba(255,255,255,.76);border-radius:12px;padding:0 1rem 0 2.8rem;font:500 .9rem 'Space Grotesk',sans-serif;color:var(--ink);outline:none;transition:.25s}
+.shop-search:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(183,28,28,.08);background:#fff}
+.shop-search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);opacity:.55;pointer-events:none}
+.shop-sort{height:48px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:0 2.5rem 0 1rem;font:600 .82rem 'Space Grotesk',sans-serif;color:var(--ink);outline:none;cursor:pointer}
+.shop-result-count{font-size:.8rem;color:var(--muted);white-space:nowrap;padding:0 .25rem}
+
+/* A store grid, not a hover-only editorial mosaic */
+.bento-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:auto;gap:1.35rem}
+.bento-item,.bento-item.large,.bento-item.wide,.bento-item.tall{
+  grid-column:auto;grid-row:auto;display:block;min-width:0;background:#fff;border:1px solid rgba(44,30,26,.08);
+  border-radius:var(--radius);overflow:hidden;box-shadow:0 8px 28px rgba(44,30,26,.06);transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease
+}
+.bento-item:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:rgba(183,28,28,.18)}
+.bento-image{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center;display:block;transition:transform .45s ease;filter:none}
+.bento-item:hover .bento-image{transform:scale(1.025)}
+.bento-overlay{position:relative;inset:auto;background:#fff!important;display:block;padding:1rem 1rem 1.1rem}
+.bento-category{font-size:.66rem;letter-spacing:.16em;color:var(--red);margin-bottom:.35rem}
+.bento-item:hover .bento-category{color:var(--red)}
+.bento-name{font-family:'Space Grotesk',sans-serif;font-style:normal;font-size:1rem;line-height:1.35;font-weight:700;color:var(--ink);min-height:2.7em;margin-bottom:.55rem}
+.bento-price{font-size:1rem;font-weight:800;color:var(--red);opacity:1;transform:none;transition:none}
+.bento-item:hover .bento-price{opacity:1;transform:none}
+.bento-item::after{display:none}
+.bento-badge{top:.8rem;right:.8rem;border-radius:999px;padding:.38rem .72rem;font-size:.62rem;box-shadow:0 5px 14px rgba(0,0,0,.14)}
+.bento-view{margin-top:.65rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--muted)}
+
+/* Cleaner category cards */
+.segment-tile{border-radius:var(--radius);box-shadow:0 10px 32px rgba(44,30,26,.08)}
+.segment-overlay{padding:1.25rem}
+.segment-name{font-size:1.55rem}
+
+/* Product page */
+.prod-wrap{gap:3.5rem;padding-top:2.2rem}
+.g-main{border-radius:18px;background:#efe1bc}
+.g-thumbs img{border-radius:10px}
+.info .desc{font-style:normal;color:var(--muted);font-size:1rem}
+.buy-assurance{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1.3rem 0}
+.buy-assurance span{background:rgba(255,255,255,.58);border:1px solid var(--line);border-radius:10px;padding:.72rem .85rem;font-size:.78rem;color:var(--muted)}
+.buy-assurance strong{color:var(--ink)}
+.order-col .btn.big{border-radius:10px}
+.note{opacity:1;color:var(--muted)}
+
+/* Forms */
+.custom-form{border-radius:18px;box-shadow:var(--shadow)}
+.custom-upload-area{border-radius:18px;background:rgba(255,255,255,.36)}
+.form-row select,.form-row input{border-radius:10px}
+.submit-custom,.form-submit,.btn{border-radius:9px}
+.contact-form-group input,.contact-form-group textarea{font-family:'Space Grotesk',sans-serif}
+
+/* About: keep brand story but remove unverifiable vanity-stat emphasis */
+.about-content{grid-template-columns:1.1fr .9fr}
+.about-text p{text-align:left;line-height:1.85}
+.stat-value{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:1.12rem;color:var(--ink);position:relative;z-index:1}
+.stat-card:hover .stat-value{color:#fff}
+
+/* Footer */
+footer{padding-top:3.5rem}
+.footer-bottom{letter-spacing:.08em}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+
+@media (max-width:1024px){
+  nav,nav.scrolled{padding:.75rem 1.5rem}
+  .hero{min-height:auto;grid-template-columns:1fr;padding-top:70px}
+  .hero-left{padding:4rem 2rem 3rem}
+  .hero-right{min-height:58vh}
+  .trust-strip{grid-template-columns:repeat(2,1fr);padding:0 1.5rem}
+  .trust-item:nth-child(2){border-right:0}
+  .trust-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .shop-toolbar{grid-template-columns:1fr auto;padding:0}
+  .shop-result-count{grid-column:1/-1}
+  .bento-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:768px){
+  .hero-logo-container{width:105px;height:120px}
+  .hero-brand{font-size:clamp(3rem,14vw,4.5rem)}
+  .hero-right{min-height:48vh}
+  .hero-ctas{display:grid;grid-template-columns:1fr;width:100%}
+  .hero-cta{width:100%;justify-content:center}
+  .segments,.products,.custom-section{padding-left:1rem;padding-right:1rem}
+  .trust-strip{padding:0;grid-template-columns:1fr 1fr}
+  .trust-item{font-size:.76rem;padding:.95rem .6rem}
+  .shop-toolbar{grid-template-columns:1fr}
+  .shop-sort{width:100%}
+  .shop-result-count{grid-column:auto}
+  .bento-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}
+  .bento-name{font-size:.9rem;min-height:auto}
+  .bento-overlay{padding:.8rem}
+  .bento-price{font-size:.92rem}
+  .buy-assurance{grid-template-columns:1fr}
+  .about{padding:5rem 1.5rem}
+}
+@media (max-width:420px){
+  .bento-grid{grid-template-columns:1fr 1fr}
+  .bento-category{font-size:.58rem}
+  .bento-name{font-size:.84rem}
+  .bento-view{display:none}
+}
+
 </style>
 </head>
 <body>
@@ -483,7 +656,7 @@ footer{padding:3rem 2rem 2rem}
 </ul>
 <div class="nav-right">
 <button class="cart-btn" onclick="toggleCart(true)" aria-label="Open Cart">🛒<span class="cart-count" id="cartCount">0</span></button>
-<div class="menu-toggle" id="menuToggle" aria-label="Toggle Menu"><span></span><span></span><span></span></div>
+<button class="menu-toggle" id="menuToggle" type="button" aria-label="Toggle Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
@@ -558,27 +731,16 @@ footer{padding:3rem 2rem 2rem}
 </div>
 <div class="hero-scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
+<div class="trust-strip" aria-label="Store benefits">
+  <div class="trust-item"><span class="trust-icon">✦</span><span><strong>Custom Ready</strong><br>Club, event & personal designs</span></div>
+  <div class="trust-item"><span class="trust-icon">✓</span><span><strong>Nationwide Delivery</strong><br>Across Bangladesh</span></div>
+  <div class="trust-item"><span class="trust-icon">↗</span><span><strong>Direct Support</strong><br>WhatsApp order assistance</span></div>
+  <div class="trust-item"><span class="trust-icon">◇</span><span><strong>Flexible Orders</strong><br>Single pieces to bulk merch</span></div>
+</div>
 <div class="marquee-section"><div class="marquee-track">
 <div class="marquee-item">Choose Perfect <span class="dot"></span></div><div class="marquee-item">Look Perfect <span class="dot"></span></div><div class="marquee-item">Custom Designs <span class="dot"></span></div><div class="marquee-item">Affordable Fashion <span class="dot"></span></div><div class="marquee-item">Acid Wash Hoodies <span class="dot"></span></div><div class="marquee-item">Custom Denim <span class="dot"></span></div><div class="marquee-item">Street Culture <span class="dot"></span></div><div class="marquee-item">Avant-Garde <span class="dot"></span></div>
 <div class="marquee-item">Choose Perfect <span class="dot"></span></div><div class="marquee-item">Look Perfect <span class="dot"></span></div><div class="marquee-item">Custom Designs <span class="dot"></span></div><div class="marquee-item">Affordable Fashion <span class="dot"></span></div><div class="marquee-item">Acid Wash Hoodies <span class="dot"></span></div><div class="marquee-item">Custom Denim <span class="dot"></span></div><div class="marquee-item">Street Culture <span class="dot"></span></div><div class="marquee-item">Avant-Garde <span class="dot"></span></div>
 </div></div>
-<section class="about" id="about">
-<div class="about-bg-text">PERFECT</div>
-<div class="section-label reveal">Our Story</div>
-<h2 class="about-header reveal">About Us</h2>
-<div class="about-content">
-<div class="about-text reveal-left">
-<p>In the rapidly shifting landscape of modern apparel, I'm Perfect stands as a curator of the contemporary. Our approach to design is inherently experimental. We specialize in transforming standard garments into distinctive statement pieces through aggressive texturing and bold visual integration.</p>
-<p>Whether it is the vintage resonance of our acid-wash hoodie collections or the narrative complexity of our custom-printed denim, every item is engineered to capture the zeitgeist of the current moment.</p>
-</div>
-<div class="about-stats reveal-right">
-<div class="stat-card"><div class="stat-number" data-target="500" data-suffix="+">0</div><div class="stat-label">Unique Designs</div></div>
-<div class="stat-card"><div class="stat-number" data-target="2.2" data-suffix="K+" data-decimal="true">0</div><div class="stat-label">Happy Customers</div></div>
-<div class="stat-card"><div class="stat-number" data-target="7" data-suffix="+">0</div><div class="stat-label">Color Options</div></div>
-<div class="stat-card"><div class="stat-number" data-target="72" data-suffix="h">0</div><div class="stat-label">Fast Delivery</div></div>
-</div>
-</div>
-</section>
 <section class="segments" id="segments">
 <div class="segments-header reveal">
 <div class="section-label" style="justify-content:center">Segments</div>
@@ -594,15 +756,20 @@ footer{padding:3rem 2rem 2rem}
 <div class="products-subtitle reveal">Experimental Streetwear</div>
 </div>
 <div class="category-tabs reveal" id="catTabs"></div>
-<div class="bento-grid" id="bentoGrid"></div>
-</section>
-<section class="lookbook" id="lookbook">
-<div class="lookbook-header">
-<div class="section-label reveal" style="justify-content:center">Visual Diary</div>
-<h2 class="products-title reveal">Lookbook</h2>
-<div class="products-subtitle reveal">Season 2026</div>
+<div class="shop-toolbar reveal" aria-label="Product search and sorting">
+  <div class="shop-search-wrap">
+    <span class="shop-search-icon" aria-hidden="true">⌕</span>
+    <input id="productSearch" class="shop-search" type="search" placeholder="Search products, collections or styles…" autocomplete="off" aria-label="Search products">
+  </div>
+  <select id="productSort" class="shop-sort" aria-label="Sort products">
+    <option value="recommended">Recommended</option>
+    <option value="price-asc">Price: Low to High</option>
+    <option value="price-desc">Price: High to Low</option>
+    <option value="name">Name: A–Z</option>
+  </select>
+  <div class="shop-result-count" id="productResultCount" aria-live="polite"></div>
 </div>
-<div class="lookbook-grid" id="lookbookGrid"></div>
+<div class="bento-grid" id="bentoGrid"></div>
 </section>
 <section class="custom-section" id="custom">
 <div class="custom-bg-text">CUSTOM</div>
@@ -641,10 +808,35 @@ footer{padding:3rem 2rem 2rem}
 </div>
 </div>
 </section>
+<section class="lookbook" id="lookbook">
+<div class="lookbook-header">
+<div class="section-label reveal" style="justify-content:center">Visual Diary</div>
+<h2 class="products-title reveal">Lookbook</h2>
+<div class="products-subtitle reveal">Season 2026</div>
+</div>
+<div class="lookbook-grid" id="lookbookGrid"></div>
+</section>
+<section class="about" id="about">
+<div class="about-bg-text">PERFECT</div>
+<div class="section-label reveal">Our Story</div>
+<h2 class="about-header reveal">About Us</h2>
+<div class="about-content">
+<div class="about-text reveal-left">
+<p>In the rapidly shifting landscape of modern apparel, I'm Perfect stands as a curator of the contemporary. Our approach to design is inherently experimental. We specialize in transforming standard garments into distinctive statement pieces through aggressive texturing and bold visual integration.</p>
+<p>Whether it is the vintage resonance of our acid-wash hoodie collections or the narrative complexity of our custom-printed denim, every item is engineered to capture the zeitgeist of the current moment.</p>
+</div>
+<div class="about-stats reveal-right">
+<div class="stat-card"><div class="stat-value">Custom Apparel</div><div class="stat-label">T-Shirts · Sweatshirts · Hoodies</div></div>
+<div class="stat-card"><div class="stat-value">Experimental Design</div><div class="stat-label">Bold graphics & streetwear direction</div></div>
+<div class="stat-card"><div class="stat-value">Bulk Friendly</div><div class="stat-label">Clubs · Teams · Events · Campaigns</div></div>
+<div class="stat-card"><div class="stat-value">Direct Support</div><div class="stat-label">Fast coordination through WhatsApp</div></div>
+</div>
+</div>
+</section>
 <section class="features">
 <div class="features-grid">
 <div class="feature-card reveal"><div class="feature-icon">✦</div><div class="feature-title">Premium Quality</div><div class="feature-desc">Every piece crafted with attention to detail and premium materials</div></div>
-<div class="feature-card reveal" style="transition-delay:.1s"><div class="feature-icon">⚡</div><div class="feature-title">Fast Delivery</div><div class="feature-desc">72-hour express delivery across Bangladesh</div></div>
+<div class="feature-card reveal" style="transition-delay:.1s"><div class="feature-icon">⚡</div><div class="feature-title">Nationwide Delivery</div><div class="feature-desc">Delivery across Bangladesh with the timeline confirmed before your order is finalized</div></div>
 <div class="feature-card reveal" style="transition-delay:.2s"><div class="feature-icon">✧</div><div class="feature-title">Custom Design</div><div class="feature-desc">Personalize your style with our custom printing options</div></div>
 <div class="feature-card reveal" style="transition-delay:.3s"><div class="feature-icon">◇</div><div class="feature-title">Affordable Price</div><div class="feature-desc">Avant-garde fashion accessible to everyone</div></div>
 </div>
@@ -655,12 +847,13 @@ footer{padding:3rem 2rem 2rem}
 <div class="contact-info reveal-left">
 <h2>Get In Touch</h2>
 <div class="contact-item"><div class="contact-icon">📞</div><div class="contact-detail"><h4>Phone</h4><p>01518423292<br>01860066158</p></div></div>
-<div class="contact-item"><div class="contact-icon blue"></div><div class="contact-detail"><h4>Location</h4><p>On Phone/PC/Tab Display, Earth</p></div></div>
+<div class="contact-item"><div class="contact-icon blue">✉</div><div class="contact-detail"><h4>Email</h4><a href="mailto:imperfectcloth1@gmail.com">imperfectcloth1@gmail.com</a></div></div>
+<div class="contact-item"><div class="contact-icon blue">⌖</div><div class="contact-detail"><h4>Service Area</h4><p>Online-based • Delivery across Bangladesh</p></div></div>
 <div class="contact-item"><div class="contact-icon">📘</div><div class="contact-detail"><h4>Facebook</h4><a id="fbLink" href="https://www.facebook.com/imperfect.clothings/" target="_blank" rel="noopener">imperfect.clothings</a></div></div>
 <div class="contact-item"><div class="contact-icon blue">📷</div><div class="contact-detail"><h4>Instagram</h4><a id="igLink" href="https://www.instagram.com/imperfect.clothings" target="_blank" rel="noopener">imperfect.clothings</a></div></div>
 </div>
 <div class="contact-form reveal-right">
-<h3>Send a Message</h3>
+<h3>Message Us on WhatsApp</h3>
 <form id="contactForm">
 <div class="contact-form-group"><input type="text" placeholder=" " required><label>Your Name</label></div>
 <div class="contact-form-group"><input type="email" placeholder=" " required><label>Your Email</label></div>
@@ -720,8 +913,8 @@ const FALLBACK = [
   { name:"Durga Puja Tee — Design 1", price:"449", image:"https://scontent.fmaa5-1.fna.fbcdn.net/v/t39.30808-6/842609256_1090686607285200_9102563816454863060_n.jpg?stp=dst-jpg_tt6&cstp=mx1254x1254&ctp=s1254x1254&_nc_cat=109&_nc_sid=833d8c&oh=00_AQNlSdsLeK2c1x3tWScZWClRCzxGhyQQHBzWAXGrJeWFEw&oe=6ADD66D8", category:"tee", subcategory:"Pooja 2026", badge:"PUJA", badgecolor:"red", cardsize:"large", sizes:"M|L|XL", types:"Drop-Shoulder|Solid", colors:"Black|White|Red|Blue|Navy|Maroon|Beige", description:"Durga Puja Festival Pack.", details:"Premium Interlock Fabric|Drop-Shoulder Fit|Festival Special" }
 ];
 
-let PRODUCTS = [], CATEGORIES = [], homeCat = 'all';
-let BRAND = { logo:LOGO_URL, facebook:STORE.facebook, instagram:STORE.instagram, whatsapp:STORE.whatsapp };
+let PRODUCTS = [], CATEGORIES = [], homeCat = 'all', homeSearch = '', homeSort = 'recommended';
+let BRAND = { logo:LOGO_URL, facebook:STORE.facebook, instagram:STORE.instagram, whatsapp:STORE.whatsapp, heroImage:"" };
 const waLink = m => "https://wa.me/" + BRAND.whatsapp + "?text=" + encodeURIComponent(m);
 
 const COLOR_MAP = {
@@ -744,11 +937,23 @@ let CART = (() => { try { return JSON.parse(localStorage.getItem(CART_KEY)) || [
 let CART_META = (() => { try { return JSON.parse(localStorage.getItem(CART_META_KEY)) || { delivery:'', name:'', email:'', phone:'', address:'' }; } catch(e) { return { delivery:'', name:'', email:'', phone:'', address:'' }; } })();
 const taka = n => '৳' + Number(n || 0).toLocaleString('en-IN');
 
-function getPriceForStyle(style) {
-  const styleLower = String(style || '').toLowerCase();
-  if (styleLower.includes('solid') || styleLower.includes('basic')) return 399;
-  if (styleLower.includes('drop') || styleLower.includes('shoulder')) return 449;
-  return 449;
+function parseStylePrices(raw) {
+  const map = {};
+  String(raw || '').split('|').forEach(part => {
+    const ix = part.indexOf(':');
+    if (ix < 1) return;
+    const key = part.slice(0, ix).trim().toLowerCase();
+    const val = Number(part.slice(ix + 1).replace(/[^\d.]/g, ''));
+    if (key && Number.isFinite(val) && val > 0) map[key] = val;
+  });
+  return map;
+}
+
+function getPriceForStyle(product, style) {
+  if (!product) return 0;
+  const styleKey = String(style || '').trim().toLowerCase();
+  if (styleKey && product.stylePrices && product.stylePrices[styleKey]) return product.stylePrices[styleKey];
+  return Number(product.priceNum) || 0;
 }
 
 function saveCart() { localStorage.setItem(CART_KEY, JSON.stringify(CART)); updateCartBadge(true); renderCart(); }
@@ -781,7 +986,7 @@ function renderCart() {
           <img src="${it.image}" alt="${it.name}" onerror="this.src='https://via.placeholder.com/80x100?text=No+Image'">
           <div class="ci-details">
             <div class="ci-name">${it.name}</div>
-            <div class="ci-meta">${it.style ? '<strong>Style:</strong> ' + it.style + '<br>' : ''}${it.size ? '<strong>Size:</strong> ' + it.size : ''}</div>
+            <div class="ci-meta">${it.style ? '<strong>Style:</strong> ' + it.style + '<br>' : ''}${it.color ? '<strong>Color:</strong> ' + it.color + '<br>' : ''}${it.size ? '<strong>Size:</strong> ' + it.size : ''}</div>
             <div class="ci-price">${it.price} each</div>
           </div>
         </div>
@@ -806,16 +1011,18 @@ function clearCart() { CART = []; saveCart(); }
 function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); }
 
 function addToCart(P) {
+  if (Number.isFinite(P.stock) && P.stock <= 0) return alert('Sorry, this product is currently sold out.');
   if (P.styles.length && !P_STATE.style) return alert('Please select a Style.');
   if (P.sizes.length && !P_STATE.size) return alert('Please select a size.');
   const style = P.styles.length ? P_STATE.style : '';
+  const color = P.colors && P.colors.length ? (P_STATE.color || '') : '';
   const size = P.sizes.length ? P_STATE.size : '';
-  const key = P.id + '|' + style + '|' + size;
-  const priceNum = getPriceForStyle(style);
+  const key = P.id + '|' + style + '|' + color + '|' + size;
+  const priceNum = getPriceForStyle(P, style);
   const priceDisplay = '৳' + priceNum.toLocaleString('en-IN');
   const found = CART.find(c => c.key === key);
   if (found) { found.qty += P_STATE.qty; } 
-  else { CART.push({ key, id: P.id, name: P.name, price: priceDisplay, priceNum: priceNum, image: P.image, style, size, qty: P_STATE.qty }); }
+  else { CART.push({ key, id: P.id, name: P.name, price: priceDisplay, priceNum: priceNum, image: P.image, style, color, size, qty: P_STATE.qty }); }
   saveCart();
   showToast('✓ ' + P.name + ' added to cart');
 }
@@ -828,7 +1035,7 @@ async function checkoutCart() {
   if (!name || !phone || !address) return alert('Please fill in Name, Phone, and Full Address.');
   const rate = DELIVERY_RATES[CART_META.delivery];
   const orderId = 'IMP-' + Date.now().toString().slice(-6);
-  let itemsSummary = CART.map(it => `${it.name} (${it.style ? it.style+', ' : ''}${it.size ? it.size+', ' : ''}Qty:${it.qty})`).join('; ');
+  let itemsSummary = CART.map(it => `${it.name} (${it.style ? it.style+', ' : ''}${it.color ? it.color+', ' : ''}${it.size ? it.size+', ' : ''}Qty:${it.qty})`).join('; ');
   const payload = { orderId, name, email, phone, address, deliveryArea: rate.label, items: itemsSummary, subtotal: cartSubtotal(), deliveryCharge: rate.charge, total: grandTotal() };
   const btn = document.getElementById('checkoutBtn'); const originalText = btn.innerText; btn.innerText = "Processing..."; btn.disabled = true;
   try {
@@ -871,8 +1078,11 @@ function normalize(rows){
       if(o.facebook&&isURL(o.facebook)) BRAND.facebook=o.facebook;
       if(o.instagram&&isURL(o.instagram)) BRAND.instagram=o.instagram;
       const digits=(o.whatsapp||'').replace(/[^0-9]/g,''); if(digits.length>=10) BRAND.whatsapp=digits;
+      if(o.heroimage&&isURL(o.heroimage)) BRAND.heroImage=o.heroimage;
       return;
     }
+    const activeRaw=String(o.active||'yes').toLowerCase();
+    if(['0','false','no','inactive','hidden'].includes(activeRaw)) return;
     const pr=o.price||'';
     const priceNum=/^[\d.,]+$/.test(pr)? Number(pr.replace(/,/g,'')) : (parseFloat(pr.replace(/[^\d.]/g,''))||0);
     const price=priceNum? ('৳'+priceNum.toLocaleString('en-IN')) : (pr||'0');
@@ -908,7 +1118,7 @@ async function loadCatalog(){
       if(res.ok){ const rows=parseCSV(await res.text()); const p=normalize(rows); if(p.length){ PRODUCTS=p; console.log('[engine] sheet loaded → '+p.length+' products'); return; } }
     }catch(e){ console.warn('[engine] sheet failed, using fallback', e); }
   }
-  BRAND={ logo:LOGO_URL, facebook:STORE.facebook, instagram:STORE.instagram, whatsapp:STORE.whatsapp };
+  BRAND={ logo:LOGO_URL, facebook:STORE.facebook, instagram:STORE.instagram, whatsapp:STORE.whatsapp, heroImage:"" };
   PRODUCTS=normalize(FALLBACK);
 }
 
@@ -925,6 +1135,7 @@ function applyBranding(){
   set('footFb',BRAND.facebook); set('footIg',BRAND.instagram); set('footWa',waLink("Hi I'm Perfect! I want to place an order."));
   set('supWa',waLink('I want to track my order.')); set('supIg',BRAND.instagram); set('supFb',BRAND.facebook);
   set('heroWa',waLink("Hi I'm Perfect! I want to place an order."));
+  const hero=document.getElementById('heroImg'); if(hero&&BRAND.heroImage) hero.src=BRAND.heroImage;
 }
 
 const cursor=document.getElementById('cursor'), cursorDot=document.getElementById('cursorDot'), spotlight=document.getElementById('spotlight');
@@ -944,7 +1155,7 @@ function observeAll(){ document.querySelectorAll('.reveal:not(.visible),.reveal-
 function init3DCards(){ document.querySelectorAll('.card-3d').forEach(card=>{ if(card._tilt) return; card._tilt=1;
   card.addEventListener('mousemove',e=>{ const r=card.getBoundingClientRect(); const rx=((e.clientY-r.top)-r.height/2)/20, ry=(r.width/2-(e.clientX-r.left))/20; card.style.transform=`perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.03,1.03,1.03)`; });
   card.addEventListener('mouseleave',()=>{ card.style.transform='perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)'; }); }); }
-function createParticles(){ const c=document.getElementById('particles'); if(!c||c.childElementCount) return;
+function createParticles(){ return; const c=document.getElementById('particles'); if(!c||c.childElementCount) return;
   for(let i=0;i<30;i++){ const p=document.createElement('div'); p.className='particle'; p.style.left=Math.random()*100+'%'; p.style.animationDelay=Math.random()*20+'s'; p.style.animationDuration=(15+Math.random()*10)+'s'; c.appendChild(p); } }
 function animateHeroText(){ const brand=document.getElementById('heroBrand'); if(!brand||brand.childElementCount) return;
   let html='', delay=0; ["I'm","Perfect"].forEach(w=>{ html+='<span class="word">'; for(const ch of w){ html+=`<span class="letter" style="animation-delay:${(2.4+delay).toFixed(2)}s">${ch}</span>`; delay+=.05; } html+=' </span>'; delay+=.1; }); brand.innerHTML=html; }
@@ -957,11 +1168,15 @@ const go=h=>{ location.hash=h; };
 function scrollToSec(id){ const el=document.getElementById(id); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
 function goSection(id){ const h=location.hash||'#/'; if(h.startsWith('#/category')||h.startsWith('#/product')){ location.hash='#/'; setTimeout(()=>scrollToSec(id),250); } else scrollToSec(id); }
 
-function cardHTML(p,i=0){ 
-  return `<div class="bento-item ${p.size} card-3d reveal-scale" style="transition-delay:${i*.06}s" onclick="go('#/product/${p.id}')">
-  ${p.badge?`<div class="bento-badge ${p.badgeColor||''}">${p.badge}</div>`:''}
-  <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Image'">
-  <div class="bento-overlay"><div class="bento-category">${p.subcategory}</div><div class="bento-name">${p.name}</div><div class="bento-price">${p.price}</div></div></div>`; 
+function cardHTML(p,i=0){
+  const soldOut = Number.isFinite(p.stock) && p.stock <= 0;
+  const priceHTML = p.comparePrice && p.comparePrice > p.priceNum
+    ? `<span style="text-decoration:line-through;color:#93857f;font-weight:500;margin-right:.45rem">৳${p.comparePrice.toLocaleString('en-IN')}</span>${p.price}`
+    : p.price;
+  return `<div class="bento-item ${p.size} card-3d reveal-scale" style="transition-delay:${i*.035}s" role="link" tabindex="0" aria-label="View ${p.name}" onclick="go('#/product/${p.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('#/product/${p.id}')}" >
+  ${soldOut?`<div class="bento-badge">Sold Out</div>`:(p.badge?`<div class="bento-badge ${p.badgeColor||''}">${p.badge}</div>`:'')}
+  <img class="bento-image" src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x750?text=No+Image'">
+  <div class="bento-overlay"><div class="bento-category">${p.subcategory}</div><div class="bento-name">${p.name}</div><div class="bento-price">${priceHTML}</div><div class="bento-view">View product →</div></div></div>`;
 }
 
 function categoryTilesHTML(list){
@@ -984,8 +1199,9 @@ function collectionTilesHTML(catId,list){
 
 function renderHome(){
   document.getElementById('segmentsGrid').innerHTML=categoryTilesHTML(CATEGORIES);
-  renderTabs(); 
-  renderBento('all'); 
+  renderTabs();
+  bindShopToolbar();
+  renderBento(homeCat); 
   document.getElementById('lookbookGrid').innerHTML=LOOKBOOK.map((it,i)=>`<div class="lookbook-item reveal" style="transition-delay:${i*.15}s"><img src="${it.image}" alt="${it.label}" loading="lazy" onerror="this.src='https://via.placeholder.com/600x550?text=No+Image'"><div class="lookbook-item-overlay"><span>${it.label}</span></div></div>`).join('');
   document.getElementById('footShop').innerHTML=CATEGORIES.map(c=>`<a onclick="go('#/category/${c.id}')">${c.name}</a>`).join('')+`<a onclick="go('#/category/all')">All Products</a>`;
 }
@@ -996,10 +1212,32 @@ function renderTabs(){
   el.querySelectorAll('.cat-tab').forEach(t=>t.addEventListener('click',()=>{ homeCat=t.dataset.c; renderTabs(); renderBento(homeCat); }));
 }
 
+function getHomeProducts(cat){
+  let list = cat === 'all' ? [...PRODUCTS] : PRODUCTS.filter(p => p.category === cat);
+  const q = homeSearch.trim().toLowerCase();
+  if(q){
+    list = list.filter(p => [p.name,p.subcategory,p.category,(p.styles||[]).join(' '),(p.colors||[]).join(' '),p.description].join(' ').toLowerCase().includes(q));
+  }
+  if(homeSort==='price-asc') list.sort((a,b)=>(a.priceNum||0)-(b.priceNum||0));
+  else if(homeSort==='price-desc') list.sort((a,b)=>(b.priceNum||0)-(a.priceNum||0));
+  else if(homeSort==='name') list.sort((a,b)=>a.name.localeCompare(b.name));
+  else list.sort((a,b)=>(Number(b.featured)-Number(a.featured)) || ((a.sortOrder||9999)-(b.sortOrder||9999)) || a.name.localeCompare(b.name));
+  return list;
+}
+
+function bindShopToolbar(){
+  const search=document.getElementById('productSearch'), sort=document.getElementById('productSort');
+  if(search && !search._bound){ search._bound=1; search.addEventListener('input',()=>{ homeSearch=search.value; renderBento(homeCat); }); }
+  if(sort && !sort._bound){ sort._bound=1; sort.addEventListener('change',()=>{ homeSort=sort.value; renderBento(homeCat); }); }
+}
+
 function renderBento(cat){
-  const list = cat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === cat);
+  const list = getHomeProducts(cat);
   const grid = document.getElementById('bentoGrid');
-  if(grid) grid.innerHTML = list.length ? list.map((p,i)=>cardHTML(p,i)).join('') : '<p class="empty">No products found. <a onclick="go(\'#/category/all\')">See all →</a></p>';
+  const count = document.getElementById('productResultCount');
+  if(count) count.textContent = `${list.length} ${list.length===1?'product':'products'}`;
+  if(grid) grid.innerHTML = list.length ? list.map((p,i)=>cardHTML(p,i)).join('') : '<p class="empty">No products match your search. Try another keyword or category.</p>';
+  hoverAll(); init3DCards();
 }
 
 function renderCategory(sub,id){
@@ -1046,14 +1284,28 @@ function updateMetaTags(title, desc) {
 
 let P_STATE = { style:null, color:null, size:null, qty:1 };
 
+function updateProductSchema(P){
+  let el=document.getElementById('productSchema');
+  if(!el){ el=document.createElement('script'); el.type='application/ld+json'; el.id='productSchema'; document.head.appendChild(el); }
+  const obj={
+    '@context':'https://schema.org','@type':'Product',name:P.name,
+    image:[P.image,...(P.gallery||[])],description:P.description||P.name,
+    brand:{'@type':'Brand',name:"I'm Perfect"},
+    offers:{'@type':'Offer',priceCurrency:'BDT',price:Number(P.priceNum)||0,url:location.href,availability:(Number.isFinite(P.stock)&&P.stock<=0)?'https://schema.org/OutOfStock':'https://schema.org/InStock'}
+  };
+  el.textContent=JSON.stringify(obj);
+}
+
+
 function renderProduct(sub, id) {
   const P = PRODUCTS.find(p => p.id === id);
   if (!P) { sub.innerHTML = '<p class="empty" style="padding:8rem 2rem">Product not found. <a onclick="go(\'#/\')">Back to store →</a></p>'; return; }
   const meta = CATEGORIES.find(c => c.id === P.category);
   const gallery = P.gallery.length ? P.gallery : [P.image];
   P_STATE = { style: null, color:P.colors && P.colors.length ? P.colors[0] : null, size:null, qty:1 };
-  document.title = P.name + " — I'm Perfect";
-  
+  updateMetaTags(P.name + " — I'm Perfect", P.description || (P.name + " by I'm Perfect — experimental streetwear and custom apparel in Bangladesh."));
+  updateProductSchema(P);
+
   const rel = PRODUCTS.filter(x => x.category === P.category && x.subcategory === P.subcategory && x.id !== P.id).slice(0, 4);
 
   sub.innerHTML = `
@@ -1110,13 +1362,17 @@ function renderProduct(sub, id) {
           <button class="qty-btn" onclick="chgQty(1)" aria-label="Increase Quantity">+</button>
         </div>
       </div>
+      <div class="buy-assurance">
+        <span>✓ <strong>Nationwide delivery</strong><br>Charge calculated in cart</span>
+        <span>✓ <strong>Direct confirmation</strong><br>We confirm your order before dispatch</span>
+      </div>
       <div class="order-col">
         <button class="btn btn-red big" onclick="addCurrentToCart()">Add to Cart 🛒</button>
         <div class="order-row">
           <a class="btn btn-fb" target="_blank" rel="noopener" href="${BRAND.facebook}">Facebook</a>
           <a class="btn btn-ig" target="_blank" rel="noopener" href="${BRAND.instagram}">Instagram</a>
         </div>
-        <p class="note">Add to cart to calculate delivery. We confirm personally via WhatsApp. 72-hour delivery, cash on delivery available.</p>
+        <p class="note">Add to cart to calculate delivery. We confirm the order, delivery timeline and available payment method with you before dispatch.</p>
       </div>
       ${P.details && P.details.length ? `
         <div class="details">
@@ -1142,7 +1398,7 @@ function renderProduct(sub, id) {
     P_STATE.style = v; 
     sub.querySelectorAll('#stChips .chip').forEach(c => c.classList.remove('on')); 
     el.classList.add('on');
-    const priceNum = getPriceForStyle(v);
+    const priceNum = getPriceForStyle(P, v);
     document.getElementById('dynamicPrice').textContent = '৳' + priceNum.toLocaleString('en-IN');
   };
   window.pickColor = (el, v) => { P_STATE.color = v; sub.querySelectorAll('#cChips .chip').forEach(c => c.classList.remove('on')); el.classList.add('on'); };
@@ -1159,7 +1415,7 @@ function route(){
   if((m=h.match(/^#\/category\/([^\/]+)\/([^\/]+)$/))){ home.style.display='none'; sub.style.display=''; renderCollection(sub,m[1],m[2]); }
   else if((m=h.match(/^#\/category\/([^\/]+)$/))){ home.style.display='none'; sub.style.display=''; renderCategory(sub,m[1]); }
   else if((m=h.match(/^#\/product\/(.+)$/))){ home.style.display='none'; sub.style.display=''; renderProduct(sub,m[1]); }
-  else { home.style.display=''; sub.style.display='none'; document.title="I'm Perfect — Premium Experimental Streetwear"; renderHome(); }
+  else { home.style.display=''; sub.style.display='none'; updateMetaTags("I'm Perfect — Premium Experimental Streetwear","Shop I'm Perfect for experimental streetwear, customized T-shirts, sweatshirts, hoodies and event merchandise in Bangladesh."); const ps=document.getElementById('productSchema'); if(ps) ps.remove(); renderHome(); }
   window.scrollTo(0,0); observeAll(); hoverAll(); init3DCards(); attachMagnetic();
 }
 window.addEventListener('hashchange',route);
@@ -1167,13 +1423,13 @@ window.addEventListener('hashchange',route);
 addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>60));
 document.querySelector('.hero').addEventListener('mousemove',e=>{ const w=document.getElementById('heroImageWrapper'); if(w) w.style.transform=`rotateY(${(e.clientX/innerWidth-.5)*6}deg) rotateX(${-(e.clientY/innerHeight-.5)*6}deg)`; });
 const menuToggle=document.getElementById('menuToggle'), mobileMenu=document.getElementById('mobileMenu');
-menuToggle.addEventListener('click',()=>{ menuToggle.classList.toggle('active'); mobileMenu.classList.toggle('open'); });
-function closeMenu(){ mobileMenu.classList.remove('open'); menuToggle.classList.remove('active'); }
+menuToggle.addEventListener('click',()=>{ menuToggle.classList.toggle('active'); mobileMenu.classList.toggle('open'); menuToggle.setAttribute('aria-expanded',mobileMenu.classList.contains('open')?'true':'false'); });
+function closeMenu(){ mobileMenu.classList.remove('open'); menuToggle.classList.remove('active'); menuToggle.setAttribute('aria-expanded','false'); }
 document.getElementById('contactForm').addEventListener('submit',e=>{
   e.preventDefault();
   const [name,email,subject,message]=[...e.target.querySelectorAll('input,textarea')].map(i=>i.value.trim());
   window.open(waLink(`WEBSITE MESSAGE\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`),'_blank');
-  const b=e.target.querySelector('.form-submit span'); b.textContent='✓ Opened WhatsApp!'; e.target.querySelector('.form-submit').style.background='#2e7d32';
+  const b=e.target.querySelector('.form-submit span'); b.textContent='✓ WhatsApp Opened'; e.target.querySelector('.form-submit').style.background='#2e7d32';
   setTimeout(()=>{ b.textContent='Send Message →'; e.target.querySelector('.form-submit').style.background=''; e.target.reset(); },2500);
 });
 const uploadArea=document.getElementById('uploadArea'), fileInput=document.getElementById('fileInput'), uploadPreview=document.getElementById('uploadPreview');
